@@ -5,6 +5,7 @@ import "antd/dist/antd.min.css"
 import "../img/fontImage/iconfont.css"
 import "../css/home.css"
 
+/**引入路由**/
 import A from "./a"
 import B from "./b"
 import C from "./c"
@@ -31,24 +32,29 @@ class app extends Component {
     }
     componentDidMount() {
         //组件第一次render时执行
+        /**
+         * 监控哈希值
+         * 遍历出需要的组件
+         * **/
         let _this= this;
         window.onhashchange=function(){
             var hash = window.location.hash
-            for(let i = 0,idx = _this.tabayy.length;i<idx;i++){
-                if(_this.tabayy[i].href===hash){
+            for(let i = 0,idx = _this.tabarr.length;i<idx;i++){
+                if(_this.tabarr[i].href===hash){
                         _this.setState({
-                            rou:_this.tabayy[i].page
+                            rou:_this.tabarr[i].page
                         });
                     return ;
                 }
             }
         }
     }
+
     /**
      * 管理组件
      * 通过hash值切换组件状态
      * **/
-    tabayy=[
+    tabarr=[
         {name:"管理员管理",href:"#gly",  icon:"icon-guanli1",       page:0,tem:<A />},
         {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:<B />},
         {name:"  设备管理",href:"#sb",   icon:"icon-shezhi",        page:2,tem:<C />},
@@ -72,11 +78,11 @@ class app extends Component {
                 </header>
                 <nav>
                     <ul>
-                        <Tab tabayy={this.tabayy} rou={this.state.rou}/>
+                        <Tab tabarr={this.tabarr} rou={this.state.rou}/>
                     </ul>
                 </nav>
                 <div className={"State"}>
-                    <Router _router={this.tabayy[this.state.rou]} />
+                    <Router _router={this.tabarr[this.state.rou]} />
                 </div>
             </div>
         )
@@ -85,9 +91,16 @@ class app extends Component {
 
 export default app;
 
+/**
+ * 标签页的切换根据传入的index来判断高亮状态，
+ * index根据hash值来确定
+ * */
 function Tab( props){
-    return props.tabayy.map((item,idx)=> <li key={idx+1} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
+    return props.tabarr.map((item,idx)=> <li key={idx+1} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
 }
+/**切换路由跳转的组件，
+ * 传入路由对象
+ * **/
 function Router(props){
     return props._router.tem
 }

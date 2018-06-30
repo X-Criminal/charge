@@ -29,6 +29,7 @@ class app extends Component{
         //组件第一次render时执行
 
     }
+    /**获取用户输入的账号密码并保存**/
     login_text(e){
         //输入账号密码
         let type = e.target;
@@ -41,6 +42,7 @@ class app extends Component{
             [type.name]:type.value
         })
     }
+    /**模拟登陆逻辑（后面需要修改）**/
     login_btn( e ){
         if(this.state.user!=="123"){
             this.setState({
