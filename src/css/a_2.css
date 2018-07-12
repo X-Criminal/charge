@@ -37,3 +37,23 @@
     color: red;
     background-color: rgba(0,0,0,0);
 }
+
+.page .ant-pagination-item-active{
+    background-color: #1890ff;
+}
+.page .ant-pagination-item-active a{
+    color: white;
+}
+.b_2 .table tbody td{
+    height: 100px;
+    line-height: 100px;
+}
+.b_2 .table tbody td>div{
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    background-color: #ccc;
+}
+.b_2 .table tbody td> button:nth-child(1){
+    color: #27A3FF;
+}

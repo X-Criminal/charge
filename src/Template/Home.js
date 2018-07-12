@@ -36,20 +36,28 @@ class app extends Component {
          * 监控哈希值
          * 遍历出需要的组件
          * **/
+        this.firstEntry();
         let _this= this;
         window.onhashchange=function(){
             var hash = window.location.hash;
-            for(let i = 0,idx = _this.tabarr.length;i<idx;i++){
-                if(_this.tabarr[i].href===hash){
-                        _this.setState({
-                            rou:_this.tabarr[i].page
-                        });
-                    return ;
-                }
+            _this.hash(hash)
+        }
+    }
+    firstEntry = ()=>{
+        var hash = window.location.hash;
+        this.hash(hash)
+    };
+    hash(hash){
+        let _this= this;
+        for(let i = 0,idx = _this.tabarr.length;i<idx;i++){
+            if(_this.tabarr[i].href===hash){
+                _this.setState({
+                    rou:_this.tabarr[i].page
+                });
+                return ;
             }
         }
     }
-
     /**
      * 管理组件
      * 通过hash值切换组件状态

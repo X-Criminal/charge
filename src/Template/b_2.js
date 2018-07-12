@@ -27,34 +27,27 @@ class app extends Component {
 
     render() {
         return (
-            <div className={"a_2"}>
+            <div className={"a_2 b_2"}>
                 <div className={"table"}>
                     <table>
                         <thead>
                         <tr>
-                            <td>用户</td>
+                            <td>用户头像</td>
                             <td>账号</td>
                             <td>密码</td>
                             <td>区域</td>
-                            <td>详细地址</td>
-                            <td>身份证号</td>
-                            <td>银行卡号</td>
-                            <td>状态</td>
                             <td>操作</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>小明</td>
+                            <td><div><img src="" alt=""/></div></td>
                             <td>15527543183</td>
                             <td>123456</td>
                             <td>广东省深圳市</td>
-                            <td>广东省深圳市</td>
-                            <td>122456789456465456</td>
-                            <td>42200040404000</td>
-                            <td>审核通过</td>
-                            <td><button  onClick={this.props.deleAdmin.bind(this,"abc")}>删除</button></td>
+                            <td><button>查看</button>   <button  onClick={this.props.deleAdmin.bind(this,"abc")}>删除</button></td>
                         </tr>
+
                         </tbody>
                     </table>
                 </div>
