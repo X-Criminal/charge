@@ -1,5 +1,6 @@
 import React,{Component}from "react";
-import Home from"./Home"
+import axios from "axios"
+import Home from"./Home";
 import "../img/fontImage/iconfont.css"
 
 import '../css/login.css'
@@ -14,7 +15,8 @@ class app extends Component{
         };
 
         this.login_text = this.login_text.bind(this);
-        this.login_btn= this.login_btn.bind(this)
+        this.login_btn= this.login_btn.bind(this);
+        this.blur=this.blur.bind(this);
     }
     componentWillUnmount(){
         //组件被移除时执行
@@ -32,7 +34,7 @@ class app extends Component{
     /**获取用户输入的账号密码并保存**/
     login_text(e){
         //输入账号密码
-        let type = e.target;
+        let type = e.target
         if(type.name==="user"){
             this.setState({
                 isUser:true
@@ -51,7 +53,7 @@ class app extends Component{
             return ;
         }
         if(this.state.password!=="123"){
-            alert("账号或密码错误");
+            alert("密码错误!");
             return;
          }
         this.setState({
@@ -61,6 +63,18 @@ class app extends Component{
             this.props.rinfUp(1000)
         },1000)
     }
+    /**验证账号是否存在**/
+    blur(e){
+      var _phone =  e.target.value;
+     axios({
+             url:"http://192.168.42.200:3005/checkPhone",
+             method:"get",
+             params:{phone:_phone},
+             withCredentials: true,
+         }).then((res)=>{
+         console.log(res);
+     })
+    }
     render(){
         if(!this.props.lslogin){
             return(
@@ -68,7 +82,7 @@ class app extends Component{
                     <div className={"userImg"}> </div>
                     <p>管理系统</p>
                     <p>登录</p>
-                    <input  type="text"     name={"user"} onChange={this.login_text} style={this.state.isUser?{"borderColor":""}:{"borderColor":"red"}} placeholder={"账号"}/>
+                    <input  type="text" onBlur={this.blur}    name={"user"} onChange={this.login_text} style={this.state.isUser?{"borderColor":""}:{"borderColor":"red"}} placeholder={"账号"}/>
                     <input  type="password" name={"password"} onChange={this.login_text}  placeholder={"密码"}/>
                     <div className={"btn"}  onClick={this.login_btn}>{this.state.il}</div>
                     <span className={"err1"} style={this.state.isUser?{"display":"none"}:{"display":"block"}}>该账号不存在请重新输入</span>
@@ -91,5 +105,4 @@ function LG (props){
             <i className={"iconfont icon-yinpinjiazai jiazai"}></i>
         </div>
     )
-
 }

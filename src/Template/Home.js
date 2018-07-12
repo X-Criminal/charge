@@ -38,7 +38,7 @@ class app extends Component {
          * **/
         let _this= this;
         window.onhashchange=function(){
-            var hash = window.location.hash
+            var hash = window.location.hash;
             for(let i = 0,idx = _this.tabarr.length;i<idx;i++){
                 if(_this.tabarr[i].href===hash){
                         _this.setState({
@@ -73,7 +73,7 @@ class app extends Component {
                         <i className={"iconfont icon-guanli1"}></i>
                         <span>{this.state.audit}</span>
                         <span className={"userName"}>范柳原&nbsp;<Icon style={{"fontSize":"12px"}} type={"caret-down"}/></span>
-                        <a className={"quit"} href="javascript:;">退出</a>
+                        <a className={"quit"} >退出</a>
                     </div>
                 </header>
                 <nav>

@@ -12,7 +12,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        let user =JSON.parse(localStorage.getItem("isLogin"));
+        let user =JSON.parse(sessionStorage.getItem("isLogin"));
        if(user){
            this.setState({
                isLogin:user.isLogin
@@ -28,7 +28,7 @@ class App extends Component {
             this.setState({
                 isLogin:true
             });
-            localStorage.setItem("isLogin",JSON.stringify({
+            sessionStorage.setItem("isLogin",JSON.stringify({
                 "isLogin":true
             }))
         }else{

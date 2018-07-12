@@ -1,0 +1,39 @@
+.a_2{
+    height:calc(100% - 115px);
+}
+.a_2 .table{
+    max-height: 607px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.a_2 table{
+    width: 100%;
+}
+.a_2 thead td{
+    height: 44px;
+    line-height: 44px;
+    background: #E5E9F2;
+    color: #202E3E;
+    font-size: 14px;
+    padding-left: 10px;
+}
+.a_2 tbody td{
+    height: 44px;
+    line-height: 44px;
+    color: #1F2D3D;
+    border-bottom: 1px solid #e0e6ed;
+    padding-left: 10px;
+}
+.a_2 .table{
+    height: 100%;
+}
+.a_2 tbody td:nth-child(1){
+    border-left: 1px solid #E0E6ED;
+}
+.a_2 tbody td:last-child{
+    border-right: 1px solid #e0e6ed;
+}
+.a_2 tbody td button{
+    color: red;
+    background-color: rgba(0,0,0,0);
+}

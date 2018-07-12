@@ -26,7 +26,7 @@ class app extends Component {
     render() {
         return (
             <div className={"app"}>
-g
+
 
             </div>
         )
