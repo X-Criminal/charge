@@ -60,7 +60,7 @@ class app extends Component {
         return (
             <div className={"a"}>
                    <h3>管理员管理</h3>
-                   <A1 loading={this.state.loading} enterLoading={this.enterLoading}/>
+                   <A1 allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
                    <A2 pagination={this.pagination} deleAdmin={this.deleAdmin}/>
                    <DeleAdmin dele_box={this.dele_box} deleis={this.state.deleis}/>
             </div>

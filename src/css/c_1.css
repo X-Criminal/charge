@@ -1,0 +1,33 @@
+.addBox_C1 >div{
+    top:15%;
+    height: auto;
+}
+.addBox_C1 .input p:nth-child(3){
+    height: 100px;
+}
+.addBox_C1 .input p:nth-child(4){
+    margin-top: 0;
+    font-size: 12px;
+    text-align: center;
+    height: 24px;
+    line-height: 24px;
+    color: #99A9BF;
+}
+.addBox_C1 .input p:nth-child(5) input,.addBox_C1 .input p:nth-child(9) input{
+    width: 30%;
+}
+.addBox_C1 .addBtn{
+    height: 90px;
+}
+
+.avatar-uploader > .ant-upload {
+    width: 89px;
+    height: 89px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.avatar-uploader > .ant-upload .anticon-plus{
+    font-size: 30px;
+    color: #99A9BF;
+    font-weight: 600;
+}

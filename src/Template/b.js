@@ -59,8 +59,8 @@ class app extends Component {
     render() {
         return (
             <div className={"a b"}>
-                <h3>管理员管理</h3>
-                <B1 loading={this.state.loading} enterLoading={this.enterLoading}/>
+                <h3>用户管理管理</h3>
+                <B1  allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
                 <B2 pagination={this.pagination} deleAdmin={this.deleAdmin}/>
                 <DeleAdmin dele_box={this.dele_box} deleis={this.state.deleis}/>
             </div>

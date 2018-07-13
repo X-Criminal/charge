@@ -57,3 +57,6 @@
 .b_2 .table tbody td> button:nth-child(1){
     color: #27A3FF;
 }
+.c_2 tbody td button:nth-child(1){
+    color:#3aa7ff;
+}
