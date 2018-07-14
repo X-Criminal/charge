@@ -34,7 +34,7 @@ class app extends Component{
     /**获取用户输入的账号密码并保存**/
     login_text(e){
         //输入账号密码
-        let type = e.target
+        let type = e.target;
         if(type.name==="user"){
             this.setState({
                 isUser:true
@@ -66,14 +66,23 @@ class app extends Component{
     /**验证账号是否存在**/
     blur(e){
       var _phone =  e.target.value;
-     axios({
-             url:"http://192.168.42.200:3005/checkPhone",
-             method:"get",
-             params:{phone:_phone},
-             withCredentials: true,
-         }).then((res)=>{
-         console.log(res);
-     })
+      if(_phone.length>0){
+          axios({
+              url:this.props.httpUrl+"/charge/web/admin/checkAdmin",
+              method:"get",
+              params:{phone:_phone},
+              withCredentials: true,
+          }).then((res)=>{
+              console.log(res);
+              if(res.data.code===3001){
+                  this.setState({
+                      isUser:false
+                  })
+              }else if(res.data.code===1001){
+                  alert("系统异常")
+              }
+          })
+      }
     }
     render(){
         if(!this.props.lslogin){
@@ -90,7 +99,7 @@ class app extends Component{
             )
         }else{
             return (
-                <Home />
+                <Home httpUrl={this.props.httpUrl}/>
             )
         }
     }

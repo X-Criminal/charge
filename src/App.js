@@ -6,7 +6,8 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state={
-            isLogin:false
+            isLogin:false,
+            httpUrl:"http://172.16.10.68:8086"
         };
         this.rinfUp=this.rinfUp.bind(this);
     }
@@ -42,7 +43,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-            <Login rinfUp={this.rinfUp}  lslogin={this.state.isLogin}/>
+            <Login httpUrl={this.state.httpUrl} rinfUp={this.rinfUp}  lslogin={this.state.isLogin}/>
       </div>
     );
   }

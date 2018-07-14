@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-
+import { Input } from 'antd';
 
 import "../css/a.css";
 
@@ -35,30 +35,23 @@ class app extends Component {
                         <table>
                             <thead>
                             <tr>
-                                <td>时间</td>
-                                <td>地点</td>
-                                <td>订单号</td>
+                                <td>充电槽</td>
+                                <td>电量（%）</td>
                                 <td>状态</td>
-                                <td>支付金额</td>
-                                <td>租借时间</td>
-                                <td>退款金额</td>
-                                <td>消费金额</td>
+                                <td>操作</td>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>2018-06-08 12:34:56</td>
-                                <td>15467891234</td>
-                                <td>123456</td>
-                                <td>租借中</td>
-                                <td>99</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>16</td>
+                                    <td>有</td>
+                                    <td>不可借</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
+                    <Cdit />
                 </div>
             </div>
         )
@@ -66,3 +59,17 @@ class app extends Component {
 }
 
 export default app;
+function Cdit(props){
+          return (
+              <div className={"cdit"}>
+                  <h3>
+                      商家详情
+                  </h3>
+                  <p><span>店铺名称</span>      <Input placeholder="" /></p>
+                  <p><span>店铺图片</span>      <div><img src="" alt=""/></div></p>
+                  <p><span>人均消费(元)</span>  <Input placeholder="" /></p>
+                  <p><span>人均消费(元)</span>  <Input placeholder="" /></p>
+                  <p><button>编辑</button>      <Input placeholder="" /></p>
+              </div>
+          )
+}

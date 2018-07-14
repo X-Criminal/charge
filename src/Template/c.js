@@ -1,6 +1,8 @@
 import React, {Component} from "react";
-import C1                            from "./c_1.js"; 
-import C2                            from "./c_2.js"; 
+import C1  from "./c_1.js";
+import C2  from "./c_2.js";
+import C3  from "./c_3.js"
+
 import "../css/a.css";
 
 class app extends Component {
@@ -57,13 +59,13 @@ class app extends Component {
     render() {
         return (
             <div className={"a c"}>
-                    <h3>设备管理</h3>
+                   {/* <h3>设备管理</h3>
                     <C1  allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
                     <C2 pagination={this.pagination} deleAdmin={this.deleAdmin}/>
-                    <DeleAdmin dele_box={this.dele_box} deleis={this.state.deleis}/>
+                    <DeleAdmin dele_box={this.dele_box} deleis={this.state.deleis}/>*/}
+                    <C3 />
             </div>
         )
-
     }
 }
 
