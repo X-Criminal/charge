@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Input } from 'antd';
+import { Input,Button  } from 'antd';
 
 import "../css/a.css";
 
@@ -7,7 +7,7 @@ class app extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+                isCdit:false
         };
     }
 
@@ -51,7 +51,7 @@ class app extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <Cdit />
+                    <Cdit isCdit={this.state.isCdit}/>
                 </div>
             </div>
         )
@@ -60,16 +60,34 @@ class app extends Component {
 
 export default app;
 function Cdit(props){
-          return (
-              <div className={"cdit"}>
-                  <h3>
-                      商家详情
-                  </h3>
-                  <p><span>店铺名称</span>      <Input placeholder="" /></p>
-                  <p><span>店铺图片</span>      <div><img src="" alt=""/></div></p>
-                  <p><span>人均消费(元)</span>  <Input placeholder="" /></p>
-                  <p><span>人均消费(元)</span>  <Input placeholder="" /></p>
-                  <p><button>编辑</button>      <Input placeholder="" /></p>
-              </div>
-          )
+            if(props.isCdit){
+                return (
+                    <div className={"cdit"}>
+                        <h4>
+                            商家详情
+                        </h4>
+                        <div><span>店铺名称</span>      <input value={"一点点"} readOnly={"readonly"} placeholder={""}/></div>
+                        <div><span>店铺图片</span>      <div><img src="" alt=""/></div></div>
+                        <div><span>营业时间</span>      <input readOnly={"readonly"} placeholder={""}/></div>
+                        <div><span>人均消费(元)</span>  <input readOnly={"readonly"} placeholder={""}/></div>
+                        <div><span>详细地址</span>      <input readOnly={"readonly"} placeholder={""} /></div>
+                        <div><span></span> <Button type="primary">编辑</Button></div>
+                    </div>
+                )
+            }else{
+                return(
+                    <div className={"cdit"}>
+                        <h4>
+                            商家详情
+                        </h4>
+                        <div><span>店铺名称</span>      <Input placeholder={""}/></div>
+                        <div><span>店铺图片</span>      <div><img src="" alt=""/></div></div>
+                        <div><span>营业时间</span>      <Input placeholder={""} /></div>
+                        <div><span>人均消费(元)</span>  <Input placeholder={""} /></div>
+                        <div><span>详细地址</span>      <Input placeholder={""} /></div>
+                        <div><span></span> <Button type="primary">编辑</Button></div>
+                    </div>
+                )
+            }
+
 }
