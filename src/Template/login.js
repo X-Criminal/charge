@@ -1,5 +1,6 @@
 import React,{Component}from "react";
 import axios from "axios"
+import cookie from "react-cookies"
 import Home from"./Home";
 import "../img/fontImage/iconfont.css"
 
@@ -44,24 +45,40 @@ class app extends Component{
             [type.name]:type.value
         })
     }
-    /**模拟登陆逻辑（后面需要修改）**/
+    headers={
+        "Content-Type": "application/json;",
+        "Cache-Control": "no-cache",
+        "Postman-Token": "68f807ba-db68-4f29-9091-7cb080b46462"
+    }
+    islogin = true;
+    /**登陆**/
     login_btn( e ){
-        if(this.state.user!=="123"){
+        if(this.islogin){
+            this.islogin=false;
             this.setState({
-                isUser:false
-            });
-            return ;
+                il:< LG />
+            })
+            axios({
+                url:this.props.httpUrl+"/charge/web/admin/login",
+                method:"post",
+                headers:this.headers,
+                data:{
+                    account:this.state.user,
+                    password:this.state.password
+                },
+            }).then((res)=>{
+                if(res.data.code===1000){
+                    cookie.save("user",res.data);
+                    this.props.rinfUp( );
+                }else if(res.data.code===3001||res.data.code===1001||res.data.code===1002){
+                    alert(res.data.message)
+                }
+                this.islogin=true;
+                this.setState({
+                    il:"确定"
+                })
+            })
         }
-        if(this.state.password!=="123"){
-            alert("密码错误!");
-            return;
-         }
-        this.setState({
-            il:<LG />
-        });
-        setTimeout(()=>{
-            this.props.rinfUp(1000)
-        },1000)
     }
     /**验证账号是否存在**/
     blur(e){
@@ -71,9 +88,7 @@ class app extends Component{
               url:this.props.httpUrl+"/charge/web/admin/checkAdmin",
               method:"get",
               params:{phone:_phone},
-              withCredentials: true,
           }).then((res)=>{
-              console.log(res);
               if(res.data.code===3001){
                   this.setState({
                       isUser:false

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cookie from "react-cookies"
 import Login from "./Template/login"
 
 
@@ -7,16 +8,16 @@ class App extends Component {
         super(props);
         this.state={
             isLogin:false,
-            httpUrl:"http://172.16.10.68:8086"
+            httpUrl:"http://47.98.252.6:8080"
         };
         this.rinfUp=this.rinfUp.bind(this);
     }
 
     componentDidMount() {
-        let user =JSON.parse(sessionStorage.getItem("isLogin"));
-       if(user){
+      let user = cookie.load("user")
+        if(user){
            this.setState({
-               isLogin:user.isLogin
+               isLogin:true
            })
        }else{
            this.setState({
@@ -24,19 +25,10 @@ class App extends Component {
            })
        }
     }
-    rinfUp(a){
-        if(a===1000){
-            this.setState({
-                isLogin:true
-            });
-            sessionStorage.setItem("isLogin",JSON.stringify({
-                "isLogin":true
-            }))
-        }else{
-            this.setState({
-                isLogin:false
-            })
-        }
+    rinfUp( ){
+        this.setState({
+            isLogin:true
+        })
     }
 
 

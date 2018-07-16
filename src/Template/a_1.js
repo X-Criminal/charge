@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import axios from "axios"
+
 import {Select, Input, Button, Cascader} from "antd";
 
 const Option = Select.Option;
@@ -17,6 +19,7 @@ class app extends Component {
             addLoading: false,
             keyword: "",
             addis: false,
+            page:1
         };
         this.keyword = this.keyword.bind(this);
     }
@@ -36,50 +39,93 @@ class app extends Component {
         this.setState({
             province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>)
         })
+        this.queryAdminList()
+    }
+    headers={
+        "Content-Type": "application/json;",
+        "Cache-Control": "no-cache",
+        "Postman-Token": "68f807ba-db68-4f29-9091-7cb080b46462"
+    }
+    queryAdminList(cb){
+        axios({
+            url:this.props.httpUrl+"/charge/web/admin/queryAdminList",
+            method:"post",
+            data:{
+                area:this.state.txta+this.state.txtb+this.state.txtc,
+                keyWord:this.state.keyword,
+                numberPage:11,
+                page:this.state.page
+            }
+        }).then((res)=>{
+            if(res.data.code===1000){
+                this.props.enterLoading(res)
+            }else if(res.data.code===3001||res.data.code===1002){
+                alert(res.data.message)
+            }
+            cb&&cb( )
+        })
     }
 
     handleChange1 = (value) => {
-        let arr = [];
-        for (let i = 0, idx = this.props.allpca.length; i < idx; i++) {
-            if (this.props.allpca[i].name === value) {
-                arr = this.props.allpca[i]["sub"];
-                this.setState({
-                    city: {
-                        dom: arr.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
-                        arr: arr,
-                    },
-                    txta: value,
-                    txtb: "",
-                    txtc: "",
-                });
-                return;
-            }
-        }
+           let arr = [];
+           for (let i = 0, idx = this.props.allpca.length; i < idx; i++) {
+               if (this.props.allpca[i].name === value) {
+                   arr = this.props.allpca[i]["sub"];
+                   this.setState({
+                       city: {
+                           dom: arr.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
+                           arr: arr,
+                       },
+                       txta: value,
+                       txtb: "",
+                       txtc: "",
+                   });
+                   return;
+               }
+           }
+           if(!value){
+               this.setState({
+                   txta:""
+               })
+           }
     };
     handleChange2 = (value) => {
-        for (let i = 0, idx = this.state.city.arr.length; i < idx; i++) {
-            if (this.state.city.arr[i].name === value) {
-                this.setState({
-                    district: this.state.city.arr[i].sub.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
-                    txtb: value,
-                });
-                return;
+            for (let i = 0, idx = this.state.city.arr.length; i < idx; i++) {
+                if (this.state.city.arr[i].name === value) {
+                    this.setState({
+                        district: this.state.city.arr[i].sub.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
+                        txtb: value,
+                    });
+                    return;
+                }
             }
+        if(!value){
+            this.setState({
+                txtb:""
+            })
         }
     };
     handleChange3 = (value) => {
-        this.setState({
-            txtc: value,
-        })
+            this.setState({
+                txtc: value,
+            })
+        if(!value){
+            this.setState({
+                txtc:""
+            })
+        }
     };
     keyword(e) {
         this.setState({
             keyword: e.target.value,
         })
     }
+    /**搜索按钮**/
     enterLoading = () => {
         this.setState({loading: true});
-        this.props.enterLoading("1")
+        this.queryAdminList( ()=>{
+            this.setState({loading: false});
+        })
     };
     AddenterLoading = () => {
 
@@ -105,6 +151,7 @@ class app extends Component {
                     placeholder="省"
                     optionFilterProp="children"
                     onChange={this.handleChange1}
+                    allowClear={true}
                     name={"sheng"}
                 >
                     {this.state.province}

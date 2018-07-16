@@ -13,6 +13,7 @@ class app extends Component {
         this.state = {
             loading:false,
             current:1,
+            DataLis:[],
             pagination:{
                 total:500,
             },
@@ -37,8 +38,11 @@ class app extends Component {
 
 
     /**获取数据后的回调**/
-    enterLoading(a){
-
+    enterLoading(res){
+        let data = res.data.data
+        this.setState({
+            DataLis:data
+        })
     }
     /**分页时触发*/
     pagination = (a)=>{
@@ -56,16 +60,16 @@ class app extends Component {
             deleis:!this.state.deleis,
         })
     };
+
     render() {
         return (
             <div className={"a"}>
                    <h3>管理员管理</h3>
-                   <A1 allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
-                   <A2 pagination={this.pagination} deleAdmin={this.deleAdmin}/>
+                   <A1 httpUrl={this.props.httpUrl} allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
+                   <A2 DataLis={this.state.DataLis} dataLis={this.dataLis} pagination={this.pagination} deleAdmin={this.deleAdmin}/>
                    <DeleAdmin dele_box={this.dele_box} deleis={this.state.deleis}/>
             </div>
         )
-
     }
 }
 export  default app;

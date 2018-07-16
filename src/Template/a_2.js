@@ -22,8 +22,8 @@ class app extends Component {
 
     componentDidMount() {
         //组件第一次render时执行
-
     };
+
 
     render() {
         return (
@@ -31,30 +31,20 @@ class app extends Component {
                 <div className={"table"}>
                     <table>
                         <thead>
-                        <tr>
-                            <td>用户</td>
-                            <td>账号</td>
-                            <td>密码</td>
-                            <td>区域</td>
-                            <td>详细地址</td>
-                            <td>身份证号</td>
-                            <td>银行卡号</td>
-                            <td>状态</td>
-                            <td>操作</td>
-                        </tr>
+                            <tr>
+                                <td>用户</td>
+                                <td>账号</td>
+                                <td>密码</td>
+                                <td>区域</td>
+                                <td>详细地址</td>
+                                <td>身份证号</td>
+                                <td>银行卡号</td>
+                                <td>状态</td>
+                                <td>操作</td>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>小明</td>
-                            <td>15527543183</td>
-                            <td>123456</td>
-                            <td>广东省深圳市</td>
-                            <td>广东省深圳市</td>
-                            <td>122456789456465456</td>
-                            <td>42200040404000</td>
-                            <td>审核通过</td>
-                            <td><button  onClick={this.props.deleAdmin.bind(this,"abc")}>删除</button></td>
-                        </tr>
+                            <AataLis DataLis={this.props.DataLis}/>
                         </tbody>
                     </table>
                 </div>
@@ -67,3 +57,7 @@ class app extends Component {
 }
 
 export default app;
+
+function AataLis(props){
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.userName}</td><td>{res.account}</td><td>{res.password}</td><td>{res.area}</td><td>{res.address}</td><td>{res.IDNumber}</td><td>{res.bank}</td><td>{res.checkState}</td><td><button>删除</button></td> </tr>))
+}

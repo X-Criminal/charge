@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Icon} from "antd"
+import {Icon} from "antd";
+import cookie from "react-cookies"
 
 import "antd/dist/antd.min.css"
 import "../img/fontImage/iconfont.css"
@@ -19,7 +20,18 @@ class app extends Component {
         super(props);
         this.state = {
             audit:"",
-            rou:0
+            rou:0,
+            role:"",
+            userName:"",
+            tabarr:[
+                {name:"管理员管理",href:"#gly",  icon:"icon-guanli1",       page:0,tem:(<A   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>)},
+                {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:<B   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+                {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem: <C   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+                {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem: <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+                {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E />},
+                {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F />},
+                {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />}
+            ]
         }
     }
 
@@ -42,35 +54,49 @@ class app extends Component {
             var hash = window.location.hash;
             _this.hash(hash)
         }
+        if(this.state.role===2){
+            this.setState({
+                tabarr:this.state.tabarr.splice(1,this.state.tabarr.length-1),
+            })
+        }
     }
+    componentWillMount(){
+        let role = cookie.load("user");
+        this.setState({
+            role:role.data.role
+        })
+    }
+
+
+
+
+    /**监控hash**/
     firstEntry = ()=>{
         var hash = window.location.hash;
         this.hash(hash)
     };
     hash(hash){
         let _this= this;
-        for(let i = 0,idx = _this.tabarr.length;i<idx;i++){
-            if(_this.tabarr[i].href===hash){
+        let obj = _this.state.role===2?1:0;
+        for(let i = 0,idx = _this.state.tabarr.length;i<idx;i++){
+            if(_this.state.tabarr[i].href===hash){
                 _this.setState({
-                    rou:_this.tabarr[i].page
+                    rou:_this.state.tabarr[i].page-obj
                 });
                 return ;
             }
         }
     }
     /**
-     * 管理组件
-     * 通过hash值切换组件状态
+     *退出
      * **/
-    tabarr=[
-        {name:"管理员管理",href:"#gly",  icon:"icon-guanli1",       page:0,tem:<A        options={options}  allpca={allpca}/>},
-        {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:<B        options={options}  allpca={allpca}/>},
-        {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem:<C        options={options}  allpca={allpca}/>},
-        {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem:<D        options={options}  allpca={allpca}/>},
-        {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:<E />},
-        {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:<F />},
-        {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:<G />}
-        ];
+    quit = () => {
+       let isrem =window.confirm("确认退出？")
+        if(isrem){
+            cookie.remove("user");
+            window.location.reload( )
+        }
+    }
     render() {
         return (
             <div className={"home"}>
@@ -81,16 +107,16 @@ class app extends Component {
                         <i className={"iconfont icon-guanli1"}></i>
                         <span>{this.state.audit}</span>
                         <span className={"userName"}>范柳原&nbsp;<Icon style={{"fontSize":"12px"}} type={"caret-down"}/></span>
-                        <a className={"quit"} >退出</a>
+                        <a className={"quit"} onClick={this.quit}>退出</a>
                     </div>
                 </header>
                 <nav>
                     <ul>
-                        <Tab tabarr={this.tabarr} rou={this.state.rou}/>
+                        <Tab rou={this.state.rou} tabarr={this.state.tabarr} role={this.state.role}/>
                     </ul>
                 </nav>
                 <div className={"State"}>
-                    <Router _router={this.tabarr[this.state.rou]} />
+                    <Router _router={this.state.tabarr[this.state.rou]} />
                 </div>
             </div>
         )
@@ -104,7 +130,7 @@ export default app;
  * index根据hash值来确定
  * */
 function Tab( props){
-    return props.tabarr.map((item,idx)=> <li key={idx+1} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
+    return props.tabarr.map((item,idx)=> <li key={item.href} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
 }
 /**切换路由跳转的组件，
  * 传入路由对象
