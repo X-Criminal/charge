@@ -24,10 +24,10 @@ class app extends Component {
             role:"",
             userName:"",
             tabarr:[
-                {name:"管理员管理",href:"#gly",  icon:"icon-guanli1",       page:0,tem:(<A   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>)},
-                {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:<B   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-                {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem: <C   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-                {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem: <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+                {name:"管理员管理",href:"#gly",  icon:"icon-guanli1",       page:0,tem:  <A   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+                {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:  <B   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+                {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem:  <C   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+                {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem:  <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
                 {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E />},
                 {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F />},
                 {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />}

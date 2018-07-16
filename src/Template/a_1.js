@@ -58,6 +58,12 @@ class app extends Component {
             }
         }).then((res)=>{
             if(res.data.code===1000){
+                this.props.paginationData({
+                    area:this.state.txta+this.state.txtb+this.state.txtc,
+                    keyWord:this.state.keyword,
+                    numberPage:11,
+                    page:1,
+                })
                 this.props.enterLoading(res)
             }else if(res.data.code===3001||res.data.code===1002){
                 alert(res.data.message)
@@ -212,7 +218,7 @@ function Add(props) {
                         <Button onClick={props.close}>取消</Button>
                         <Button style={{"marginLeft": "10px"}} type="primary" loading={props.addLoading}
                                 onClick={props.AddenterLoading}>
-                            搜索
+                            添加
                         </Button>
                     </div>
                 </div>

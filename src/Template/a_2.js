@@ -24,7 +24,9 @@ class app extends Component {
         //组件第一次render时执行
     };
 
-
+    deleAdmin=( id,idx )=>{
+        this.props.deleAdmin(id,idx)
+    }
     render() {
         return (
             <div className={"a_2"}>
@@ -44,12 +46,12 @@ class app extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <AataLis DataLis={this.props.DataLis}/>
+                            <AataLis deleAdmin={this.deleAdmin} DataLis={this.props.DataLis}/>
                         </tbody>
                     </table>
                 </div>
                 <div className={"page"}>
-                   <span style={{"float":"left","lineHeight":"32px"}}>共220条</span> <Pagination onChange={this.props.pagination} defaultCurrent={1} total={50} />
+                   <span style={{"float":"left","lineHeight":"32px"}}>共{this.props.totalItems}条</span> <Pagination onChange={this.props.pagination} defaultCurrent={1} pageSize={11} total={this.props.totalItems} />
                 </div>
             </div>
         )
@@ -59,5 +61,5 @@ class app extends Component {
 export default app;
 
 function AataLis(props){
-    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.userName}</td><td>{res.account}</td><td>{res.password}</td><td>{res.area}</td><td>{res.address}</td><td>{res.IDNumber}</td><td>{res.bank}</td><td>{res.checkState}</td><td><button>删除</button></td> </tr>))
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.userName}</td><td>{res.account}</td><td>{res.password}</td><td>{res.area}</td><td>{res.address}</td><td>{res.IDNumber}</td><td>{res.bank}</td><td>{res.checkState===1?"待审核":res.checkState===2?"审核通过":"不通过"}</td><td><button onClick={props.deleAdmin.bind(this,res.adminId,idx)}>删除</button></td></tr>))
 }
