@@ -19,8 +19,16 @@ class app extends Component {
             addLoading: false,
             keyword: "",
             addis: false,
-            page:1
+            page:1,
+            addData:{
+                account:"",
+                area:"",
+                password:"",
+                userName:"",
+            }
         };
+
+        this._addOnchange=this._addOnchange.bind(this)
         this.keyword = this.keyword.bind(this);
     }
 
@@ -146,6 +154,13 @@ class app extends Component {
              addis:true
          })
     };
+    _addOnchange( e ){
+       if(!e.length){
+           console.log(e.target.value);
+       }else{
+           console.log(e);
+       }
+    }
 
     render() {
         return (
@@ -189,7 +204,7 @@ class app extends Component {
                     搜索
                 </Button>
                 <Button className={"add"} onClick={this.add} type="primary">添加</Button>
-                <Add addis={this.state.addis} addLoading={this.state.addLoading}
+                <Add _addOnchange={this._addOnchange} addis={this.state.addis} addLoading={this.state.addLoading}
                      AddenterLoading={this.AddenterLoading} close={this.close} options={this.props.options}/>
             </div>
         )
@@ -208,10 +223,10 @@ function Add(props) {
                 <div>
                     <h3>添加管理员 <i onClick={props.close}> </i></h3>
                     <div className={"input"}>
-                        <p><span>用户</span> <Input name={"userName"} type="text"/></p>
-                        <p><span>账号</span> <Input name={"account"} type="text"/></p>
-                        <p><span>密码</span> <Input name={"password"} type="text"/></p>
-                        <p><span>地区</span> <Cascader options={props.options} onChange={onChange} placeholder={""}
+                        <p><span>用户</span> <Input name={"userName"} type="text" onChange={props._addOnchange} /></p>
+                        <p><span>账号</span> <Input name={"account"} type="text"  onChange={props._addOnchange}/></p>
+                        <p><span>密码</span> <Input name={"password"} type="text" onChange={props._addOnchange}/></p>
+                        <p><span>地区</span> <Cascader name={"area"} options={props.options} onChange={props._addOnchange} placeholder={""}
                                                      changeOnSelect/></p>
                     </div>
                     <div className={"addBtn"}>

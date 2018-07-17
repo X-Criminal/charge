@@ -8,7 +8,7 @@ class App extends Component {
         super(props);
         this.state={
             isLogin:false,
-            httpUrl:"http://47.98.252.6:8080"
+            httpUrl:"http://47.98.252.6:80"
         };
         this.rinfUp=this.rinfUp.bind(this);
     }
