@@ -62,7 +62,6 @@ class app extends Component {
     pagination = ( a )=>{
        let data = this.state.pageData;
        data.page=a;
-        console.log(data);
         this.pageAxios(data)
     };
     pageAxios(data){

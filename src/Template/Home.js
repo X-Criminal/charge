@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Icon} from "antd";
+import {Icon,Input,Button} from "antd";
+import axios from "axios";
 import cookie from "react-cookies"
 
 import "antd/dist/antd.min.css"
@@ -14,7 +15,6 @@ import D from "./d"
 import E from "./e"
 import F from "./f"
 import G from "./g"
-import H from "./authentication"
 
 class app extends Component {
     constructor(props) {
@@ -24,17 +24,14 @@ class app extends Component {
             rou:0,
             role:"",
             userName:"",
-            tabarr:[
-                {name:"管理员管理",href:"#gly",  icon:"icon-guanli1",       page:0,tem:  <A   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-                {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:  <B   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-                {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem:  <C   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-                {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem:  <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-                {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E />},
-                {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F />},
-                {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />},
-                {name:"  ",href:"",   icon:"",        page:7,tem:  <H />},
-            ]
-        }
+            isAuthentication:true,
+            name:"",
+            card:"",
+            bank:"",
+            address:"",
+            adminid:"",
+        };
+        this.AuthenticationData=this.AuthenticationData.bind(this)
     }
 
     componentWillUnmount() {
@@ -44,6 +41,23 @@ class app extends Component {
     componentDidUpdate() {
         //setState 更新时执行
     }
+    tabarr=[
+        {name:"管理员管理",href:"#gly",  icon:"icon-guanli1",       page:0,tem:  <A   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+        {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:  <B   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+        {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem:  <C   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+        {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem:  <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
+        {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E />},
+        {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F />},
+        {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />},
+        ];
+    tabarr2=[];
+    componentWillMount(){
+        let role = cookie.load("user");
+        this.firstEntry();
+        if(role.data.role===2){
+            this.tabarr2=this.tabarr.splice(1,this.tabarr.length-1)
+        }
+    }
     componentDidMount() {
         let role = cookie.load("user");
         //组件第一次render时执行
@@ -51,27 +65,23 @@ class app extends Component {
          * 监控哈希值
          * 遍历出需要的组件
          * **/
-        this.firstEntry();
+
         let _this= this;
-        if(role.data.role===2){
-            this.setState({
-                tabarr:this.state.tabarr.splice(1,this.state.tabarr.length-1),
-            })
-        };
+
         window.onhashchange=function(){
             var hash = window.location.hash;
             _this.hash(hash,role.data.role)
         };
         this.setState({
             role:role.data.role,
-            userName:role.data.userName
+            userName:role.data.userName,
+            adminid:role.data.adminId
         });
         this.abc(role);
     }
     abc=(role)=>{
-        if(role.data.role===2&&role.data.checkState!==1){
+        if(role.data.role===2&&role.data.checkState===4){
             alert("请先实名认证");
-            window.location.href="#tion";
         }
     };
 
@@ -85,10 +95,10 @@ class app extends Component {
     hash(hash,role){
         let _this= this;
         let obj = role===2?1:0;
-        for(let i = 0,idx = _this.state.tabarr.length;i<idx;i++){
-            if(_this.state.tabarr[i].href===hash){
+        for(let i = 0,idx = _this.tabarr2.length;i<idx;i++){
+            if(_this.tabarr2[i].href===hash){
                 _this.setState({
-                    rou:_this.state.tabarr[i].page-obj
+                    rou:_this.tabarr2[i].page-obj
                 });
                 return ;
             }
@@ -103,6 +113,32 @@ class app extends Component {
             cookie.remove("user");
             window.location.hash="";
             window.location.reload( )
+        }
+    };
+
+    /**实名认证数据**/
+    AuthenticationData(e){
+        this.setState({
+            [e.target.name]:e.target.value
+        });
+    }
+    UpAuthentication=()=>{
+        if(this.state.name.length<=0||this.state.card.length<=0||this.state.bank.length<=0||this.state.address.length<=0){
+           alert("信息请填写完整");
+        }else{
+            axios({
+                url:this.props.httpUrl+"/charge/web/admin/addCertification",
+                method:"post",
+                data:{
+                    name:this.state.name,
+                    card:this.state.card,
+                    bank:this.state.bank,
+                    address:this.state.address,
+                    adminId:this.state.adminid,
+                }
+            }).then((res)=>{
+
+            })
         }
     };
     render() {
@@ -120,12 +156,10 @@ class app extends Component {
                 </header>
                 <nav>
                     <ul>
-                        <Tab rou={this.state.rou} tabarr={this.state.tabarr} role={this.state.role}/>
+                        <Tab rou={this.state.rou} tabarr={this.tabarr2} role={this.state.role}/>
                     </ul>
                 </nav>
-                <div className={"State"}>
-                    <Router _router={this.state.tabarr[this.state.rou]} />
-                </div>
+                    <Authentication UpAuthentication={this.UpAuthentication} AuthenticationData={this.AuthenticationData}  isAuthentication={this.state.isAuthentication}/>
             </div>
         )
     }
@@ -146,6 +180,37 @@ function Tab( props){
 function Router(props){
     return props._router.tem
 }
+
+function Authentication(props){
+    if(props.isAuthentication){
+        return (
+            <div className={"Authentication"}>
+                <div className={"AuthenticationBox"}>
+                     <div>
+                         <span>姓名</span>    <Input name={"name"} onChange={props.AuthenticationData}/>
+                     </div>
+                    <div>
+                        <span>身份证号</span> <Input name={"card"} onChange={props.AuthenticationData}/>
+                    </div>
+                    <div>
+                        <span>银行卡号</span> <Input name={"bank"} onChange={props.AuthenticationData}/>
+                    </div>
+                    <div>
+                        <span>详细地址</span> <Input name={"address"} onChange={props.AuthenticationData}/>
+                    </div>
+                        <Button onClick={props.UpAuthentication} type="primary">queren</Button>
+                </div>
+            </div>
+        )
+    }else{
+        return null;
+    }
+}
+/***
+*
+**/
+
+
 const options = [{
     value: "北京市",
     label: "北京市",
