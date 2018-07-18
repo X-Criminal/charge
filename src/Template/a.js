@@ -46,7 +46,7 @@ class app extends Component {
 
     /**获取数据后的回调**/
     enterLoading(res){
-        let data = res.data.data
+        let data = res.data.data;
         this.setState({
             DataLis:data,
             totalItems:res.data.totalItems
@@ -54,7 +54,7 @@ class app extends Component {
     }
     /**获取查询条件进行分页查询**/
     paginationData(obj){
-       this.setState({
+        this.setState({
            pageData:obj
        })
     }
@@ -62,7 +62,8 @@ class app extends Component {
     pagination = ( a )=>{
        let data = this.state.pageData;
        data.page=a;
-       this.pageAxios(data)
+        console.log(data);
+        this.pageAxios(data)
     };
     pageAxios(data){
         axios({
@@ -74,7 +75,7 @@ class app extends Component {
         })
     }
     delid = "";
-    idx=""
+    idx="";
     /**删除后触发**/
     deleAdmin(a,idx){
         this.delid=a;
@@ -91,12 +92,21 @@ class app extends Component {
     };
     /**确定删除**/
     onDel(){
-        var _this = this
+        var _this = this;
         this.onDelAxios(function(){
             _this.setState({
-                DataLis:this.state.DataLis.splice(this.idx,1)
+                DataLis:_this.dellarr(_this.state.DataLis,_this.idx)
             })
         })
+    }
+    dellarr(arr,idx){
+        let a = [];
+        for(let i = 0,_idx= arr.length;i<_idx;i++){
+            if(i!==idx){
+                a.push(arr[i])
+            }
+        }
+        return a;
     }
     onDelAxios(cb){
         axios({
@@ -108,7 +118,7 @@ class app extends Component {
         }).then((res)=>{
             alert(res.data.message);
             this.dele_box( );
-            cb&&cb()
+            if(res.data.code) cb&&cb();
         })
     }
 

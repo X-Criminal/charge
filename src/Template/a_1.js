@@ -20,12 +20,10 @@ class app extends Component {
             keyword: "",
             addis: false,
             page:1,
-            addData:{
                 account:"",
                 area:"",
                 password:"",
                 userName:"",
-            }
         };
 
         this._addOnchange=this._addOnchange.bind(this)
@@ -46,14 +44,14 @@ class app extends Component {
         //组件第一次render时执行
         this.setState({
             province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>)
-        })
+        });
         this.queryAdminList()
     }
     headers={
         "Content-Type": "application/json;",
         "Cache-Control": "no-cache",
         "Postman-Token": "68f807ba-db68-4f29-9091-7cb080b46462"
-    }
+    };
     queryAdminList(cb){
         axios({
             url:this.props.httpUrl+"/charge/web/admin/queryAdminList",
@@ -61,8 +59,8 @@ class app extends Component {
             data:{
                 area:this.state.txta+this.state.txtb+this.state.txtc,
                 keyWord:this.state.keyword,
-                numberPage:11,
-                page:this.state.page
+                page:this.state.page,
+                numberPage:11
             }
         }).then((res)=>{
             if(res.data.code===1000){
@@ -71,7 +69,7 @@ class app extends Component {
                     keyWord:this.state.keyword,
                     numberPage:11,
                     page:1,
-                })
+                });
                 this.props.enterLoading(res)
             }else if(res.data.code===3001||res.data.code===1002){
                 alert(res.data.message)
@@ -142,7 +140,26 @@ class app extends Component {
         })
     };
     AddenterLoading = () => {
-
+        axios({
+           url:this.props.httpUrl+"/charge/web/admin/addAdmin",
+            method:"post",
+            data:{
+                account:this.state.account,
+                area:this.state.area,
+                password:this.state.password,
+                userName:this.state.userName,
+            }
+        }).then((res)=>{
+            this.setState({
+                account:"",
+                area:"",
+                password:"",
+                userName:"",
+                addis:false,
+            });
+            alert(res.data.message);
+            this.queryAdminList();
+        })
     };
     close = ()=>{
         this.setState({
@@ -156,9 +173,17 @@ class app extends Component {
     };
     _addOnchange( e ){
        if(!e.length){
-           console.log(e.target.value);
+           this.setState({
+               [e.target.name]:e.target.value,
+           });
        }else{
-           console.log(e);
+           let area="";
+           for(let i = 0;i<e.length;i++){
+               area += e[i]
+           }
+           this.setState({
+               area:area
+           })
        }
     }
 

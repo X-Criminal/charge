@@ -14,6 +14,7 @@ import D from "./d"
 import E from "./e"
 import F from "./f"
 import G from "./g"
+import H from "./authentication"
 
 class app extends Component {
     constructor(props) {
@@ -30,7 +31,8 @@ class app extends Component {
                 {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem:  <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
                 {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E />},
                 {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F />},
-                {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />}
+                {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />},
+                {name:"  ",href:"",   icon:"",        page:7,tem:  <H />},
             ]
         }
     }
@@ -43,6 +45,7 @@ class app extends Component {
         //setState 更新时执行
     }
     componentDidMount() {
+        let role = cookie.load("user");
         //组件第一次render时执行
         /**
          * 监控哈希值
@@ -50,23 +53,27 @@ class app extends Component {
          * **/
         this.firstEntry();
         let _this= this;
-        window.onhashchange=function(){
-            var hash = window.location.hash;
-            _this.hash(hash)
-        }
-        if(this.state.role===2){
+        if(role.data.role===2){
             this.setState({
                 tabarr:this.state.tabarr.splice(1,this.state.tabarr.length-1),
             })
-        }
-    }
-    componentWillMount(){
-        let role = cookie.load("user");
+        };
+        window.onhashchange=function(){
+            var hash = window.location.hash;
+            _this.hash(hash,role.data.role)
+        };
         this.setState({
-            role:role.data.role
-        })
+            role:role.data.role,
+            userName:role.data.userName
+        });
+        this.abc(role);
     }
-
+    abc=(role)=>{
+        if(role.data.role===2&&role.data.checkState!==1){
+            alert("请先实名认证");
+            window.location.href="#tion";
+        }
+    };
 
 
 
@@ -75,9 +82,9 @@ class app extends Component {
         var hash = window.location.hash;
         this.hash(hash)
     };
-    hash(hash){
+    hash(hash,role){
         let _this= this;
-        let obj = _this.state.role===2?1:0;
+        let obj = role===2?1:0;
         for(let i = 0,idx = _this.state.tabarr.length;i<idx;i++){
             if(_this.state.tabarr[i].href===hash){
                 _this.setState({
@@ -91,12 +98,13 @@ class app extends Component {
      *退出
      * **/
     quit = () => {
-       let isrem =window.confirm("确认退出？")
+        let isrem =window.confirm("确认退出？");
         if(isrem){
             cookie.remove("user");
+            window.location.hash="";
             window.location.reload( )
         }
-    }
+    };
     render() {
         return (
             <div className={"home"}>
@@ -106,7 +114,7 @@ class app extends Component {
                     <div className={"user"}>
                         <i className={"iconfont icon-guanli1"}></i>
                         <span>{this.state.audit}</span>
-                        <span className={"userName"}>范柳原&nbsp;<Icon style={{"fontSize":"12px"}} type={"caret-down"}/></span>
+                        <span className={"userName"}>{this.state.userName}&nbsp;<Icon style={{"fontSize":"12px"}} type={"caret-down"}/></span>
                         <a className={"quit"} onClick={this.quit}>退出</a>
                     </div>
                 </header>
@@ -130,7 +138,7 @@ export default app;
  * index根据hash值来确定
  * */
 function Tab( props){
-    return props.tabarr.map((item,idx)=> <li key={item.href} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
+    return props.tabarr.map((item,idx)=> <li key={item.href} style={item.name.length<=0?{"display":"none"}:{}} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
 }
 /**切换路由跳转的组件，
  * 传入路由对象
@@ -138,7 +146,6 @@ function Tab( props){
 function Router(props){
     return props._router.tem
 }
-
 const options = [{
     value: "北京市",
     label: "北京市",
@@ -259,8 +266,8 @@ const options = [{
             value: "静海县",
             label: "静海县"
         }, {
-            value: "蓟 县",
-            label: "蓟 县"
+            value: "蓟县",
+            label: "蓟县"
         }]
     }]
 }, {
@@ -282,8 +289,8 @@ const options = [{
             value: "新华区",
             label: "新华区"
         }, {
-            value: "郊 区",
-            label: "郊 区"
+            value: "郊区",
+            label: "郊区"
         }, {
             value: "井陉矿区",
             label: "井陉矿区"

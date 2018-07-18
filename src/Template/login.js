@@ -87,7 +87,7 @@ class app extends Component{
           axios({
               url:this.props.httpUrl+"/charge/web/admin/checkAdmin",
               method:"get",
-              params:{phone:_phone},
+              params:{account:_phone},
           }).then((res)=>{
               if(res.data.code===3001){
                   this.setState({
