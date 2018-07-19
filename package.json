@@ -10,6 +10,7 @@
     "jQuery": "^1.7.4",
     "rc-upload": "^2.5.1",
     "react": "^16.4.1",
+    "react-amap": "^1.2.7",
     "react-cookies": "^0.1.0",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"
