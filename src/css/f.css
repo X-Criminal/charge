@@ -1,0 +1,63 @@
+.f{
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.f_ss{
+    border-bottom: 1px solid #C0CCDA;
+}
+.f_ss div {
+  display: inline-block;
+  color: #C5C9CD;
+  font-size: 18px;
+  margin-left: 10px;
+  cursor:pointer;
+   user-select: none;
+  line-height: 46px;
+}
+.f_ss div:nth-child(2){
+    margin-left:40px;
+}
+.f_ss .s{
+    font-size: 16px;
+    color: #000;
+    border-bottom: 3px solid #99A9BF;
+}
+._radio{
+    line-height: 50px;
+    margin-left: 10px;
+}
+.tab table{
+    width: 100%;
+}
+.tab table tr{
+    line-height: 44px;
+    height: 44px;
+    color: #475669;
+    font-size: 12px;
+}
+.tab table tr td{
+   padding-left: 10px;
+}
+.tab table thead {
+    background-color: #E5E9F2;
+}
+.tab table tbody td{
+    border-bottom: 1px solid #E0E6ED;
+}
+.tab table tbody td:nth-child(1){
+    border-left: 1px solid #E0E6ED;
+}
+.tab table tbody td:last-of-type{
+    border-right: 1px solid #E0E6ED;
+}
+.tab table tbody td:last-of-type button{
+    background-color: rgba(0,0,0,0);
+    margin-left: 10px;
+}
+.tab table tbody td:last-of-type button:nth-child(1){
+    color: #3AA7FF;
+}
+.tab table tbody td:last-of-type button:nth-child(2){
+    color: #FF4949;
+}

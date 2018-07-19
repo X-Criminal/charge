@@ -103,5 +103,42 @@ nav ul{
     top: 35%;
     width: 400px;
     left: calc(50% - 200px );
-    background-color: yellow;
+}
+.Authentication .AuthenticationBox ._icon{
+    text-align: center;
+}
+.Authentication .AuthenticationBox ._icon i{
+    font-size:60px;
+}
+
+.Authentication .AuthenticationBox >div >div{
+        margin-top: 20px;
+        text-align: center;
+}
+.Authentication .AuthenticationBox >div input {
+    display: inline-block;
+    margin: 0 auto;
+    width: 80%;
+}
+.Authentication .AuthenticationBox button{
+    width: 80%;
+    display: block;
+    margin: 10px auto;
+}
+.Authentication .AuthenticationBox >div:nth-child(2){
+    text-align: center;
+}
+.Authentication .AuthenticationBox >div:nth-child(2) .duigou{
+    font-size:100px;
+    color:#13CE66;
+}
+.Authentication .AuthenticationBox >div:nth-child(2) p{
+    font-size: 16px;
+    color: #1F2D3D;
+}
+.Authentication .AuthenticationBox >div:nth-child(2) button{
+    border: none;
+    color: #1F2D3D;
+    font-size: 18px;
+    margin-top:50%;
 }

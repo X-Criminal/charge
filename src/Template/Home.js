@@ -24,12 +24,13 @@ class app extends Component {
             rou:0,
             role:"",
             userName:"",
-            isAuthentication:true,
+            isAuthentication:false,
             name:"",
             card:"",
             bank:"",
             address:"",
             adminid:"",
+            isshow:true,
         };
         this.AuthenticationData=this.AuthenticationData.bind(this)
     }
@@ -47,7 +48,7 @@ class app extends Component {
         {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem:  <C   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
         {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem:  <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
         {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E />},
-        {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F />},
+        {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F   httpUrl={this.props.httpUrl}/>},
         {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />},
         ];
     tabarr2=[];
@@ -55,8 +56,11 @@ class app extends Component {
         let role = cookie.load("user");
         this.firstEntry();
         if(role.data.role===2){
-            this.tabarr2=this.tabarr.splice(1,this.tabarr.length-1)
+            this.tabarr2=this.dellarr(this.tabarr,0,5)
+        }else{
+            this.tabarr2=this.tabarr;
         }
+        this.firstEntry( );
     }
     componentDidMount() {
         let role = cookie.load("user");
@@ -67,9 +71,8 @@ class app extends Component {
          * **/
 
         let _this= this;
-
         window.onhashchange=function(){
-            var hash = window.location.hash;
+            let hash = window.location.hash;
             _this.hash(hash,role.data.role)
         };
         this.setState({
@@ -77,16 +80,34 @@ class app extends Component {
             userName:role.data.userName,
             adminid:role.data.adminId
         });
-        this.abc(role);
+        this.abc();
     }
-    abc=(role)=>{
+    abc=( )=>{
+        let role = cookie.load("user");
         if(role.data.role===2&&role.data.checkState===4){
+            this.setState({
+                isAuthentication:true,
+            });
             alert("请先实名认证");
         }
     };
+    /**删除数组中某项**/
+    dellarr(arr,idx,idx2){
+        let a = [];
+        for(let i = 0,_idx= arr.length;i<_idx;i++){
+            if(i!==idx&&i!==idx2){
+                a.push(arr[i])
+            }
+        }
+        return a;
+    }
 
-
-
+    /*** 返回 * **/
+    moverAuthentication = () => {
+        this.setState({
+            isAuthentication:false,
+        })
+    };
     /**监控hash**/
     firstEntry = ()=>{
         var hash = window.location.hash;
@@ -104,9 +125,7 @@ class app extends Component {
             }
         }
     }
-    /**
-     *退出
-     * **/
+    /***退出* **/
     quit = () => {
         let isrem =window.confirm("确认退出？");
         if(isrem){
@@ -115,7 +134,6 @@ class app extends Component {
             window.location.reload( )
         }
     };
-
     /**实名认证数据**/
     AuthenticationData(e){
         this.setState({
@@ -123,6 +141,7 @@ class app extends Component {
         });
     }
     UpAuthentication=()=>{
+        let _this = this;
         if(this.state.name.length<=0||this.state.card.length<=0||this.state.bank.length<=0||this.state.address.length<=0){
            alert("信息请填写完整");
         }else{
@@ -137,7 +156,16 @@ class app extends Component {
                     adminId:this.state.adminid,
                 }
             }).then((res)=>{
-
+                if(res.data.code===1000){
+                    _this.setState({
+                             isshow:false
+                         });
+                   let user = cookie.load("user");
+                        user.data.checkState=1;
+                        cookie.save("user",user)
+                    }else{
+                        alert(res.data.message)
+                    }
             })
         }
     };
@@ -159,7 +187,10 @@ class app extends Component {
                         <Tab rou={this.state.rou} tabarr={this.tabarr2} role={this.state.role}/>
                     </ul>
                 </nav>
-                    <Authentication UpAuthentication={this.UpAuthentication} AuthenticationData={this.AuthenticationData}  isAuthentication={this.state.isAuthentication}/>
+                <div className={"State"}>
+                    <Router  _router={this.tabarr2[this.state.rou]}/>
+                </div>
+                <Authentication isshow={this.state.isshow} moverAuthentication={this.moverAuthentication} UpAuthentication={this.UpAuthentication} AuthenticationData={this.AuthenticationData}  isAuthentication={this.state.isAuthentication}/>
             </div>
         )
     }
@@ -178,7 +209,12 @@ function Tab( props){
  * 传入路由对象
  * **/
 function Router(props){
-    return props._router.tem
+    if(props._router){
+        return props._router.tem
+    }else{
+        return (<div></div>)
+    }
+
 }
 
 function Authentication(props){
@@ -186,19 +222,31 @@ function Authentication(props){
         return (
             <div className={"Authentication"}>
                 <div className={"AuthenticationBox"}>
-                     <div>
-                         <span>姓名</span>    <Input name={"name"} onChange={props.AuthenticationData}/>
-                     </div>
-                    <div>
-                        <span>身份证号</span> <Input name={"card"} onChange={props.AuthenticationData}/>
+                    <div style={props.isshow?{"display":"block"}:{"display":"none"}}>
+                        <div className={"_icon"}>
+                            <i className={"iconfont icon-mingpian"}> </i>
+                            <p>申请实名认证</p>
+                        </div>
+                        <div>
+                            <Input  name={"name"} placeholder="姓名" onChange={props.AuthenticationData}/>
+                        </div>
+                        <div>
+                            <Input name={"card"} placeholder="身份证号" onChange={props.AuthenticationData}/>
+                        </div>
+                        <div>
+                            <Input name={"bank"} placeholder="银行卡号" onChange={props.AuthenticationData}/>
+                        </div>
+                        <div>
+                            <Input name={"address"} placeholder="详细地址" onChange={props.AuthenticationData}/>
+                        </div>
+                        <Button onClick={props.UpAuthentication} type="primary">确认</Button>
+                        <Button onClick={props.moverAuthentication} >返回</Button>
                     </div>
-                    <div>
-                        <span>银行卡号</span> <Input name={"bank"} onChange={props.AuthenticationData}/>
+                    <div style={props.isshow?{"display":"none"}:{"display":"block"}}>
+                          <i className={"iconfont icon-duigou duigou"}></i>
+                          <p>提交成功</p>
+                          <Button onClick={props.moverAuthentication} >返回</Button>
                     </div>
-                    <div>
-                        <span>详细地址</span> <Input name={"address"} onChange={props.AuthenticationData}/>
-                    </div>
-                        <Button onClick={props.UpAuthentication} type="primary">queren</Button>
                 </div>
             </div>
         )
