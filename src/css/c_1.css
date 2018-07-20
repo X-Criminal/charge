@@ -19,15 +19,38 @@
 .addBox_C1 .addBtn{
     height: 90px;
 }
-
-.avatar-uploader > .ant-upload {
-    width: 89px;
-    height: 89px;
-    box-sizing: border-box;
-    display: inline-block;
+.img_up{
+    width: 90px;
+    height: 90px;
+    background-color:#ccc;
 }
-.avatar-uploader > .ant-upload .anticon-plus{
-    font-size: 30px;
-    color: #99A9BF;
-    font-weight: 600;
+.up_img{
+    margin-top: 20px;
+}
+.up_img span{
+    float: left;
+    width: 20%;
+    text-align: right;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-right: 10px;
+}
+.up_img>div{
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+}
+.up_img >div input{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+.up_img >div{
+    border: 1px solid #ccc;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.up_img >div:hover{
+    border-color:#3aa7ff;
 }

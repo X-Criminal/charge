@@ -2,20 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38fc33ae-6601-4174-8dd2-b97492c7dd05" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Template/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/a.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/a.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/a_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/a_1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/a_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/a_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/b.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/b.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/b_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/b_1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/b_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/b_2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/b_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/b_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Template/c.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/c.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/e.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/e.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Template/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/a.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/a.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/a_2.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/a_2.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Template/c_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/c_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Template/c_2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Template/c_2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/c_1.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/c_1.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,13 +21,118 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="c.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="c.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Template/c.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="64" column="84" lean-forward="true" selection-start-line="64" selection-start-column="84" selection-end-line="64" selection-end-column="84" />
+            <state relative-caret-position="66">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+              <folding>
+                <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+                <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+                <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+                <element signature="n#!!block;n#enterLoading#0;n#app#0" />
+                <element signature="n#!!block;n#paginationData#0;n#app#0" />
+                <element signature="n#!!block;n#pageAxios#0;n#app#0" />
+                <element signature="n#!!block;n#deleAdmin#0;n#app#0" />
+                <element signature="n#!!block;n#onDel#0;n#app#0" />
+                <element signature="n#!!block;n#dellarr#0;n#app#0" />
+                <element signature="n#!!block;n#onDelAxios#0;n#app#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="c_1.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Template/c_1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1681">
+              <caret line="181" column="6" lean-forward="true" selection-start-line="181" selection-start-column="6" selection-end-line="181" selection-end-column="6" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+                <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+                <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+                <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+                <element signature="n#!!block;n#queryAdminList#0;n#app#0" />
+                <element signature="n#!!block;n#keyword#0;n#app#0" />
+                <element signature="n#!!block;n#_addOnchange#0;n#app#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="c_1.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/css/c_1.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="507">
+              <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/css/base.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-857" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="a.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/css/a.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3167">
+              <caret line="84" column="16" selection-start-line="84" selection-start-column="15" selection-end-line="84" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="a_1.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/a_1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="25" />
+              <folding>
+                <element signature="n#!!block;n#constructor#0;n#app#0" />
+                <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+                <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+                <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+                <element signature="n#!!block;n#queryAdminList#0;n#app#0" />
+                <element signature="e#2038#2798#0" />
+                <element signature="e#2831#3374#0" />
+                <element signature="e#3407#3583#0" />
+                <element signature="n#!!block;n#keyword#0;n#app#0" />
+                <element signature="e#3720#3858#0" />
+                <element signature="e#3888#4501#0" />
+                <element signature="e#4519#4585#0" />
+                <element signature="e#4599#4667#0" />
+                <element signature="n#!!block;n#_addOnchange#0;n#app#0" />
+                <element signature="e#5156#5544#0" />
+                <element signature="e#5561#5914#0" />
+                <element signature="e#5931#6284#0" />
+                <element signature="e#6477#6661#0" />
+                <element signature="e#6766#6973#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="a.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/a.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+              <folding>
+                <element signature="e#275#523#0" />
+                <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+                <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+                <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+                <element signature="n#!!block;n#enterLoading#0;n#app#0" />
+                <element signature="n#!!block;n#paginationData#0;n#app#0" />
+                <element signature="n#!!block;n#pageAxios#0;n#app#0" />
+                <element signature="n#!!block;n#deleAdmin#0;n#app#0" />
+                <element signature="e#1812#1893#0" />
+                <element signature="n#!!block;n#onDel#0;n#app#0" />
+                <element signature="n#!!block;n#dellarr#0;n#app#0" />
+                <element signature="n#!!block;n#onDelAxios#0;n#app#0" />
               </folding>
             </state>
           </provider>
@@ -68,9 +165,10 @@
       <find>arr</find>
       <find>hash</find>
       <find>cookie</find>
-      <find>axios</find>
       <find>deleAdmin</find>
       <find>.b_3 .table</find>
+      <find>axios</find>
+      <find>.addBox .input</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -95,9 +193,12 @@
         <option value="$PROJECT_DIR$/src/css/home.css" />
         <option value="$PROJECT_DIR$/src/Template/b_2.js" />
         <option value="$PROJECT_DIR$/src/Template/b_3.js" />
-        <option value="$PROJECT_DIR$/src/css/a.css" />
         <option value="$PROJECT_DIR$/src/Template/b.js" />
         <option value="$PROJECT_DIR$/src/Template/c.js" />
+        <option value="$PROJECT_DIR$/src/Template/c_2.js" />
+        <option value="$PROJECT_DIR$/src/css/a.css" />
+        <option value="$PROJECT_DIR$/src/css/c_1.css" />
+        <option value="$PROJECT_DIR$/src/Template/c_1.js" />
       </list>
     </option>
   </component>
@@ -112,11 +213,11 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1400" />
-    <option name="height" value="786" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="205" />
+    <option name="y" value="187" />
+    <option name="width" value="1439" />
+    <option name="height" value="805" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -158,6 +259,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
@@ -189,17 +291,18 @@
       <workItem from="1531920720223" duration="5719000" />
       <workItem from="1531963828403" duration="20875000" />
       <workItem from="1532006404849" duration="5153000" />
-      <workItem from="1532050062483" duration="11299000" />
+      <workItem from="1532050062483" duration="25599000" />
+      <workItem from="1532086688885" duration="1082000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63491000" />
+    <option name="totallyTimeSpent" value="78873000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="205" y="187" width="1439" height="805" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49845678" visible="true" weight="0.18229716" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49845678" visible="true" weight="0.14703783" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -229,48 +332,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="11" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/f.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4522">
-          <caret line="242" column="5" selection-start-line="242" selection-start-column="5" selection-end-line="242" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1254">
-          <caret line="66" column="24" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/e.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -300,17 +365,15 @@
         <state relative-caret-position="1938">
           <caret line="109" column="5" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
             <element signature="e#275#523#0" />
             <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
             <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
             <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
             <element signature="n#!!block;n#enterLoading#0;n#app#0" />
             <element signature="n#!!block;n#paginationData#0;n#app#0" />
-            <element signature="e#1259#1354#0" />
             <element signature="n#!!block;n#pageAxios#0;n#app#0" />
             <element signature="n#!!block;n#deleAdmin#0;n#app#0" />
-            <element signature="e#1815#1896#0" />
+            <element signature="e#1812#1893#0" />
             <element signature="n#!!block;n#onDel#0;n#app#0" />
             <element signature="n#!!block;n#dellarr#0;n#app#0" />
             <element signature="n#!!block;n#onDelAxios#0;n#app#0" />
@@ -323,7 +386,25 @@
         <state relative-caret-position="2736">
           <caret line="144" column="26" lean-forward="true" selection-start-line="144" selection-start-column="11" selection-end-line="144" selection-end-column="26" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#app#0" />
+            <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+            <element signature="n#!!block;n#queryAdminList#0;n#app#0" />
+            <element signature="e#2038#2798#0" />
+            <element signature="e#2831#3374#0" />
+            <element signature="e#3407#3583#0" />
+            <element signature="n#!!block;n#keyword#0;n#app#0" />
+            <element signature="e#3720#3858#0" />
+            <element signature="e#3888#4501#0" />
+            <element signature="e#4519#4585#0" />
+            <element signature="e#4599#4667#0" />
+            <element signature="n#!!block;n#_addOnchange#0;n#app#0" />
+            <element signature="e#5156#5544#0" />
+            <element signature="e#5561#5914#0" />
+            <element signature="e#5931#6284#0" />
+            <element signature="e#6477#6661#0" />
+            <element signature="e#6766#6973#0" />
           </folding>
         </state>
       </provider>
@@ -391,17 +472,15 @@
         <state relative-caret-position="1786">
           <caret line="101" column="3" selection-start-line="101" selection-start-column="3" selection-end-line="109" selection-end-column="5" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
             <element signature="e#275#523#0" />
             <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
             <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
             <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
             <element signature="n#!!block;n#enterLoading#0;n#app#0" />
             <element signature="n#!!block;n#paginationData#0;n#app#0" />
-            <element signature="e#1259#1354#0" />
             <element signature="n#!!block;n#pageAxios#0;n#app#0" />
             <element signature="n#!!block;n#deleAdmin#0;n#app#0" />
-            <element signature="e#1815#1896#0" />
+            <element signature="e#1812#1893#0" />
             <element signature="n#!!block;n#onDel#0;n#app#0" />
             <element signature="n#!!block;n#dellarr#0;n#app#0" />
             <element signature="n#!!block;n#onDelAxios#0;n#app#0" />
@@ -458,17 +537,15 @@
         <state relative-caret-position="1919">
           <caret line="101" column="3" lean-forward="true" selection-start-line="101" selection-start-column="3" selection-end-line="109" selection-end-column="5" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
             <element signature="e#275#523#0" />
             <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
             <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
             <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
             <element signature="n#!!block;n#enterLoading#0;n#app#0" />
             <element signature="n#!!block;n#paginationData#0;n#app#0" />
-            <element signature="e#1259#1354#0" />
             <element signature="n#!!block;n#pageAxios#0;n#app#0" />
             <element signature="n#!!block;n#deleAdmin#0;n#app#0" />
-            <element signature="e#1815#1896#0" />
+            <element signature="e#1812#1893#0" />
             <element signature="n#!!block;n#onDel#0;n#app#0" />
             <element signature="n#!!block;n#dellarr#0;n#app#0" />
             <element signature="n#!!block;n#onDelAxios#0;n#app#0" />
@@ -522,7 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/f.css" />
     <entry file="file://$PROJECT_DIR$/src/Template/f.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -534,13 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="448624" lean-forward="true" selection-start-column="448624" selection-end-column="448624" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -575,64 +644,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/a.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#275#523#0" />
-            <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
-            <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
-            <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
-            <element signature="n#!!block;n#enterLoading#0;n#app#0" />
-            <element signature="n#!!block;n#paginationData#0;n#app#0" />
-            <element signature="e#1259#1354#0" />
-            <element signature="n#!!block;n#pageAxios#0;n#app#0" />
-            <element signature="n#!!block;n#deleAdmin#0;n#app#0" />
-            <element signature="e#1815#1896#0" />
-            <element signature="n#!!block;n#onDel#0;n#app#0" />
-            <element signature="n#!!block;n#dellarr#0;n#app#0" />
-            <element signature="n#!!block;n#onDelAxios#0;n#app#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/a_2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/a_1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="258" column="18" lean-forward="true" selection-start-line="240" selection-start-column="11" selection-end-line="258" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
-            <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
-            <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
-            <element signature="n#!!block;n#queryAdminList#0;n#app#0" />
-            <element signature="e#2204#2964#0" />
-            <element signature="e#2997#3540#0" />
-            <element signature="e#3573#3749#0" />
-            <element signature="n#!!block;n#keyword#0;n#app#0" />
-            <element signature="e#3886#4024#0" />
-            <element signature="e#4054#4667#0" />
-            <element signature="e#4685#4751#0" />
-            <element signature="e#4765#4833#0" />
-            <element signature="n#!!block;n#_addOnchange#0;n#app#0" />
-            <element signature="e#5216#7158#0" />
-            <element signature="e#7338#8503#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -706,33 +717,157 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/a.css">
+    <entry file="file://$PROJECT_DIR$/src/Template/c.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="199" column="22" selection-start-line="199" selection-start-column="22" selection-end-line="199" selection-end-column="22" />
+        <state relative-caret-position="66">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+            <element signature="n#!!block;n#enterLoading#0;n#app#0" />
+            <element signature="n#!!block;n#paginationData#0;n#app#0" />
+            <element signature="n#!!block;n#pageAxios#0;n#app#0" />
+            <element signature="n#!!block;n#deleAdmin#0;n#app#0" />
+            <element signature="n#!!block;n#onDel#0;n#app#0" />
+            <element signature="n#!!block;n#dellarr#0;n#app#0" />
+            <element signature="n#!!block;n#onDelAxios#0;n#app#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/a_2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="28" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="23" lean-forward="true" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/c_2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/a.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+          <folding>
+            <element signature="e#275#523#0" />
+            <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+            <element signature="n#!!block;n#enterLoading#0;n#app#0" />
+            <element signature="n#!!block;n#paginationData#0;n#app#0" />
+            <element signature="n#!!block;n#pageAxios#0;n#app#0" />
+            <element signature="n#!!block;n#deleAdmin#0;n#app#0" />
+            <element signature="e#1812#1893#0" />
+            <element signature="n#!!block;n#onDel#0;n#app#0" />
+            <element signature="n#!!block;n#dellarr#0;n#app#0" />
+            <element signature="n#!!block;n#onDelAxios#0;n#app#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/a_1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="25" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#app#0" />
+            <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+            <element signature="n#!!block;n#queryAdminList#0;n#app#0" />
+            <element signature="e#2038#2798#0" />
+            <element signature="e#2831#3374#0" />
+            <element signature="e#3407#3583#0" />
+            <element signature="n#!!block;n#keyword#0;n#app#0" />
+            <element signature="e#3720#3858#0" />
+            <element signature="e#3888#4501#0" />
+            <element signature="e#4519#4585#0" />
+            <element signature="e#4599#4667#0" />
+            <element signature="n#!!block;n#_addOnchange#0;n#app#0" />
+            <element signature="e#5156#5544#0" />
+            <element signature="e#5561#5914#0" />
+            <element signature="e#5931#6284#0" />
+            <element signature="e#6477#6661#0" />
+            <element signature="e#6766#6973#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-857" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/f.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="58" column="18" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/css/home.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="76" column="30" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
+        <state relative-caret-position="243">
+          <caret line="134" column="17" selection-start-line="134" selection-start-column="11" selection-end-line="134" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="39" column="29" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/css/a_2.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="60" column="18" lean-forward="true" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
+        <state relative-caret-position="463">
+          <caret line="60" column="17" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/c.js">
+    <entry file="file://$PROJECT_DIR$/src/css/a.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="64" column="84" lean-forward="true" selection-start-line="64" selection-start-column="84" selection-end-line="64" selection-end-column="84" />
+        <state relative-caret-position="-3167">
+          <caret line="84" column="16" selection-start-line="84" selection-start-column="15" selection-end-line="84" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/c_1.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/c_1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1681">
+          <caret line="181" column="6" lean-forward="true" selection-start-line="181" selection-start-column="6" selection-end-line="181" selection-end-column="6" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+            <element signature="n#!!block;n#componentWillUnmount#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidUpdate#0;n#app#0" />
+            <element signature="n#!!block;n#componentDidMount#0;n#app#0" />
+            <element signature="n#!!block;n#queryAdminList#0;n#app#0" />
+            <element signature="n#!!block;n#keyword#0;n#app#0" />
+            <element signature="n#!!block;n#_addOnchange#0;n#app#0" />
           </folding>
         </state>
       </provider>

@@ -24,7 +24,9 @@ class app extends Component {
         //组件第一次render时执行
 
     };
-
+    deleAdmin=( id,idx )=>{
+        this.props.deleAdmin(id,idx)
+    };
     render() {
         return (
             <div className={"a_2 c_2"}>
@@ -40,19 +42,12 @@ class app extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>mobao145</td>
-                            <td>披萨店</td>
-                            <td>广东省深圳市</td>
-                            <td>广东省深圳市西乡街道</td>
-                            <td><button>查看</button>   <button  onClick={this.props.deleAdmin.bind(this,"abc")}>删除</button></td>
-                        </tr>
-
+                            <AataLis deleAdmin={this.deleAdmin} DataLis={this.props.DataLis}/>
                         </tbody>
                     </table>
                 </div>
                 <div className={"page"}>
-                   <span style={{"float":"left","lineHeight":"32px"}}>共220条</span> <Pagination onChange={this.props.pagination} defaultCurrent={1} total={50} />
+                    <span style={{"float":"left","lineHeight":"32px"}}>共{this.props.totalItems}条</span> <Pagination onChange={this.props.pagination}  total={this.props.totalItems} />
                 </div>
             </div>
         )
@@ -60,3 +55,6 @@ class app extends Component {
 }
 
 export default app;
+function AataLis(props){
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.mac}</td><td>{res.shopName}</td><td>{res.shopArea}</td><td>{res.shopAddress}</td><td><button>查看</button> <button onClick={props.deleAdmin.bind(this,res.adminId,idx)}>删除</button></td></tr>))
+}

@@ -12,7 +12,9 @@
     "react": "^16.4.1",
     "react-amap": "^1.2.7",
     "react-cookies": "^0.1.0",
+    "react-core-image-upload": "^2.2.3",
     "react-dom": "^16.4.1",
+    "react-file-base64": "^1.0.3",
     "react-scripts": "1.1.4"
   },
   "scripts": {
