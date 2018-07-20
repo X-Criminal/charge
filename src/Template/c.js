@@ -59,10 +59,10 @@ class app extends Component {
     render() {
         return (
             <div className={"a c"}>
-                   {/* <h3>设备管理</h3>
+                    <h3>设备管理</h3>
                     <C1  allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
                     <C2 pagination={this.pagination} deleAdmin={this.deleAdmin}/>
-                    <DeleAdmin dele_box={this.dele_box} deleis={this.state.deleis}/>*/}
+                    <DeleAdmin dele_box={this.dele_box} deleis={this.state.deleis}/>
                     <C3 />
             </div>
         )

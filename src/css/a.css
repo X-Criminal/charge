@@ -195,7 +195,10 @@
     height: 100%;
 }
 .b_3 .table{
-    max-height: 330px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+   min-height: 330px;
 }
 .b_3 .table tbody td{
     height: 44px;
@@ -232,5 +235,16 @@
 .cdit input{
     display: inline-block;
     width:50%;
+}
+.b_3{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 23px;
+    box-sizing: border-box;
+    transition: all .8s;
+}
+.b_3 h3 span{
+    cursor: pointer;
 }
 

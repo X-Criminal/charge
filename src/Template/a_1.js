@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+
 import axios from "axios"
 
 import {Select, Input, Button, Cascader} from "antd";
@@ -47,11 +48,6 @@ class app extends Component {
         });
         this.queryAdminList()
     }
-    headers={
-        "Content-Type": "application/json;",
-        "Cache-Control": "no-cache",
-        "Postman-Token": "68f807ba-db68-4f29-9091-7cb080b46462"
-    };
     queryAdminList(cb){
         axios({
             url:this.props.httpUrl+"/charge/web/admin/queryAdminList",
@@ -239,9 +235,7 @@ class app extends Component {
 export default app;
 
 function Add(props) {
-    function onChange(value) {
-        console.log(value);
-    }
+
     if (props.addis) {
         return (
             <div className={"addBox"}>

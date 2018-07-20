@@ -61,5 +61,5 @@ class app extends Component {
 export default app;
 
 function AataLis(props){
-    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.userName}</td><td>{res.account}</td><td>{res.password}</td><td>{res.area}</td><td>{res.address}</td><td>{res.IDNumber}</td><td>{res.bank}</td><td>{res.checkState===1?"待审核":res.checkState===2?"审核通过":res.checkState===2?"不通过":"未实名"}</td><td><button onClick={props.deleAdmin.bind(this,res.adminId,idx)}>删除</button></td></tr>))
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.userName}</td><td>{res.account}</td><td>{res.password}</td><td>{res.area}</td><td>{res.address}</td><td>{res.IDNumber}</td><td>{res.bank}</td><td>{res.checkState===1?"待审核":res.checkState===2?"审核通过":res.checkState===3?"不通过":"未实名"}</td><td><button onClick={props.deleAdmin.bind(this,res.adminId,idx)}>删除</button></td></tr>))
 }

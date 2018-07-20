@@ -24,6 +24,12 @@ class app extends Component {
         //组件第一次render时执行
 
     };
+    deleAdmin=( id,idx )=>{
+        this.props.deleAdmin(id,idx)
+    };
+    User=(idx)=>{
+        this.props.querybtn(idx )
+    };
 
     render() {
         return (
@@ -34,25 +40,17 @@ class app extends Component {
                         <tr>
                             <td>用户头像</td>
                             <td>账号</td>
-                            <td>密码</td>
-                            <td>区域</td>
+                            <td>昵称</td>
                             <td>操作</td>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><div><img src="" alt=""/></div></td>
-                            <td>15527543183</td>
-                            <td>123456</td>
-                            <td>广东省深圳市</td>
-                            <td><button>查看</button>   <button  onClick={this.props.deleAdmin.bind(this,"abc")}>删除</button></td>
-                        </tr>
-
+                            <AataLis httpUrl={this.props.httpUrl} User={this.User} deleAdmin={this.deleAdmin} DataLis={this.props.DataLis}/>
                         </tbody>
                     </table>
                 </div>
                 <div className={"page"}>
-                   <span style={{"float":"left","lineHeight":"32px"}}>共220条</span> <Pagination onChange={this.props.pagination} defaultCurrent={1} total={50} />
+                    <span style={{"float":"left","lineHeight":"32px"}}>共{this.props.totalItems}条</span> <Pagination onChange={this.props.pagination}  total={this.props.totalItems} />
                 </div>
             </div>
         )
@@ -60,3 +58,7 @@ class app extends Component {
 }
 
 export default app;
+
+function AataLis(props){
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td><div><img src={props.httpUrl+"/"+res.headUrl} /></div></td><td>{res.account}</td><td>{res.name}</td><td> <button onClick={props.User.bind(this,{userId:res.userId,usernum:res.account,username:res.name})}>查看</button> <button onClick={props.deleAdmin.bind(this,res.userId,idx)}>删除</button></td></tr>))
+}

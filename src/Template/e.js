@@ -32,7 +32,7 @@ class app extends Component {
             <div style={{width: "100%", height: "100%"}}>
                 <Map amapkey={"2ee7cdb1cc01246fee998a056662cf6b"} >
                     <Marker position={{longitude: 121, latitude: 34 }} >
-                        <div style={{width:"10px",height:"10px","backgroundColor":"red"}}>A MARKER</div>
+
                     </Marker>
                 </Map>
             </div>

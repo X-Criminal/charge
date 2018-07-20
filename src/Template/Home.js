@@ -88,7 +88,7 @@ class app extends Component {
             this.setState({
                 isAuthentication:true,
             });
-            alert("请先实名认证");
+            alert("未实名认证或实名认证未通过，请重新认证");
         }
     };
     /**删除数组中某项**/

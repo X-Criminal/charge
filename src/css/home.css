@@ -89,6 +89,8 @@ nav ul{
     height:calc(100vh - 102px);
     padding: 23px;
     box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
 }
 .Authentication{
     position: fixed;

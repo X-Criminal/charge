@@ -28,7 +28,6 @@ class app extends Component {
         this.deleAdmin = this.deleAdmin.bind(this);
         this.onDel = this.onDel.bind(this)
     }
-
     componentWillUnmount() {
         //组件被移除时执行
 
@@ -42,8 +41,6 @@ class app extends Component {
         //组件第一次render时执行
 
     }
-
-
     /**获取数据后的回调**/
     enterLoading(res){
         let data = res.data.data;

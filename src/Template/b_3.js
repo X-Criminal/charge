@@ -27,9 +27,9 @@ class app extends Component {
 
     render() {
         return (
-            <div className={"a b b_3"}>
-                <h3>用户管理>订单管理</h3>
-                <p><span>账户:15834569087</span><span>昵称:小明</span> </p>
+            <div className={"a b b_3"} style={this.props.quserBox?{"top":0}:{"top":"100%"}}>
+                <h3><span onClick={this.props.close}>用户管理</span>>订单管理</h3>
+                <p><span>{this.props.usernum}</span><span>昵称:{this.props.username}</span> </p>
                 <div className={"a_2 b_2"}>
                     <div className={"table"}>
                         <table>
@@ -46,16 +46,9 @@ class app extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>2018-06-08 12:34:56</td>
-                                <td>15467891234</td>
-                                <td>123456</td>
-                                <td>租借中</td>
-                                <td>99</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                          {
+                            this.props._b3Data.map((res,idx)=> <tr key={idx}><td>{res.startTime}</td><td>{res.address}</td><td>{res.orderNumber}</td><td>{res.state===2?"租借中":"已归还"}</td><td>{res.money}</td><td>{res.startTime}</td><td>{res.refund}</td><td>{res.monetary}</td></tr> )
+                          }
                             </tbody>
                         </table>
                     </div>

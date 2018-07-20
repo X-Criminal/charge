@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import axios from "axios";
+import cookie from "react-cookies";
 import {Select, Input, Button, Cascader} from "antd";
 
 const Option = Select.Option;
@@ -17,7 +19,14 @@ class app extends Component {
             addLoading: false,
             keyword: "",
             addis: false,
+            page:1,
+            account:"",
+            area:"",
+            password:"",
+            userName:"",
         };
+
+        this._addOnchange=this._addOnchange.bind(this);
         this.keyword = this.keyword.bind(this);
     }
 
@@ -28,13 +37,41 @@ class app extends Component {
 
     componentDidUpdate() {
         //setState 更新时执行
-        console.log();
+
     }
 
     componentDidMount() {
         //组件第一次render时执行
         this.setState({
-            province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>)
+            province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
+        });
+        this.queryAdminList()
+    }
+    queryAdminList(cb){
+        axios({
+            url:this.props.httpUrl+"/charge/web/user/queryUserList",
+            method:"post",
+            data:{
+                area:this.state.txta+this.state.txtb+this.state.txtc,
+                keyWord:this.state.keyword,
+                page:this.state.page,
+                numberPage:11,
+                adminId:cookie.load("user").data.adminId,
+                role:cookie.load("user").data.role
+            }
+        }).then((res)=>{
+            if(res.data.code===1000){
+                this.props.paginationData({
+                    area:this.state.txta+this.state.txtb+this.state.txtc,
+                    keyWord:this.state.keyword,
+                    numberPage:11,
+                    page:1,
+                });
+                this.props.enterLoading(res)
+            }else if(res.data.code===3001||res.data.code===1002){
+                alert(res.data.message)
+            }
+            cb&&cb( )
         })
     }
 
@@ -55,6 +92,11 @@ class app extends Component {
                 return;
             }
         }
+        if(!value){
+            this.setState({
+                txta:""
+            })
+        }
     };
     handleChange2 = (value) => {
         for (let i = 0, idx = this.state.city.arr.length; i < idx; i++) {
@@ -66,23 +108,55 @@ class app extends Component {
                 return;
             }
         }
+        if(!value){
+            this.setState({
+                txtb:""
+            })
+        }
     };
     handleChange3 = (value) => {
         this.setState({
             txtc: value,
         })
+        if(!value){
+            this.setState({
+                txtc:""
+            })
+        }
     };
     keyword(e) {
         this.setState({
             keyword: e.target.value,
         })
     }
+    /**搜索按钮**/
     enterLoading = () => {
         this.setState({loading: true});
-        this.props.enterLoading("1")
+        this.queryAdminList( ()=>{
+            this.setState({loading: false});
+        })
     };
     AddenterLoading = () => {
-
+        axios({
+            url:this.props.httpUrl+"/charge/web/admin/addAdmin",
+            method:"post",
+            data:{
+                account:this.state.account,
+                area:this.state.area,
+                password:this.state.password,
+                userName:this.state.userName,
+            }
+        }).then((res)=>{
+            this.setState({
+                account:"",
+                area:"",
+                password:"",
+                userName:"",
+                addis:false,
+            });
+            alert(res.data.message);
+            this.queryAdminList();
+        })
     };
     close = ()=>{
         this.setState({
@@ -90,10 +164,25 @@ class app extends Component {
         })
     };
     add=()=>{
-         this.setState({
-             addis:true
-         })
+        this.setState({
+            addis:true
+        })
     };
+    _addOnchange( e ){
+        if(!e.length){
+            this.setState({
+                [e.target.name]:e.target.value,
+            });
+        }else{
+            let area="";
+            for(let i = 0;i<e.length;i++){
+                area += e[i]
+            }
+            this.setState({
+                area:area
+            })
+        }
+    }
 
     render() {
         return (
@@ -105,6 +194,7 @@ class app extends Component {
                     placeholder="省"
                     optionFilterProp="children"
                     onChange={this.handleChange1}
+                    allowClear={true}
                     name={"sheng"}
                 >
                     {this.state.province}
@@ -135,8 +225,8 @@ class app extends Component {
                         onClick={this.enterLoading}>
                     搜索
                 </Button>
-                <Button className={"add"} onClick={this.add} type="primary">添加账号</Button>
-                <Add addis={this.state.addis} addLoading={this.state.addLoading}
+                <Button className={"add"} onClick={this.add} type="primary">添加</Button>
+                <Add _addOnchange={this._addOnchange} addis={this.state.addis} addLoading={this.state.addLoading}
                      AddenterLoading={this.AddenterLoading} close={this.close} options={this.props.options}/>
             </div>
         )
@@ -146,26 +236,24 @@ class app extends Component {
 export default app;
 
 function Add(props) {
-    function onChange(value) {
-        console.log(value);
-    }
+
     if (props.addis) {
         return (
             <div className={"addBox"}>
                 <div>
-                    <h3>添加用户 <i onClick={props.close}> </i></h3>
+                    <h3>添加管理员 <i onClick={props.close}> </i></h3>
                     <div className={"input"}>
-                        <p><span>用户</span> <Input name={"userName"} type="text"/></p>
-                        <p><span>账号</span> <Input name={"account"} type="text"/></p>
-                        <p><span>密码</span> <Input name={"password"} type="text"/></p>
-                        <p><span>地区</span> <Cascader options={props.options} onChange={onChange} placeholder={""}
+                        <p><span>用户</span> <Input name={"userName"} type="text" onChange={props._addOnchange} /></p>
+                        <p><span>账号</span> <Input name={"account"} type="text"  onChange={props._addOnchange}/></p>
+                        <p><span>密码</span> <Input name={"password"} type="text" onChange={props._addOnchange}/></p>
+                        <p><span>地区</span> <Cascader name={"area"} options={props.options} onChange={props._addOnchange} placeholder={""}
                                                      changeOnSelect/></p>
                     </div>
                     <div className={"addBtn"}>
                         <Button onClick={props.close}>取消</Button>
                         <Button style={{"marginLeft": "10px"}} type="primary" loading={props.addLoading}
                                 onClick={props.AddenterLoading}>
-                            搜索
+                            添加
                         </Button>
                     </div>
                 </div>

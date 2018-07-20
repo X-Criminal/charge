@@ -49,7 +49,7 @@ class app extends Component{
         "Content-Type": "application/json;",
         "Cache-Control": "no-cache",
         "Postman-Token": "68f807ba-db68-4f29-9091-7cb080b46462"
-    }
+    };
     islogin = true;
     /**登陆**/
     login_btn( e ){
