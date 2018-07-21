@@ -70,12 +70,12 @@ class app extends Component {
             this.enterLoading(res)
         })
     }
-    delid = "";
+    equipmentId = "";
     idx="";
     /**删除后触发**/
     deleAdmin(a,idx){
-        this.delid=a;
-        this.idx=idx;
+        this.equipmentId=a;
+        this.idx= idx;
         this.setState({
             deleis:!this.state.deleis,
         })
@@ -106,15 +106,15 @@ class app extends Component {
     }
     onDelAxios(cb){
         axios({
-            url:this.props.httpUrl+"/charge/web/admin/delAdmin",
-            method:"post",
+            url:this.props.httpUrl+"/charge/web/device/delDevice",
+            method:"get",
             params:{
-                adminId:this.delid,
+                equipmentId:this.equipmentId,
             }
         }).then((res)=>{
             alert(res.data.message);
             this.dele_box( );
-            if(res.data.code) cb&&cb();
+            if(res.data.code===1000) cb&&cb();
         })
     }
 
@@ -145,7 +145,7 @@ function DeleAdmin(props){
                     </p>
                     <div className={"delBtn"}>
                         <button onClick={props.dele_box}>取消</button>
-                        <button>确定</button>
+                        <button onClick={props.onDel}>确定</button>
                     </div>
                 </div>
             </div>

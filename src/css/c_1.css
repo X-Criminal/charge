@@ -29,7 +29,7 @@
 }
 .up_img span{
     float: left;
-    width: 20%;
+    width: 30%;
     text-align: right;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -46,11 +46,30 @@
     height: 100%;
 }
 .up_img >div{
-    border: 1px solid #ccc;
+    border: 1px solid #C0CCDA;
     background-size: 90%;
     background-repeat: no-repeat;
     background-position: center;
+    position: relative;
+    background-image: url("../img/add.png");
+}
+.up_img >div i{
+    position: absolute;
+    left: 40%;
+    top: 36%;
+    font-size: 16px;
+    color: #08c;
 }
 .up_img >div:hover{
     border-color:#3aa7ff;
+}
+.addBox_C1 .input p span{
+    width: 30%;
+}
+.addBox_C1 .input p span  input{
+    width: 100% !important;
+}
+.addBox_C1 .input p span i{
+    position: absolute;
+    right: 0;
 }

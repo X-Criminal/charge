@@ -56,5 +56,5 @@ class app extends Component {
 
 export default app;
 function AataLis(props){
-    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.mac}</td><td>{res.shopName}</td><td>{res.shopArea}</td><td>{res.shopAddress}</td><td><button>查看</button> <button onClick={props.deleAdmin.bind(this,res.adminId,idx)}>删除</button></td></tr>))
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.mac}</td><td>{res.shopName}</td><td>{res.shopArea}</td><td>{res.shopAddress}</td><td><button>查看</button> <button onClick={props.deleAdmin.bind(this,res.equipmentId,idx)}>删除</button></td></tr>))
 }

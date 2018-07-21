@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import {Select, Input, Button, Cascader} from "antd";
+import {Select, Input, Button, Cascader,Icon} from "antd";
 import FileBase64 from 'react-file-base64';
+import cookie from "react-cookies"
 import axios from "axios"
 
 import "../css/c_1.css"
@@ -23,6 +24,7 @@ class app extends Component {
             addis: false,
             page:1,
             bimg:"",
+            showIcon:false,
                 address:"",
                 adminId:"",
                 area:"",
@@ -34,7 +36,7 @@ class app extends Component {
                 start:""
         };
 
-        this._addOnchange=this._addOnchange.bind(this)
+        this._addOnchange=this._addOnchange.bind(this);
         this.keyword = this.keyword.bind(this);
     }
 
@@ -51,7 +53,8 @@ class app extends Component {
     componentDidMount() {
         //组件第一次render时执行
         this.setState({
-            province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>)
+            province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
+            adminId:cookie.load("user").data.adminId
         });
         this.queryAdminList()
     }
@@ -198,9 +201,30 @@ class app extends Component {
     imabase64=(img,type)=>{
         this.setState({
             bimg:img,
-            img:img.replace(/^data:image\/(png|jpg|bpm);base64,/, "")
+            img:img.replace(/^data:image\/(png|jpg|bpm);base64,/, ""),
+            showIcon:false,
         })
     };
+    imgClick=()=>{
+        this.setState({
+            showIcon:true
+        })
+    };
+    Onclick =(e)=>{
+        if(e.target){
+            this.setState({
+                [e.target.name]:e.target.value
+            });
+        }else{
+            let txt="";
+            for(let j =0;j<e.length;j++){
+                txt+=e[j]
+            }
+            this.setState({
+                area:txt
+            })
+        }
+    }
     render() {
         return (
             <div className={"Region"}>
@@ -249,7 +273,10 @@ class app extends Component {
                              addLoading={this.state.addLoading}
                              AddenterLoading={this.AddenterLoading}
                              close={this.close}
+                             imgClick={this.imgClick}
+                             showIcon={this.state.showIcon}
                              options={this.props.options}
+                             Onclick={this.Onclick}
                              imabase64={this.imabase64}/>
             </div>
         )
@@ -277,21 +304,21 @@ function AddEuipment(props) {
                 <div>
                     <h3>添加设备<i onClick={props.close}> </i></h3>
                     <div className={"input"}>
-                        <p><span>设备编码</span> <Input name={"userName"} type="text"/></p>
-                        <p><span>店铺名称</span> <Input name={"account"} type="text"/></p>
-                        <div className={"up_img"}><span>店铺图片</span> <div style={{"backgroundImage":"url("+props.bimg+")"}}><FileBase64  multiple={ false } onDone={getFiles.bind(this) }/></div></div>
+                        <p><span>设备编码</span> <Input  onChange={props.Onclick}  name={"mac"} type="text"/></p>
+                        <p><span>店铺名称</span> <Input  onChange={props.Onclick}  name={"name"} type="text"/></p>
+                        <div className={"up_img"}><span>店铺图片</span> <div onClick={props.imgClick} style={props.bimg.length>0?{"backgroundImage":"url("+props.bimg+")"}:{}}> <Icon  type="loading" style={props.showIcon?{display:""}:{display:"none"}} /> <FileBase64  multiple={ false } onDone={getFiles.bind(this) }/></div></div>
                         <p>大小不超过10M，格式：bpm,png,jpeg.建议尺寸在270*270以上.</p>
-                        <p><span>营业事件</span> <Input placeholder={"开始时间"} type="text"/> <Input placeholder={"结束时间"} type="text"/></p>
-                        <p><span>人均消费</span> <Input name={"account"} type="text"/></p>
-                        <p><span>地址</span> <Cascader options={props.options} placeholder={"省-市-区"} changeOnSelect/></p>
-                        <p><span>详细地址</span> <Input name={"account"} type="text"/></p>
-                        <p><span>经纬度</span> <Input placeholder={"经度"} type="text"/> <Input placeholder={"纬度"} type="text"/></p>
+                        <p><span>营业事件</span>  <span><Input name={"start"} onChange={props.Onclick} placeholder={"开始时间"}/> <Icon type="lock-circle-o"/></span><span><Input onChange={props.Onclick} name={"end"} placeholder={"结束时间"}/>  <Icon type="lock-circle-o" style={{ fontSize: 16, color: '#08c' }} /></span></p>
+                        <p><span>人均消费</span>  <Input  onChange={props.Onclick}  name={"pay"} type="text"/></p>
+                        <p><span>地址</span>      <Cascader name={"area"} options={props.options} onChange={props.Onclick} placeholder={"省-市-区"} changeOnSelect/></p>
+                        <p><span>详细地址</span>  <Input  onChange={props.Onclick}  name={"address"} type="text"/></p>
+                        <p><span>经纬度</span>    <Input  placeholder={"经度"} type="text"/> <Input placeholder={"纬度"} type="text"/></p>
                     </div>
                     <div className={"addBtn"}>
                         <Button onClick={props.close}>取消</Button>
                         <Button style={{"marginLeft": "10px"}} type="primary" loading={props.addLoading}
                                 onClick={props.AddenterLoading}>
-                            搜索
+                            提交
                         </Button>
                     </div>
                 </div>
