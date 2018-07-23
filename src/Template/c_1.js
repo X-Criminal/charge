@@ -1,9 +1,7 @@
 import React, {Component} from "react";
-import {Select, Input, Button, Cascader,Icon} from "antd";
-import FileBase64 from 'react-file-base64';
+import {Select, Input, Button, Cascader,Upload, Icon, message} from "antd";
 import cookie from "react-cookies"
 import axios from "axios"
-
 import "../css/c_1.css"
 
 const Option = Select.Option;
@@ -24,7 +22,6 @@ class app extends Component {
             addis: false,
             page:1,
             bimg:"",
-            showIcon:false,
                 address:"",
                 adminId:"",
                 area:"",
@@ -50,12 +47,15 @@ class app extends Component {
 
     }
 
-    componentDidMount() {
-        //组件第一次render时执行
+    componentWillMount(){
         this.setState({
             province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
-            adminId:cookie.load("user").data.adminId
+            adminId:cookie.load("user").data.adminId,
+            role:cookie.load("user").data.role,
         });
+    }
+    componentDidMount() {
+        //组件第一次render时执行
         this.queryAdminList()
     }
     queryAdminList(cb){
@@ -63,6 +63,8 @@ class app extends Component {
             url:this.props.httpUrl+"/charge/web/device/queryEquipmentList",
             method:"post",
             data:{
+                adminId:this.state.adminId,
+                role:this.state.role,
                 area:this.state.txta+this.state.txtb+this.state.txtc,
                 keyWord:this.state.keyword,
                 page:this.state.page,
@@ -126,7 +128,7 @@ class app extends Component {
     handleChange3 = (value) => {
         this.setState({
             txtc: value,
-        })
+        });
         if(!value){
             this.setState({
                 txtc:""
@@ -198,18 +200,6 @@ class app extends Component {
             })
         }
     }
-    imabase64=(img,type)=>{
-        this.setState({
-            bimg:img,
-            img:img.replace(/^data:image\/(png|jpg|bpm);base64,/, ""),
-            showIcon:false,
-        })
-    };
-    imgClick=()=>{
-        this.setState({
-            showIcon:true
-        })
-    };
     Onclick =(e)=>{
         if(e.target){
             this.setState({
@@ -224,7 +214,16 @@ class app extends Component {
                 area:txt
             })
         }
-    }
+    };
+    upimg=(data)=>{
+        if(data.code===1000){
+            this.setState({
+                img:data.data,
+            })
+        }else{
+            alert(data.message)
+        }
+    };
     render() {
         return (
             <div className={"Region"}>
@@ -273,11 +272,10 @@ class app extends Component {
                              addLoading={this.state.addLoading}
                              AddenterLoading={this.AddenterLoading}
                              close={this.close}
-                             imgClick={this.imgClick}
-                             showIcon={this.state.showIcon}
-                             options={this.props.options}
                              Onclick={this.Onclick}
-                             imabase64={this.imabase64}/>
+                             upimg={this.upimg}
+                             options={this.props.options}
+                     />
             </div>
         )
     }
@@ -286,17 +284,6 @@ class app extends Component {
 export default app;
 
 function AddEuipment(props) {
-    let getFiles=(files)=>{
-        if(files.type==="image/png"||files.type==="image/jpeg"||files.type==="image/bpm"){
-            if(files.file.size/1024/1024<10){
-                        props.imabase64(files.base64,files.type)
-                }else{
-                    alert("图片过大，请重新上传！")
-                }
-        }else{
-            alert("图片格式不正确！")
-        }
-    };
 
     if (props.addis) {
         return (
@@ -306,7 +293,7 @@ function AddEuipment(props) {
                     <div className={"input"}>
                         <p><span>设备编码</span> <Input  onChange={props.Onclick}  name={"mac"} type="text"/></p>
                         <p><span>店铺名称</span> <Input  onChange={props.Onclick}  name={"name"} type="text"/></p>
-                        <div className={"up_img"}><span>店铺图片</span> <div onClick={props.imgClick} style={props.bimg.length>0?{"backgroundImage":"url("+props.bimg+")"}:{}}> <Icon  type="loading" style={props.showIcon?{display:""}:{display:"none"}} /> <FileBase64  multiple={ false } onDone={getFiles.bind(this) }/></div></div>
+                        <div className={"up_img"}><span>店铺图片</span><Avatar upimg={props.upimg}/></div>
                         <p>大小不超过10M，格式：bpm,png,jpeg.建议尺寸在270*270以上.</p>
                         <p><span>营业事件</span>  <span><Input name={"start"} onChange={props.Onclick} placeholder={"开始时间"}/> <Icon type="lock-circle-o"/></span><span><Input onChange={props.Onclick} name={"end"} placeholder={"结束时间"}/>  <Icon type="lock-circle-o" style={{ fontSize: 16, color: '#08c' }} /></span></p>
                         <p><span>人均消费</span>  <Input  onChange={props.Onclick}  name={"pay"} type="text"/></p>
@@ -326,6 +313,70 @@ function AddEuipment(props) {
         )
     } else {
         return null;
+    }
+}
+
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+    const isJPG = file.type === 'image/jpeg'||"image/png"||"image/bpm";
+    if (!isJPG) {
+        message.error('该图片格式不正确!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 10;
+    if (!isLt2M) {
+        message.error('该图片大于10M!');
+    }
+    return isJPG && isLt2M;
+}
+
+class Avatar extends React.Component {
+    state = {
+        loading: false,
+    };
+
+    handleChange = (info) => {
+        if(info.file.response){
+            this.props.upimg(info.file.response)
+        }
+        if (info.file.status === 'uploading') {
+            this.setState({ loading: true });
+            return;
+        }
+        if (info.file.status === 'done') {
+            // Get this url from response in real world.
+            getBase64(info.file.originFileObj, imageUrl => this.setState({
+                imageUrl,
+                loading: false,
+            }));
+        }
+    };
+
+    render() {
+        const uploadButton = (
+            <div>
+                <Icon type={this.state.loading ? 'loading' : 'plus'} />
+                <div className="ant-upload-text">选择图片</div>
+            </div>
+        );
+        const imageUrl = this.state.imageUrl;
+        return (
+            <Upload
+                name="file"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                action="http://47.98.252.6:80/charge/web/user/addPicture"
+                beforeUpload={beforeUpload}
+                onChange={this.handleChange}
+            >
+                {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+            </Upload>
+        );
     }
 }
 

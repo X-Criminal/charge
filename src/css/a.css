@@ -192,10 +192,9 @@
 }
 .avatar-uploader > .ant-upload img{
     width: 100%;
-    height: 100%;
 }
 .b_3 .table{
-    height: 100%;
+    height: 50%;
     overflow-y: auto;
     overflow-x: hidden;
    min-height: 330px;
@@ -247,4 +246,28 @@
 .b_3 h3 span{
     cursor: pointer;
 }
-
+.cditone input{
+    border: none;
+}
+.cditone .address{
+    width: 70%;
+}
+.cdit .date input{
+    width: 20%;
+}
+.cdit .date> input:nth-of-type(2){
+    margin-left: 10px;
+}
+.cdit .addr .ant-cascader-picker{
+    width: 50%;
+}
+.cdit .addr .ant-cascader-picker-label{
+    width: 100%;
+    text-align: left;
+}
+.cdittwo{
+    margin-top: -2%;
+}
+.cdittwo #imgup >span{
+    vertical-align: middle
+}

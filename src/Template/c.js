@@ -17,11 +17,12 @@ class app extends Component {
             DataLis:[],
             totalItems:0,
             page:1,
-            pagination:{
-                total:500,
-            },
+            ishowC3:false,
             deleis:false,
-            pageData:{}
+            isCdit:true,
+            pageData:{},
+            c3Data:[],
+            onshopId:""
         };
         this.enterLoading = this.enterLoading.bind(this);
         this.paginationData = this.paginationData.bind(this);
@@ -63,7 +64,7 @@ class app extends Component {
     };
     pageAxios(data){
         axios({
-            url:this.props.httpUrl+"/charge/web/admin/queryAdminList",
+            url:this.props.httpUrl+"/charge/web/admin/queryEquipmentList",
             method:"post",
             data:data
         }).then((res)=>{
@@ -118,14 +119,72 @@ class app extends Component {
         })
     }
 
+    /**查看店铺信息**/
+    queryDetails=( data )=>{
+        this.queryDetailsAxios(data);
+        this.setState({
+            onshopId:data.shopId
+        })
+    };
+    queryDetailsAxios( data ){
+        let _this = this;
+        axios.get(this.props.httpUrl+"/charge/web/device/queryShopDetails?shopId="+data.shopId)
+            .then((res)=>{
+                if(res.data.code===1000){
+                    res.data.data.mac=data.mac;
+                    _this.setState({
+                        ishowC3:true,
+                        c3Data:res.data.data,
+                        isCdit:true,
+                    })
+                }else{
+                    alert(res.data.message)
+                }
+            })
+    }
+    /**关闭店铺信息**/
+    hidDeta=()=>{
+      this.setState({
+          ishowC3:false,
+          isCdit:true,
+      })
+    };
+    /**编辑**/
+    edit=()=>{
+        this.setState({
+            isCdit:false,
+        })
+    };
+    rerF=()=>{
+        this.setState({
+            isCdit:true,
+        })
+    };
+    onedit=(data)=>{
+        axios.post(this.props.httpUrl+"/charge/web/device/updateDevice",data)
+            .then((res)=>{
+               if(res.data.code===1000){
+                    let _data={
+                       shopId:data.shopId,
+                       mac:this.state.c3Data.mac,
+                   };
+                    this.queryDetailsAxios(_data)
+               }else{
+                   alert(res.data.message)
+               }
+                console.log(res);
+            });
+        console.log(data);
+    };
+
     render() {
         return (
             <div className={"a c"}>
                     <h3>设备管理</h3>
                     <C1 paginationData={this.paginationData} httpUrl={this.props.httpUrl} allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
-                    <C2 totalItems={this.state.totalItems} DataLis={this.state.DataLis} dataLis={this.dataLis} pagination={this.pagination} deleAdmin={this.deleAdmin}/>
+                    <C2 totalItems={this.state.totalItems} DataLis={this.state.DataLis} dataLis={this.dataLis} pagination={this.pagination} deleAdmin={this.deleAdmin} queryDetails={this.queryDetails}/>
                     <DeleAdmin onDel={this.onDel} dele_box={this.dele_box} deleis={this.state.deleis}/>
-                 {/*   <C3 />*/}
+                    <C3 onedit={this.onedit} ishowC3={this.state.ishowC3} hidDeta={this.hidDeta} c3Data={this.state.c3Data} isCdit={this.state.isCdit} edit={this.edit} rerF={this.rerF} options={this.props.options} onshopId={this.state.onshopId}/>
             </div>
         )
     }
@@ -154,3 +213,5 @@ function DeleAdmin(props){
         return null;
     }
 }
+
+

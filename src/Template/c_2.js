@@ -42,7 +42,7 @@ class app extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                            <AataLis deleAdmin={this.deleAdmin} DataLis={this.props.DataLis}/>
+                            <AataLis queryDetails={this.props.queryDetails} deleAdmin={this.deleAdmin} DataLis={this.props.DataLis}/>
                         </tbody>
                     </table>
                 </div>
@@ -56,5 +56,5 @@ class app extends Component {
 
 export default app;
 function AataLis(props){
-    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.mac}</td><td>{res.shopName}</td><td>{res.shopArea}</td><td>{res.shopAddress}</td><td><button>查看</button> <button onClick={props.deleAdmin.bind(this,res.equipmentId,idx)}>删除</button></td></tr>))
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.mac}</td><td>{res.shopName}</td><td>{res.shopArea}</td><td>{res.shopAddress}</td><td><button onClick={props.queryDetails.bind(this,{mac:res.mac,shopId:res.shopId})}>查看</button> <button onClick={props.deleAdmin.bind(this,res.equipmentId,idx)}>删除</button></td></tr>))
 }

@@ -26,6 +26,7 @@
 }
 .up_img{
     margin-top: 20px;
+    height: 100px;
 }
 .up_img span{
     float: left;
@@ -72,4 +73,12 @@
 .addBox_C1 .input p span i{
     position: absolute;
     right: 0;
+}
+.ant-upload.ant-upload-select-picture-card{
+    width: 90px;
+    height: 90px;
+}
+.ant-upload.ant-upload-select-picture-card .anticon-plus{
+    font-size: 50px;
+    font-weight: 600;
 }
