@@ -2,9 +2,10 @@
   "name": "webapp",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "ajv": "^6.5.2",
-    "antd": "^3.6.4",
+    "antd": "^3.7.1",
     "axios": "^0.18.0",
     "express": "^4.16.3",
     "jQuery": "^1.7.4",
@@ -20,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test":  "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }

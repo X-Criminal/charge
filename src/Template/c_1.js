@@ -73,6 +73,8 @@ class app extends Component {
         }).then((res)=>{
             if(res.data.code===1000){
                 this.props.paginationData({
+                    adminId:this.state.adminId,
+                    role:this.state.role,
                     area:this.state.txta+this.state.txtb+this.state.txtc,
                     keyWord:this.state.keyword,
                     numberPage:11,
@@ -80,6 +82,7 @@ class app extends Component {
                 });
                 this.props.enterLoading(res)
             }else if(res.data.code===3001||res.data.code===1002){
+                console.log(1);
                 alert(res.data.message)
             }
             cb&&cb( )
@@ -171,6 +174,7 @@ class app extends Component {
                 userName:"",
                 addis:false,
             });
+            console.log(1);
             alert(res.data.message);
             this.queryAdminList();
         })
@@ -221,6 +225,7 @@ class app extends Component {
                 img:data.data,
             })
         }else{
+            console.log(1);
             alert(data.message)
         }
     };

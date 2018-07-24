@@ -8,7 +8,7 @@ import A2 from "./a_2"
 import "../css/a.css"
 
 
-class app extends Component {
+class app1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,10 +21,10 @@ class app extends Component {
                 total:500,
             },
             deleis:false,
-            pageData:{}
+            pageData:{},
         };
-        this.enterLoading = this.enterLoading.bind(this);
-        this.paginationData = this.paginationData.bind(this);
+        this._enterLoading = this._enterLoading.bind(this);
+        this._paginationData = this._paginationData.bind(this);
         this.deleAdmin = this.deleAdmin.bind(this);
         this.onDel = this.onDel.bind(this)
     }
@@ -39,10 +39,9 @@ class app extends Component {
     }
     componentDidMount() {
         //组件第一次render时执行
-
     }
     /**获取数据后的回调**/
-    enterLoading(res){
+    _enterLoading(res){
         let data = res.data.data;
         this.setState({
             DataLis:data,
@@ -50,7 +49,7 @@ class app extends Component {
         })
     }
     /**获取查询条件进行分页查询**/
-    paginationData(obj){
+    _paginationData(obj){
         this.setState({
            pageData:obj
        })
@@ -67,7 +66,7 @@ class app extends Component {
             method:"post",
             data:data
         }).then((res)=>{
-            this.enterLoading(res)
+            this._enterLoading(res)
         })
     }
     delid = "";
@@ -122,14 +121,14 @@ class app extends Component {
         return (
             <div className={"a"}>
                    <h3>管理员管理</h3>
-                   <A1 paginationData={this.paginationData} httpUrl={this.props.httpUrl} allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
+                   <A1 paginationData={this._paginationData} httpUrl={this.props.httpUrl} allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this._enterLoading}/>
                    <A2 totalItems={this.state.totalItems} DataLis={this.state.DataLis} dataLis={this.dataLis} pagination={this.pagination} deleAdmin={this.deleAdmin}/>
                    <DeleAdmin onDel={this.onDel} dele_box={this.dele_box} deleis={this.state.deleis}/>
             </div>
         )
     }
 }
-export  default app;
+export default app1;
 
    function DeleAdmin(props){
        if(props.deleis){

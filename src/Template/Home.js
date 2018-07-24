@@ -60,7 +60,6 @@ class app extends Component {
         }else{
             this.tabarr2=this.tabarr;
         }
-        this.firstEntry( );
     }
     componentDidMount() {
         let role = cookie.load("user");
@@ -73,7 +72,7 @@ class app extends Component {
         let _this= this;
         window.onhashchange=function(){
             let hash = window.location.hash;
-            _this.hash(hash,role.data.role)
+            _this.hash(hash)
         };
         this.setState({
             role:role.data.role,
@@ -81,6 +80,7 @@ class app extends Component {
             adminid:role.data.adminId
         });
         this.abc();
+        this.firstEntry( );
     }
     abc=( )=>{
         let role = cookie.load("user");
@@ -113,9 +113,9 @@ class app extends Component {
         var hash = window.location.hash;
         this.hash(hash)
     };
-    hash(hash,role){
+    hash(hash){
         let _this= this;
-        let obj = role===2?1:0;
+        let obj =cookie.load("user").data.role===2?1:0;
         for(let i = 0,idx = _this.tabarr2.length;i<idx;i++){
             if(_this.tabarr2[i].href===hash){
                 _this.setState({
@@ -1143,8 +1143,8 @@ const options = [{
             value: "五台县",
             label: "五台县"
         }, {
-            value: "代 县",
-            label: "代 县"
+            value: "代县",
+            label: "代县"
         }, {
             value: "繁峙县",
             label: "繁峙县"
@@ -1192,11 +1192,11 @@ const options = [{
             value: "交城县",
             label: "交城县"
         }, {
-            value: "兴 县",
-            label: "兴 县"
+            value: "兴县",
+            label: "兴县"
         }, {
-            value: "临 县",
-            label: "临 县"
+            value: "临县",
+            label: "临县"
         }, {
             value: "柳林县",
             label: "柳林县"
@@ -1244,8 +1244,8 @@ const options = [{
             value: "太谷县",
             label: "太谷县"
         }, {
-            value: "祁 县",
-            label: "祁 县"
+            value: "祁县",
+            label: "祁县"
         }, {
             value: "平遥县",
             label: "平遥县"

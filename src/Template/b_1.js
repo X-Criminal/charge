@@ -45,9 +45,10 @@ class app extends Component {
         this.setState({
             province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
         });
-        this.queryAdminList()
+        this._queryAdminList()
     }
-    queryAdminList(cb){
+
+    _queryAdminList(cb){
         axios({
             url:this.props.httpUrl+"/charge/web/user/queryUserList",
             method:"post",
@@ -154,6 +155,7 @@ class app extends Component {
                 userName:"",
                 addis:false,
             });
+            console.log(1);
             alert(res.data.message);
             this.queryAdminList();
         })

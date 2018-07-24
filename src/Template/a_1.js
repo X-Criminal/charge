@@ -44,7 +44,7 @@ class app extends Component {
     componentDidMount() {
         //组件第一次render时执行
         this.setState({
-            province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>)
+            province: this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
         });
         this.queryAdminList()
     }
@@ -235,7 +235,6 @@ class app extends Component {
 export default app;
 
 function Add(props) {
-
     if (props.addis) {
         return (
             <div className={"addBox"}>

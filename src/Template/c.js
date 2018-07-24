@@ -60,7 +60,10 @@ class app extends Component {
     pagination = ( a )=>{
         let data = this.state.pageData;
         data.page=a;
-        this.pageAxios(data)
+        this.setState({
+            pageData:data
+        });
+        this.pageAxios(this.state.pageData)
     };
     pageAxios(data){
         axios({
@@ -113,6 +116,7 @@ class app extends Component {
                 equipmentId:this.equipmentId,
             }
         }).then((res)=>{
+            console.log(1);
             alert(res.data.message);
             this.dele_box( );
             if(res.data.code===1000) cb&&cb();
@@ -138,6 +142,7 @@ class app extends Component {
                         isCdit:true,
                     })
                 }else{
+                    console.log(1);
                     alert(res.data.message)
                 }
             })
@@ -160,7 +165,7 @@ class app extends Component {
             isCdit:true,
         })
     };
-    onedit=(data)=>{
+    onedit=(data,cb)=>{
         axios.post(this.props.httpUrl+"/charge/web/device/updateDevice",data)
             .then((res)=>{
                if(res.data.code===1000){
@@ -168,15 +173,14 @@ class app extends Component {
                        shopId:data.shopId,
                        mac:this.state.c3Data.mac,
                    };
-                    this.queryDetailsAxios(_data)
+                    this.queryDetailsAxios(_data);
+                    cb&&cb()
                }else{
+                   console.log(1);
                    alert(res.data.message)
                }
-                console.log(res);
             });
-        console.log(data);
     };
-
     render() {
         return (
             <div className={"a c"}>
@@ -184,7 +188,7 @@ class app extends Component {
                     <C1 paginationData={this.paginationData} httpUrl={this.props.httpUrl} allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
                     <C2 totalItems={this.state.totalItems} DataLis={this.state.DataLis} dataLis={this.dataLis} pagination={this.pagination} deleAdmin={this.deleAdmin} queryDetails={this.queryDetails}/>
                     <DeleAdmin onDel={this.onDel} dele_box={this.dele_box} deleis={this.state.deleis}/>
-                    <C3 onedit={this.onedit} ishowC3={this.state.ishowC3} hidDeta={this.hidDeta} c3Data={this.state.c3Data} isCdit={this.state.isCdit} edit={this.edit} rerF={this.rerF} options={this.props.options} onshopId={this.state.onshopId}/>
+                    <C3 httpUrl={this.props.httpUrl} enterLoading={this.enterLoading} pageData={this.state.pageData} onedit={this.onedit} ishowC3={this.state.ishowC3} hidDeta={this.hidDeta} c3Data={this.state.c3Data} isCdit={this.state.isCdit} edit={this.edit} rerF={this.rerF} options={this.props.options} onshopId={this.state.onshopId}/>
             </div>
         )
     }

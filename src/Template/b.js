@@ -118,6 +118,7 @@ class app extends Component {
                 adminId:this.delid,
             }
         }).then((res)=>{
+            console.log(1);
             alert(res.data.message);
             this.dele_box( );
             if(res.data.code) cb&&cb();
@@ -139,6 +140,7 @@ class app extends Component {
                     username:idx.username
                 })
             }else{
+                console.log(1);
                 alert(data.data.message)
             }
         });

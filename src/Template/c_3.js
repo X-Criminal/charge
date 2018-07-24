@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import axios from "axios"
 import { Input,Button,Cascader,message,Icon,Upload} from 'antd';
 
 import "../css/a.css";
@@ -34,6 +35,7 @@ class app extends Component {
                 img:data.data,
             })
         }else{
+            console.log(1);
             alert(data.message)
         }
     };
@@ -62,13 +64,30 @@ class app extends Component {
             shopId:this.props.onshopId,
             start:this.state.start,
         };
-        this.props.onedit(data);
+        this.props.onedit(data,()=>{
+           this.queryAdminList( )
+        });
     };
+
+    queryAdminList( ){
+        axios({
+            url:this.props.httpUrl+"/charge/web/device/queryEquipmentList",
+            method:"post",
+            data:this.props.pageData
+        }).then((res)=>{
+            if(res.data.code===1000){
+                this.props.enterLoading(res)
+            }else if(res.data.code===3001||res.data.code===1002){
+                console.log(1);
+                alert(res.data.message)
+            }
+        })
+    }
     render() {
         return (
             <div className={"a b b_3"} style={this.props.ishowC3?{top:"0"}:{top:""}}>
                 <h3><span onClick={this.props.hidDeta}>设备管理</span>>设备详情</h3>
-                <p><span>设备编码:{this.props.c3Data.mac}</span><span>详细地址:{this.props.c3Data.area+this.props.c3Data.address}</span> </p>
+                <p><span>设备编码:&nbsp;{this.props.c3Data.mac}</span>&nbsp;&nbsp;&nbsp;<span>详细地址:&nbsp;{this.props.c3Data.area+this.props.c3Data.address}</span> </p>
                 <div className={"a_2 b_2"}>
                     <div className={"table"}>
                         <table>
@@ -81,13 +100,7 @@ class app extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>16</td>
-                                    <td>有</td>
-                                    <td>不可借</td>
-                                </tr>
-                                <Lis />
+                                <Lis c3Data={this.props.c3Data}/>
                             </tbody>
                         </table>
                     </div>
@@ -134,14 +147,16 @@ function Cdit(props){
 }
 
 function Lis(props){
-    return(
-        <tr>
-            <td>1</td>
-            <td>16</td>
-            <td>有</td>
-            <td>不可借</td>
-        </tr>
-    )
+   let lis = props.c3Data.deviceList,
+        _index=[];
+    if(lis){
+        for(let i=0,idx=lis.length;i<idx;i++){
+            for(let a=0,_idx=lis[i].equipmentList.length;a<_idx;a++){
+                _index.push(lis[i].equipmentList[a])
+            }
+        }
+    }
+    return _index.map((item,idx)=> <tr key={idx}><td>{idx}</td><td>{item.quantity}</td><td>{item.state===1?"有":"无"}</td><td>{item.state===2?"可还":item.quantity>=100?"可借":"不可借"}</td></tr> )
 }
 
 function getBase64(img, callback) {
