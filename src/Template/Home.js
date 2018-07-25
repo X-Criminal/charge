@@ -47,7 +47,7 @@ class app extends Component {
         {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:  <B   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
         {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem:  <C   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
         {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem:  <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-        {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E />},
+        {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E   allpca={allpca}/>},
         {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F   httpUrl={this.props.httpUrl}/>},
         {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />},
         ];
@@ -60,6 +60,7 @@ class app extends Component {
         }else{
             this.tabarr2=this.tabarr;
         }
+        window.location.hash="";
     }
     componentDidMount() {
         let role = cookie.load("user");
@@ -94,9 +95,12 @@ class app extends Component {
     /**删除数组中某项**/
     dellarr(arr,idx,idx2){
         let a = [];
+        let b = 0;
         for(let i = 0,_idx= arr.length;i<_idx;i++){
             if(i!==idx&&i!==idx2){
-                a.push(arr[i])
+                arr[i].page=b;
+                a.push(arr[i]);
+                b++
             }
         }
         return a;
@@ -115,11 +119,10 @@ class app extends Component {
     };
     hash(hash){
         let _this= this;
-        let obj =cookie.load("user").data.role===2?1:0;
         for(let i = 0,idx = _this.tabarr2.length;i<idx;i++){
             if(_this.tabarr2[i].href===hash){
                 _this.setState({
-                    rou:_this.tabarr2[i].page-obj
+                    rou:_this.tabarr2[i].page
                 });
                 return ;
             }
@@ -184,7 +187,7 @@ class app extends Component {
                 </header>
                 <nav>
                     <ul>
-                        <Tab rou={this.state.rou} tabarr={this.tabarr2} role={this.state.role}/>
+                        <Tab rou={this.state.rou} tabarr={this.tabarr2}/>
                     </ul>
                 </nav>
                 <div className={"State"}>
@@ -203,7 +206,7 @@ export default app;
  * index根据hash值来确定
  * */
 function Tab( props){
-    return props.tabarr.map((item,idx)=> <li key={item.href} style={item.name.length<=0?{"display":"none"}:{}} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
+    return props.tabarr.map((item,idx)=> <li key={item.href} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
 }
 /**切换路由跳转的组件，
  * 传入路由对象

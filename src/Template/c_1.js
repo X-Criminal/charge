@@ -82,7 +82,6 @@ class app extends Component {
                 });
                 this.props.enterLoading(res)
             }else if(res.data.code===3001||res.data.code===1002){
-                console.log(1);
                 alert(res.data.message)
             }
             cb&&cb( )

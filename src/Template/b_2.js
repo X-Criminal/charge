@@ -24,9 +24,6 @@ class app extends Component {
         //组件第一次render时执行
 
     };
-    deleAdmin=( id,idx )=>{
-        this.props.deleAdmin(id,idx)
-    };
     User=(idx)=>{
         this.props.querybtn(idx )
     };
@@ -60,5 +57,5 @@ class app extends Component {
 export default app;
 
 function AataLis(props){
-    return props.DataLis.map((res,idx)=>(<tr key={idx}><td><div><img src={props.httpUrl+"/"+res.headUrl} /></div></td><td>{res.account}</td><td>{res.name}</td><td> <button onClick={props.User.bind(this,{userId:res.userId,usernum:res.account,username:res.name})}>查看</button> <button onClick={props.deleAdmin.bind(this,res.userId,idx)}>删除</button></td></tr>))
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td><div><img src={props.httpUrl+"/"+res.headUrl} /></div></td><td>{res.account}</td><td>{res.name}</td><td> <button onClick={props.User.bind(this,{userId:res.userId,usernum:res.account,username:res.name})}>查看</button></td></tr>))
 }

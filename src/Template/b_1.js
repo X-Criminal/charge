@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import cookie from "react-cookies";
-import {Select, Input, Button, Cascader} from "antd";
+import {Select, Input, Button} from "antd";
 
 const Option = Select.Option;
 
@@ -11,14 +11,13 @@ class app extends Component {
         this.state = {
             province: [],
             city: {dom: [], arr: []},
-            district: [],
             txta: "",
+            district: [],
             txtb: "",
             txtc: "",
             loading: false,
             addLoading: false,
             keyword: "",
-            addis: false,
             page:1,
             account:"",
             area:"",
@@ -160,16 +159,6 @@ class app extends Component {
             this.queryAdminList();
         })
     };
-    close = ()=>{
-        this.setState({
-            addis:false
-        })
-    };
-    add=()=>{
-        this.setState({
-            addis:true
-        })
-    };
     _addOnchange( e ){
         if(!e.length){
             this.setState({
@@ -227,41 +216,9 @@ class app extends Component {
                         onClick={this.enterLoading}>
                     搜索
                 </Button>
-                <Button className={"add"} onClick={this.add} type="primary">添加</Button>
-                <Add _addOnchange={this._addOnchange} addis={this.state.addis} addLoading={this.state.addLoading}
-                     AddenterLoading={this.AddenterLoading} close={this.close} options={this.props.options}/>
             </div>
         )
     }
 }
 
 export default app;
-
-function Add(props) {
-
-    if (props.addis) {
-        return (
-            <div className={"addBox"}>
-                <div>
-                    <h3>添加管理员 <i onClick={props.close}> </i></h3>
-                    <div className={"input"}>
-                        <p><span>用户</span> <Input name={"userName"} type="text" onChange={props._addOnchange} /></p>
-                        <p><span>账号</span> <Input name={"account"} type="text"  onChange={props._addOnchange}/></p>
-                        <p><span>密码</span> <Input name={"password"} type="text" onChange={props._addOnchange}/></p>
-                        <p><span>地区</span> <Cascader name={"area"} options={props.options} onChange={props._addOnchange} placeholder={""}
-                                                     changeOnSelect/></p>
-                    </div>
-                    <div className={"addBtn"}>
-                        <Button onClick={props.close}>取消</Button>
-                        <Button style={{"marginLeft": "10px"}} type="primary" loading={props.addLoading}
-                                onClick={props.AddenterLoading}>
-                            添加
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        )
-    } else {
-        return null;
-    }
-}

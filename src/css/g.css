@@ -1,0 +1,68 @@
+.g{
+    height: 100%;
+}
+.g h3{
+    font-size: 18px;
+    font-weight: 600;
+    color: #1F2D3D;
+}
+.g .radio{
+    width: 100%;
+    border-top: 1px solid #C0CCDA;
+    margin-top: 21px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #475669;
+    position: relative;
+}
+.g .table{
+    width: 100%;
+}
+.g .box{
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.g .table thead td{
+    height: 44px;
+    line-height: 44px;
+    background: #E5E9F2;
+    color: #202E3E;
+    font-size: 14px;
+    padding-left: 10px;
+}
+.g .table tbody td {
+    padding-left: 10px;
+}
+.g .table tbody td .img{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    margin: 10px 0;
+}
+.g .table tbody td .img img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.g .table tbody td{
+    border-bottom:1px solid #e0e6ed;
+}
+.g .table tbody td:nth-child(1){
+    border-left: 1px solid #e0e6ed;
+}
+.g .table tbody td:last-of-type{
+    border-right:1px solid #e0e6ed;
+}
+.g .table tbody td button{
+    background-color: rgba(0,0,0,0);
+}
+.g .table tbody td button:nth-child(1){
+    margin-right: 10px;
+}.g .table tbody td button:nth-child(2){
+     color: red;
+ }
+.table2 td{
+    line-height: 50px;
+}

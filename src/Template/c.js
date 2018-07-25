@@ -67,7 +67,7 @@ class app extends Component {
     };
     pageAxios(data){
         axios({
-            url:this.props.httpUrl+"/charge/web/admin/queryEquipmentList",
+            url:this.props.httpUrl+"/charge/web/device/queryEquipmentList",
             method:"post",
             data:data
         }).then((res)=>{
