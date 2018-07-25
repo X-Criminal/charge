@@ -29,7 +29,6 @@ class app extends Component {
         };
         this.enterLoading = this.enterLoading.bind(this);
         this.paginationData = this.paginationData.bind(this);
-        this.onDel = this.onDel.bind(this)
     }
 
     componentWillUnmount() {

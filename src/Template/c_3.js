@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios"
-import { Input,Button,Cascader,message,Icon,Upload} from 'antd';
+import { Input,Button,Cascader,message,Icon,Upload } from 'antd';
 
 import "../css/a.css";
 
@@ -11,6 +11,7 @@ class app extends Component {
             address:"",
             area:"",
             end:"",
+            pay:"",
             img:"",
             name:"",
             shopId:"",
@@ -27,6 +28,22 @@ class app extends Component {
     }
     componentDidMount() {
         //组件第一次render时执行
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    var longitude = position.coords.longitude;
+                    var latitude = position.coords.latitude;
+                    console.log(longitude)
+                    console.log(latitude)
+                },
+                function (e) {
+                    var msg = e.code;
+                    var dd = e.message;
+                    console.log(msg);
+                    console.log(dd)
+                }
+            )
+        }
     }
 
     upimg=(data)=>{
@@ -59,6 +76,7 @@ class app extends Component {
             address:this.state.address,
             area:this.state.area,
             end:this.state.end,
+            pay:this.state.pay,
             img:this.state.img,
             name:this.state.name,
             shopId:this.props.onshopId,
