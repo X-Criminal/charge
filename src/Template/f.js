@@ -75,9 +75,10 @@ class app extends Component {
             state:2,
             type:2,
         },(data)=>{
-            this.setState({
-                state2_2:data.data.data
-            });
+            console.log(data.data);
+              this.setState({
+                  state2_2:data.data.data
+              });
         })
     };
     Axios(data,cb){
@@ -188,7 +189,7 @@ function CheckState( props ){
                 </thead>
                 <tbody>
                 {
-                    props.state2.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.shopName}</td><td>{item.checkMoney}</td><td>{item.reason}</td><td><button onClick={props.updateCertState.bind(this,2,2,item.certId)}>通过</button><button onClick={props.updateCertState.bind(this,3,2,item.certId)}>不通过</button></td></tr>))
+                    props.state2.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.name}</td><td>{item.checkMoney}</td><td>{item.reason}</td><td><button onClick={props.updateCertState.bind(this,2,2,item.certId)}>通过</button><button onClick={props.updateCertState.bind(this,3,2,item.certId)}>不通过</button></td></tr>))
                 }
                 </tbody>
             </table>

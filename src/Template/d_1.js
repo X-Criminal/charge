@@ -47,6 +47,7 @@ class app extends Component {
         this.setState({
             province:this.props.allpca.map((item, index) => <Option key={index} value={item.name}>{item.name}</Option>),
         });
+        this.enterLoading()
     }
 
     handleChange1 = (value) => {

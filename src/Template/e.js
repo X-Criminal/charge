@@ -31,8 +31,8 @@ class app extends Component {
     }
 
     randomPosition = () => ({
-        longitude: 120,
-        latitude: 30,
+        longitude: 113.87202,
+        latitude: 22.57786 ,
     });
     render() {
         return (

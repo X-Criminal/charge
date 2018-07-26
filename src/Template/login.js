@@ -57,7 +57,7 @@ class app extends Component{
             this.islogin=false;
             this.setState({
                 il:< LG />
-            })
+            });
             axios({
                 url:this.props.httpUrl+"/charge/web/admin/login",
                 method:"post",

@@ -45,7 +45,6 @@ class app extends Component {
                         totalPages:res.data.totalPages,
                     })
                 }else{
-                    console.log(1);
                     alert(res.data.message);
                 }
             })

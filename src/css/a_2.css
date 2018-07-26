@@ -58,8 +58,86 @@
     color: #27A3FF;
 }
 .c_2 tbody td button:nth-child(1){
+    color:#000;
+    margin-right: 5px;
+}
+.c_2 tbody td button:nth-child(2){
     color:#3aa7ff;
 }
 .b_2 .table tbody td button:nth-child(2){
     margin-left: 15px;
+}
+.AddAmount{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,.6);
+}
+.AddAmount .AddAmount_box{
+    position: absolute;
+    width: 400px;
+    left:calc(50% - 200px);
+    top: 35%;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius:5px;
+}
+.AddAmount .AddAmount_box h3{
+    padding: 10px;
+    font-size: 16px;
+    background-color: #E5E9F2;
+    border-radius: 5px 5px 0 0;
+    line-height: 35px;
+}
+.AddAmount .AddAmount_box >div{
+    padding: 0 10px;
+    line-height: 30px;
+    margin-top: 15px;
+}
+.AddAmount .AddAmount_box >div:nth-of-type(4){
+    line-height: 52px;
+}
+.AddAmount .AddAmount_box >div >span:nth-child(1){
+    display: inline-block;
+    width: 25%;
+    margin-right: 10px;
+    font-size: 14px;
+    text-align: right;
+}
+.AddAmount .AddAmount_box >div input{
+    width: 30%;
+    margin-right: 10px;
+}
+.AddAmount .AddAmount_box >div textarea{
+    width: 60%;
+}
+.AddAmount .AddAmount_box >div:last-of-type{
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+.AddAmount .AddAmount_box >div button{
+   margin-right: 10px;
+    width: 90px;
+}
+.AddAmount_box h3 i{
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 18px;
+    height: 18px;
+}
+.AddAmount_box h3 i::before,.AddAmount_box h3 i::after{
+    position: absolute;
+    left: 50%;
+    content: "";
+    width: 2px;
+    height: 18px;
+    background-color: #1B2D5E;
+    transform: rotate(45deg);
+}
+.AddAmount_box h3 i::after{
+    transform: rotate(-45deg);
 }

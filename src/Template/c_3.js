@@ -28,22 +28,7 @@ class app extends Component {
     }
     componentDidMount() {
         //组件第一次render时执行
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    var longitude = position.coords.longitude;
-                    var latitude = position.coords.latitude;
-                    console.log(longitude)
-                    console.log(latitude)
-                },
-                function (e) {
-                    var msg = e.code;
-                    var dd = e.message;
-                    console.log(msg);
-                    console.log(dd)
-                }
-            )
-        }
+
     }
 
     upimg=(data)=>{
