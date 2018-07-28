@@ -60,25 +60,18 @@ class Table extends Component{
             "a2":[],
          adminId:"",
             role:"",
-           state:"",
         }
     }
+
     componentWillMount(){
-        this.setState({
-            adminId:cookie.load("user").data.adminId,
-            role:cookie.load("user").data.role,
-            state:this.props.value,
-        })
+        this["a1"]=[];
+        this["a2"]=[];
+        this.adminId=cookie.load("user").data.adminId;
+        this.role=cookie.load("user").data.role;
     }
+
     componentDidMount(){
-        this.Axios({adminId:this.state.adminId,
-                        role:this.state.role,
-                       state:this.state.state
-                    },(data)=>{
-                        this.state({
-                            ["a"+this.props.value]:data
-                        })
-        })
+
     }
 
    Axios = (data,cb)=>{
@@ -92,7 +85,27 @@ class Table extends Component{
             });
     };
 
+   btn=(data)=>{
+       let _data={
+           adminId:this.adminId,
+           certId:data.certId,
+           state:data.state,
+           type:3,
+       };
+       axios.post("http://47.98.252.6:80/charge/web/admin/updateCertState",_data)
+           .then((res)=>{
+                alert(res.data.message)
+           });
+   };
+
    render(){
+       this.Axios({adminId:this.adminId,
+           role:this.role,
+           state:this.props.value
+       },(data)=>{
+           this["a"+this.props.value]=data;
+           console.log(this["a" + this.props.value]);
+       });
        if(this.props.value===1){
            return (<table className={"table table1"}>
                        <thead>
@@ -105,14 +118,8 @@ class Table extends Component{
                            </tr>
                        </thead>
                        <tbody>
-                          {/* <tr>
-                               <td>2018-09-08 12:33</td>
-                               <td>小明</td>
-                               <td>归还还在扣费</td>
-                               <td><div className={"img"}><img src="../img/add.png" alt=""/></div></td>
-                               <td><button>通过</button><button>不通过</button></td>
-                           </tr>*/
-                              this.state["a1"].map((res,idx)=><tr key={idx}><td>{res.submitTime}</td><td>{res.name}</td><td>{res.describe}</td><td><div className={"img"}><img src={"http://47.98.252.6:80/"+res.img} alt=""/> </div></td><td><button>通过</button><button>不通过</button></td></tr>)
+                          {
+                              this.state["a1"].map((res,idx)=><tr key={idx}><td>{res.submitTime}</td><td>{res.name}</td><td>{res.describe}</td><td><div className={"img"}><img src={"http://47.98.252.6:80/"+res.img} alt=""/> </div></td><td><button onClick={this.btn.bind(this,{"certId":res.certId,"state":2})}>通过</button><button onClick={this.btn.bind(this,{"certId":res.certId,"state":3})}>不通过</button></td></tr>)
                           }
                        </tbody>
                   </table>)
@@ -130,12 +137,7 @@ class Table extends Component{
                        </thead>
                        <tbody>
                            <tr>
-                               {/* <td>2018-09-08 12:33</td>
-                               <td>小明</td>
-                               <td>归还还在扣费</td>
-                               <td>2018:09:08</td>
-                               <td>通过</td>
-                               <td>小明</td>*/
+                               {
                                    this.state["a1"].map((res,idx)=><tr key={idx}><td>{res.submitTime}</td><td>{res.name}</td><td>{res.describe}</td><td>{res.auditingTime}</td><td>{res.state===1?"待审核":res.state===2?"不通过":res.state===3?"通过":"待审核"}</td><td>{res.userName}</td></tr>)
                                }
                            </tr>

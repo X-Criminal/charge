@@ -75,7 +75,6 @@ class app extends Component {
             state:2,
             type:2,
         },(data)=>{
-            console.log(data.data);
               this.setState({
                   state2_2:data.data.data
               });

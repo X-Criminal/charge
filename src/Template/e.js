@@ -40,7 +40,9 @@ class app extends Component {
                 <E2 allpca={this.props.allpca}/>
                 <div className={"eMap"} style={{width: "100%", height: "80%"}}>
                     <Map amapkey={"2ee7cdb1cc01246fee998a056662cf6b"} center={this.state.mapCenter}>
-
+                        <Marker position={{longitude: 114.02597366, latitude:22.54605355}} >
+                            A
+                        </Marker>
                     </Map>
                 </div>
             </div>

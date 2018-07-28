@@ -132,7 +132,7 @@ class app extends Component {
     /**搜索按钮**/
     enterLoading = () => {
         this.setState({loading: true});
-        this.queryAdminList( ()=>{
+        this._queryAdminList( ()=>{
             this.setState({loading: false});
         })
     };
@@ -156,7 +156,7 @@ class app extends Component {
             });
             console.log(1);
             alert(res.data.message);
-            this.queryAdminList();
+            this._queryAdminList();
         })
     };
     _addOnchange( e ){
