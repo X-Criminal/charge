@@ -8,10 +8,12 @@
     "antd": "^3.7.1",
     "axios": "^0.18.0",
     "express": "^4.16.3",
+    "gcoord": "^0.1.2",
     "jQuery": "^1.7.4",
     "rc-upload": "^2.5.1",
     "react": "^16.4.1",
     "react-amap": "^1.2.7",
+    "react-bmap": "^1.0.80",
     "react-cookies": "^0.1.0",
     "react-core-image-upload": "^2.2.3",
     "react-dom": "^16.4.1",
@@ -21,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test":  "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }

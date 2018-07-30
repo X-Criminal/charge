@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Select,Input,Button} from "antd";
 import { Map, Marker } from 'react-amap';
+import {transform,BD09,WGS84} from "gcoord"
+import axios from "axios";
 import "../css/e.css"
 const Option = Select.Option;
 
@@ -8,7 +10,10 @@ class app extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mapCenter:[]
+            mapCenter:[],
+            lis:[],
+            a:"",
+            b:"",
         }
     }
 
@@ -27,7 +32,25 @@ class app extends Component {
         //组件第一次render时执行
         this.setState({
             mapCenter:this.randomPosition( )
-        })
+        });
+        axios.get("http://api.map.baidu.com/geodata/v3/poi/list?coord_type=1&geotable_id=192618&ak=rKlbEA1ZkvBIr6xIYunVstavD2y7K7fZ")
+            .then((res)=>{
+                console.log(res.data.pois[0].location);
+                let gcoord=transform(
+                    res.data.pois[0].location,
+                    BD09,
+                    WGS84
+                );
+                console.log(res);
+                if(res.status===200){
+                   this.setState({
+                       lis: res.data.pois.map((_res,idx)=><Marker key={idx} position={{"longitude":_res.gcj_location[0],"latitude":_res.gcj_location[1]}}> <img style={{zIndex:998}} src={require('../img/equipment_ed.png')} /></Marker>)
+                   })
+                }else{
+                    alert(res.data.message)
+                }
+
+            })
     }
 
     randomPosition = () => ({
@@ -40,9 +63,7 @@ class app extends Component {
                 <E2 allpca={this.props.allpca}/>
                 <div className={"eMap"} style={{width: "100%", height: "80%"}}>
                     <Map amapkey={"2ee7cdb1cc01246fee998a056662cf6b"} center={this.state.mapCenter}>
-                        <Marker position={{longitude: 114.02597366, latitude:22.54605355}} >
-                            A
-                        </Marker>
+                        {this.state.lis}
                     </Map>
                 </div>
             </div>
