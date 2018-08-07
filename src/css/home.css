@@ -144,3 +144,71 @@ nav ul{
     font-size: 18px;
     margin-top:50%;
 }
+.userName{
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    min-width: 70px;
+}
+.newpassword{
+    position: absolute;
+    height: 30px;
+    line-height: 30px;
+    width: 70px;
+    bottom: 0;
+    left: 0;
+    display: none;
+}
+.userName:hover .newpassword{
+    display: block;
+}
+.NewPassword{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.2);
+}
+.newBOX{
+    width: 400px;
+    background-color: white;
+    position: absolute;
+    top: 35%;
+    left: calc(50% - 200px);
+    border-radius: 5px;
+}
+.newBOX >div span:nth-child(1){
+    width: 30%;
+    margin-right: 15px;
+    display: inline-block;
+    text-align: right;
+    margin-top: 20px;
+}
+.newBOX >div >input{
+    width: 60%;
+}
+
+.newBOX >div:nth-of-type(1){
+    background-color: #E5E9F2;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px 5px 0 0;
+    padding-left: 15px;
+    color: #1B2D5E;
+    font-size: 16px;
+    font-weight: 600;
+}
+.newBOX .btn{
+    margin-top: 45px;
+    margin-bottom: 25px;
+}
+.newBOX .btn button{
+    margin-right: 15px;
+}
+.newBOX .btn >div{
+    display: inline-block;
+}
+.newBOX .btn >div button span{
+    margin-top: 0;
+}

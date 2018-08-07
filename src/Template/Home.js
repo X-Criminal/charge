@@ -31,6 +31,7 @@ class app extends Component {
             address:"",
             adminid:"",
             isshow:true,
+            isNewpassowrd:false,
         };
         this.AuthenticationData=this.AuthenticationData.bind(this)
     }
@@ -124,7 +125,7 @@ class app extends Component {
                 _this.setState({
                     rou:_this.tabarr2[i].page
                 });
-                return ;
+                return;
             }
         }
     }
@@ -172,6 +173,17 @@ class app extends Component {
             })
         }
     };
+    /**关闭**/
+    _newpassword=()=>{
+        this.setState({
+            isNewpassowrd:false,
+        })
+    };
+    _open = ()=> {
+        this.setState({
+            isNewpassowrd:true,
+        })
+    };
     render() {
         return (
             <div className={"home"}>
@@ -181,7 +193,10 @@ class app extends Component {
                     <div className={"user"}>
                         <i className={"iconfont icon-guanli1"}></i>
                         <span>{this.state.audit}</span>
-                        <span className={"userName"}>{this.state.userName}&nbsp;<Icon style={{"fontSize":"12px"}} type={"caret-down"}/></span>
+                        <span className={"userName"}>{this.state.userName}&nbsp;
+                            <Icon style={{"fontSize":"12px"}} type={"caret-down"}/>
+                            <span className={this.state.role===1?"newpassword":""} onClick={this._open} style={this.state.role===1?{"display":""}:{"display":"none"}}>修改密码</span>
+                        </span>
                         <a className={"quit"} onClick={this.quit}>退出</a>
                     </div>
                 </header>
@@ -191,9 +206,11 @@ class app extends Component {
                     </ul>
                 </nav>
                 <div className={"State"}>
-                    <Router  _router={this.tabarr2[this.state.rou]}/>
+                       <Router  _router={this.tabarr2[this.state.rou]}/>
                 </div>
+
                 <Authentication isshow={this.state.isshow} moverAuthentication={this.moverAuthentication} UpAuthentication={this.UpAuthentication} AuthenticationData={this.AuthenticationData}  isAuthentication={this.state.isAuthentication}/>
+                   <NewPassword isNewpassowrd={this.state.isNewpassowrd} username={this.state.userName} adminId={this.state.adminid} httpUrl={this.props.httpUrl} _newpassword={this._newpassword}/>
             </div>
         )
     }
@@ -217,9 +234,9 @@ function Router(props){
     }else{
         return (<div></div>)
     }
-
 }
 
+/**实名认证**/
 function Authentication(props){
     if(props.isAuthentication){
         return (
@@ -257,9 +274,80 @@ function Authentication(props){
         return null;
     }
 }
-/***
-*
-**/
+/**修改密码**/
+class NewPassword extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            loading:false,
+            oldPwd:"",
+            newPwd:"",
+            renewPwd:"",
+        }
+    }
+    enterLoading = ()=>{
+        this.setState({
+            loading:true
+        });
+        this.Axios((res)=>{
+            console.log(res.data);
+            this.setState({
+                loading:false
+            });
+            if(res.data.code===1000){
+                alert(res.data.message+"!,请重新登陆");
+                cookie.remove("user");
+                window.location.reload( )
+            }else{
+                alert(res.data.message);
+            }
+        })
+    };
+    onvalue=(e)=>{
+        this.setState({
+            [e.target.name]:e.target.value,
+        })
+    };
+    Axios(cb){
+        let data={
+            adminId:this.props.adminId,
+            oldPwd:this.state.oldPwd,
+            newPwd:this.state.newPwd,
+            renewPwd:this.state.renewPwd,
+        };
+        axios.post(this.props.httpUrl+"/charge/web/admin/updateAdminPwd",data)
+            .then((res)=>{
+                cb&&cb(res)
+            })
+
+    }
+    render(){
+        if(this.props.isNewpassowrd){
+            return(
+                <div className={"NewPassword"}>
+                    <div className={"newBOX"}>
+                        <div>修改密码 <i> </i></div>
+                        <div><span>用户名</span><span>{this.props.username}</span></div>
+                        <div><span>原密码</span>     <Input onChange={this.onvalue} name={"oldPwd"}/></div>
+                        <div><span>新密码</span>     <Input onChange={this.onvalue} name={"newPwd"}/></div>
+                        <div><span>重复新密码</span> <Input onChange={this.onvalue} name={"renewPwd"}/></div>
+                        <div className={"btn"}>
+                            <span> </span>
+                            <div>
+                                <Button onClick={this.props._newpassword}>取消</Button>
+                                <Button type="primary" loading={this.state.loading} onClick={this.enterLoading}>
+                                    确定
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }else{
+            return null;
+        }
+    }
+}
 
 
 const options = [{

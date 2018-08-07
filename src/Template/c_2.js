@@ -32,8 +32,8 @@ class app extends Component {
         //组件第一次render时执行
 
     };
-    deleAdmin=( id,idx )=>{
-        this.props.deleAdmin(id,idx)
+    deleAdmin=( id,idx,deleAdmin )=>{
+        this.props.deleAdmin(id,idx,deleAdmin)
     };
     setAmount=(shopId)=>{
         this.setState({
@@ -56,7 +56,7 @@ class app extends Component {
                 this.setState({
                     loading:true,
                 });
-        axios.post("http://47.98.252.6:80/charge/web/device/addAmount",{shopId:a,checkMoney:this.state.checkMoney,reason:this.state.reason})
+        axios.post("http://www.cbkj888.com/charge/web/device/addAmount",{shopId:a,checkMoney:this.state.checkMoney,reason:this.state.reason})
         .then((res)=>{
             alert(res.data.message);
             this.setState({
@@ -87,7 +87,7 @@ class app extends Component {
                     </table>
                 </div>
                 <div className={"page"}>
-                    <span style={{"float":"left","lineHeight":"32px"}}>共{this.props.totalItems}条</span> <Pagination onChange={this.props.pagination}  total={this.props.totalItems} />
+                    <span style={{"float":"left","lineHeight":"32px"}}>共{this.props.totalItems}条</span> <Pagination defaultPageSize={11} onChange={this.props.pagination}  total={this.props.totalItems} />
                 </div>
                 <AddAmount onchange={this.onchange} shopId={this.state.shopId} desetAmount={this.desetAmount} onsetAmount={this.onsetAmount} loading={this.state.loading} Amount={this.state.Amount}/>
             </div>
@@ -97,7 +97,7 @@ class app extends Component {
 
 export default app;
 function AataLis(props){
-    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.mac}</td><td>{res.shopName}</td><td>{res.shopArea}</td><td>{res.shopAddress}</td>{cookie.load("user").data.role===2?<td>{res.moneyState===1?"审核中":res.moneyState===2?"审核通过":res.moneyState===3?"不通过":"未审核"}</td>:null}<td>{cookie.load("user").data.role===2?<button onClick={props.setAmount.bind(this,{shopId:res.shopId,mac:res.mac,shopName:res.shopName})}>设置金额</button>:null}<button onClick={props.queryDetails.bind(this,{mac:res.mac,shopId:res.shopId})}>查看</button> <button onClick={props.deleAdmin.bind(this,res.equipmentId,idx)}>删除</button></td></tr>))
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td>{res.mac}</td><td>{res.shopName}</td><td>{res.shopArea}</td><td>{res.shopAddress}</td>{cookie.load("user").data.role===2?<td>{res.moneyState===1?"审核中":res.moneyState===2?"审核通过":res.moneyState===3?"不通过":"未审核"}</td>:null}<td>{cookie.load("user").data.role===2?<button onClick={props.setAmount.bind(this,{shopId:res.shopId,mac:res.mac,shopName:res.shopName})}>设置金额</button>:null}<button onClick={props.queryDetails.bind(this,{mac:res.mac,shopId:res.shopId})}>查看</button> <button onClick={props.deleAdmin.bind(this,res.equipmentId,idx,res.shopName)}>删除</button></td></tr>))
 }
 
 function AddAmount(props){

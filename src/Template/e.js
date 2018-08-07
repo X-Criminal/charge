@@ -1,9 +1,11 @@
 import React, {Component} from "react";
 import {Select,Input,Button} from "antd";
-import { Map, Marker } from 'react-amap';
-import {transform,BD09,WGS84} from "gcoord"
+/*import { Map, Marker } from 'react-amap';*/
 import axios from "axios";
-import "../css/e.css"
+import "../css/e.css";
+import img from "../img/icon.png";
+
+
 const Option = Select.Option;
 
 class app extends Component {
@@ -14,6 +16,7 @@ class app extends Component {
             lis:[],
             a:"",
             b:"",
+            ak:"rKlbEA1ZkvBIr6xIYunVstavD2y7K7fZ",
         }
     }
 
@@ -27,44 +30,73 @@ class app extends Component {
         //setState 更新时执行
 
     }
-
+    BMap=null;
+    map=null;
     componentDidMount() {
+        this.BMap= window.BMap;
         //组件第一次render时执行
-        this.setState({
-            mapCenter:this.randomPosition( )
-        });
-        axios.get("http://api.map.baidu.com/geodata/v3/poi/list?coord_type=1&geotable_id=192618&ak=rKlbEA1ZkvBIr6xIYunVstavD2y7K7fZ")
-            .then((res)=>{
-                console.log(res.data.pois[0].location);
-                let gcoord=transform(
-                    res.data.pois[0].location,
-                    BD09,
-                    WGS84
-                );
-                console.log(res);
-                if(res.status===200){
-                   this.setState({
-                       lis: res.data.pois.map((_res,idx)=><Marker key={idx} position={{"longitude":_res.gcj_location[0],"latitude":_res.gcj_location[1]}}> <img style={{zIndex:998}} src={require('../img/equipment_ed.png')} /></Marker>)
-                   })
-                }else{
-                    alert(res.data.message)
-                }
+        this.AxiosPositin(  )
+    };
 
-            })
+    mapInit(lon,lat){
+        this.map = new this.BMap.Map("allmap"); // 创建Map实例
+        this.map.centerAndZoom(new this.BMap.Point(lon, lat), 12); // 初始化地图,设置中心点坐标和地图级别
+        this.map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     }
+    AxiosPositin(address,title,cb){
+        let _this= this;
+        let url ="http://api.map.baidu.com/geodata/v4/poi/list";
+    /*    let formData = new FormData();
+        formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
+        formData.append("address",address||"");
+        formData.append("title",title||"");
+        formData.append("coord_type",1);
+        formData.append("page_size",200);
+        formData.append("geotable_id",1000004359);
+        fetch(url,{
+            method:'post',
+            body:formData,
+        }).then((res)=>{
+            return res.json( );
+        }).then((json)=>{
+            if(json.status===0){
+                let data = json.pois;
+                if(data){
+                    _this.mapInit(data[0].location[0],json.pois[0].location[1]);
+                    for(let i = 0,idx = data.length;i<idx;i++){
+                        let point = new _this.BMap.Point(data[i].location[0],data[i].location[1]);
+                        _this.addMarker(point);
+                    }
+                }else{
+                    alert("暂无数据");
+                }
+            }else{
+                alert("地图获取失败")
+            }
+            cb&&cb()
+        })*/
 
-    randomPosition = () => ({
-        longitude: 113.87202,
-        latitude: 22.57786 ,
-    });
+    }
+    addMarker(point){  // 创建图标对象
+        var myIcon = new this.BMap.Icon(img, new this.BMap.Size(30, 30), {
+            anchor: new this.BMap.Size(28, 28),
+            /*imageOffset: new this.BMap.Size(11,-1)// 设置图片偏移*/
+        });
+        // 创建标注对象并添加到地图
+        var marker = new this.BMap.Marker(point, {icon: myIcon});
+        this.map.addOverlay(marker);
+    }
+    onenter = (address,title,cb)=> {
+        this.AxiosPositin(address,title,cb);
+    };
     render() {
         return (
             <div className={"e"}>
-                <E2 allpca={this.props.allpca}/>
+                <E2 allpca={this.props.allpca} onenter={this.onenter}/>
                 <div className={"eMap"} style={{width: "100%", height: "80%"}}>
-                    <Map amapkey={"2ee7cdb1cc01246fee998a056662cf6b"} center={this.state.mapCenter}>
-                        {this.state.lis}
-                    </Map>
+                    <div id={"allmap"} style={{width:"100%",height:"100%"}}>
+
+                    </div>
                 </div>
             </div>
         )
@@ -84,8 +116,11 @@ class E2 extends Component{
             txta: "",
             txtb: "",
             txtc: "",
-
-        }
+            loading:false,
+            keyWOrd:""
+        };
+        this.keyword= this.keyword.bind(this);
+        this.enterLoading = this.enterLoading.bind(this)
     }
     componentDidMount() {
         //组件第一次render时执行
@@ -143,6 +178,22 @@ class E2 extends Component{
             })
         }
     };
+    keyword(e){
+        this.setState({
+            keyWOrd:e.target.value,
+        })
+    }
+    enterLoading(){
+        let _this = this;
+        this.setState({
+            loading:true,
+        });
+        this.props.onenter(this.state.txta+this.state.txtb+this.state.txtc,this.state.keyWOrd,function(){
+            _this.setState({
+                loading:false,
+            });
+        });
+    }
     render(){
         return(
             <div>

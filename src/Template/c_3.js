@@ -123,7 +123,7 @@ function Cdit(props){
                             商家详情
                         </h4>
                         <div><span>店铺名称</span>      <Input value={props.c3Data.name} readOnly={"readonly"} /></div>
-                        <div><span>店铺图片</span>      <div><img style={{width:"100%"}} src={"http://47.98.252.6:80/"+props.c3Data.img} alt=""/></div></div>
+                        <div><span>店铺图片</span>      <div><img style={{width:"100%"}} src={"http://www.cbkj888.com/"+props.c3Data.img} alt=""/></div></div>
                         <div><span>营业时间</span>      <Input readOnly={"readonly"} value={props.c3Data.start+"~"+props.c3Data.end} /></div>
                         <div><span>人均消费(元)</span>  <Input readOnly={"readonly"} value={props.c3Data.pay} /></div>
                         <div><span>详细地址</span>      <Input className={"address"} readOnly={"readonly"} value={""+props.c3Data.area+props.c3Data.address}/></div>
@@ -216,7 +216,7 @@ class Avatar extends React.Component {
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
-                action="http://47.98.252.6:80/charge/web/user/addPicture"
+                action="http://www.cbkj888.com/charge/web/user/addPicture"
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
             >

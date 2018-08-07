@@ -8,13 +8,13 @@ class App extends Component {
         super(props);
         this.state={
             isLogin:false,
-            httpUrl:"http://47.98.252.6:80"
+            httpUrl:"http://www.cbkj888.com"
         };
         this.rinfUp=this.rinfUp.bind(this);
     }
 
     componentDidMount() {
-      let user = cookie.load("user")
+      let user = cookie.load("user");
         if(user){
            this.setState({
                isLogin:true

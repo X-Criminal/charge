@@ -22,7 +22,8 @@ class app extends Component {
             isCdit:true,
             pageData:{},
             c3Data:[],
-            onshopId:""
+            onshopId:"",
+            deleAdmin:""
         };
         this.enterLoading = this.enterLoading.bind(this);
         this.paginationData = this.paginationData.bind(this);
@@ -77,11 +78,12 @@ class app extends Component {
     equipmentId = "";
     idx="";
     /**删除后触发**/
-    deleAdmin(a,idx){
+    deleAdmin(a,idx,deleAdmin){
         this.equipmentId=a;
         this.idx= idx;
         this.setState({
             deleis:!this.state.deleis,
+            deleAdmin:deleAdmin,
         })
     };
     /**取消删除**/
@@ -97,6 +99,7 @@ class app extends Component {
             _this.setState({
                 DataLis:_this.dellarr(_this.state.DataLis,_this.idx)
             })
+            _this.ondemap()
         })
     }
     dellarr(arr,idx){
@@ -116,13 +119,26 @@ class app extends Component {
                 equipmentId:this.equipmentId,
             }
         }).then((res)=>{
-            console.log(1);
             alert(res.data.message);
             this.dele_box( );
             if(res.data.code===1000) cb&&cb();
         })
     }
-
+    ondemap(){
+        let url="http://api.map.baidu.com/geodata/v4/poi/delete";
+        let formData = new FormData();
+        formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
+        formData.append("geotable_id",1000004359);
+        formData.append("title",this.state.deleAdmin);
+        fetch(url,{
+            method:'post',
+            body:formData,
+        }).then((res)=>{
+            return res.json( );
+        }).then((json)=>{
+            console.log(json);
+        })
+    }
     /**查看店铺信息**/
     queryDetails=( data )=>{
         this.queryDetailsAxios(data);

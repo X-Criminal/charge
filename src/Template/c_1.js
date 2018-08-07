@@ -30,7 +30,9 @@ class app extends Component {
                 mac:"",
                 name:"",
                 pay:"",
-                start:""
+                start:"",
+            longitude:"",
+             latitude:"",
         };
 
         this._addOnchange=this._addOnchange.bind(this);
@@ -173,11 +175,45 @@ class app extends Component {
                 userName:"",
                 addis:false,
             });
-            console.log(1);
             alert(res.data.message);
             this.queryAdminList();
-        })
+            this.onPosition(res.data.data)
+        });
     };
+
+    onPosition(shopId){
+        let _this= this;
+        let url="http://api.map.baidu.com/geodata/v4/poi/create";
+        let formData = new FormData();
+        formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
+        formData.append("geotable_id",1000004359);
+        formData.append("title",this.state.name);
+        formData.append("address",this.state.address);
+        formData.append("latitude",this.state.latitude);
+        formData.append("longitude",this.state.longitude);
+        formData.append("coord_type",1);
+        formData.append("shopId",shopId);
+
+        fetch(url,{
+            method:'post',
+            body:formData,
+        }).then((res)=>{
+            return res.json( );
+        }).then((json)=>{
+            console.log(json);
+        })
+
+       /* let data ={
+            title:this.state.name,
+            address:this.state.address,
+            latitude:this.state.latitude,
+            longitude:this.state.longitude,
+            coord_type:1,
+            geotable_id:"1000004354",
+            ak:"rKlbEA1ZkvBIr6xIYunVstavD2y7K7fZ"
+        };*/
+    }
+
     close = ()=>{
         this.setState({
             addis:false
@@ -303,7 +339,7 @@ function AddEuipment(props) {
                         <p><span>人均消费</span>  <Input  onChange={props.Onclick}  name={"pay"} type="text"/></p>
                         <p><span>地址</span>      <Cascader name={"area"} options={props.options} onChange={props.Onclick} placeholder={"省-市-区"} changeOnSelect/></p>
                         <p><span>详细地址</span>  <Input  onChange={props.Onclick}  name={"address"} type="text"/></p>
-                        <p><span>经纬度</span>    <Input  placeholder={"经度"} type="text"/> <Input placeholder={"纬度"} type="text"/></p>
+                        <p><span>经纬度</span>    <Input  name={"longitude"} onChange={props.Onclick} placeholder={"经度"} type="text"/> <Input onChange={props.Onclick} name={"latitude"} placeholder={"纬度"} type="text"/></p>
                     </div>
                     <div className={"addBtn"}>
                         <Button onClick={props.close}>取消</Button>
@@ -374,7 +410,7 @@ class Avatar extends React.Component {
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
-                action="http://47.98.252.6:80/charge/web/user/addPicture"
+                action="http://www.cbkj888.com/charge/web/user/addPicture"
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
             >
