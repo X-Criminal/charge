@@ -130,13 +130,26 @@ class app extends Component {
         formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
         formData.append("geotable_id",1000004359);
         formData.append("title",this.state.deleAdmin);
-        fetch(url,{
+     /*   fetch(url,{
             method:'post',
             body:formData,
         }).then((res)=>{
             return res.json( );
         }).then((json)=>{
             console.log(json);
+        })*/
+     let data={
+         ak:"MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs",
+         geotable_id:"193017",
+         title:this.state.deleAdmin
+     };
+         data=JSON.stringify(data);
+        axios({
+            url:this.props.httpUrl+"/charge/web/map/addData",
+            method:"get",
+            params:{"url":"http://api.map.baidu.com/geodata/v3/poi/delete","jsonString":data},
+        }).then((res)=>{
+            console.log(res);
         })
     }
     /**查看店铺信息**/

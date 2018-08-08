@@ -159,7 +159,7 @@ function Lis(props){
             }
         }
     }
-    return _index.map((item,idx)=> <tr key={idx}><td>{idx}</td><td>{item.quantity}</td><td>{item.state===1?"有":"无"}</td><td>{item.state===2?"可还":item.quantity>=100?"可借":"不可借"}</td></tr> )
+    return _index.map((item,idx)=> <tr key={idx}><td>{idx+1}</td><td>{item.quantity}</td><td>{item.state===1?"有":"无"}</td><td>{item.state===2?"可还":item.quantity>=70?"可借":"不可借"}</td></tr> )
 }
 
 function getBase64(img, callback) {

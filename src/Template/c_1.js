@@ -182,7 +182,7 @@ class app extends Component {
     };
 
     onPosition(shopId){
-        let _this= this;
+   /*     let _this= this;
         let url="http://api.map.baidu.com/geodata/v4/poi/create";
         let formData = new FormData();
         formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
@@ -191,9 +191,8 @@ class app extends Component {
         formData.append("address",this.state.address);
         formData.append("latitude",this.state.latitude);
         formData.append("longitude",this.state.longitude);
-        formData.append("coord_type",1);
+        formData.append("coord_type",3);
         formData.append("shopId",shopId);
-
         fetch(url,{
             method:'post',
             body:formData,
@@ -201,17 +200,26 @@ class app extends Component {
             return res.json( );
         }).then((json)=>{
             console.log(json);
-        })
+        });*/
 
-       /* let data ={
+        let data ={
             title:this.state.name,
             address:this.state.address,
             latitude:this.state.latitude,
             longitude:this.state.longitude,
-            coord_type:1,
-            geotable_id:"1000004354",
-            ak:"rKlbEA1ZkvBIr6xIYunVstavD2y7K7fZ"
-        };*/
+            coord_type:3,
+            geotable_id:193017,
+            ak:"MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs",
+            shopId:shopId,
+        };
+        data=JSON.stringify(data);
+        axios({
+            url:this.props.httpUrl+"/charge/web/map/addData",
+            method:"get",
+            params:{"url":"http://api.map.baidu.com/geodata/v3/poi/create","jsonString":data},
+        }).then((res)=>{
+                console.log(res);
+            })
     }
 
     close = ()=>{

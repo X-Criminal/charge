@@ -46,7 +46,7 @@ class app extends Component {
     AxiosPositin(address,title,cb){
         let _this= this;
         let url ="http://api.map.baidu.com/geodata/v4/poi/list";
-    /*    let formData = new FormData();
+        let formData = new FormData();
         formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
         formData.append("address",address||"");
         formData.append("title",title||"");
@@ -74,7 +74,7 @@ class app extends Component {
                 alert("地图获取失败")
             }
             cb&&cb()
-        })*/
+        })
 
     }
     addMarker(point){  // 创建图标对象
