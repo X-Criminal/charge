@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {Select,Input,Button} from "antd";
 /*import { Map, Marker } from 'react-amap';*/
-import axios from "axios";
+/*import axios from "axios";*/
+import fetch from "fetch-jsonp";
 import "../css/e.css";
 import img from "../img/icon.png";
 
@@ -45,27 +46,49 @@ class app extends Component {
     }
     AxiosPositin(address,title,cb){
         let _this= this;
-        let url ="http://api.map.baidu.com/geodata/v4/poi/list";
-        let formData = new FormData();
-        formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
-        formData.append("address",address||"");
-        formData.append("title",title||"");
-        formData.append("coord_type",1);
-        formData.append("page_size",200);
-        formData.append("geotable_id",1000004359);
-        fetch(url,{
-            method:'post',
-            body:formData,
-        }).then((res)=>{
-            return res.json( );
-        }).then((json)=>{
+        /*      let formData = new FormData();
+                formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
+                formData.append("address",address||"");
+                formData.append("title",title||"");
+                formData.append("coord_type",1);
+                formData.append("page_size",200);
+                formData.append("geotable_id",1000004359);
+                fetch(url,{
+                    method:'post',
+                    body:formData,
+                }).then((res)=>{
+                    return res.json( );
+                }).then((json)=>{
+                    if(json.status===0){
+                        let data = json.pois;
+                        if(data){
+                            _this.mapInit(data[0].location[0],json.pois[0].location[1]);
+                            for(let i = 0,idx = data.length;i<idx;i++){
+                                let point = new _this.BMap.Point(data[i].location[0],data[i].location[1]);
+                                _this.addMarker(point);
+                            }
+                        }else{
+                            alert("暂无数据");
+                        }
+                    }else{
+                        alert("地图获取失败")
+                    }
+                    cb&&cb()
+                })*/
+       /* fetch('http://api.map.baidu.com/geodata/v3/poi/list?ak=MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs&geotable_id=193017&page_size=200')*/
+        address=address||"";title=title||"";
+        fetch('http://api.map.baidu.com/geodata/v3/poi/list?ak=MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs&geotable_id=193017&page_size=200&retrieval='+address+"&title="+title)
+            .then(function(response) {
+                return response.json()
+            }).then(function(json) {
+                // 在此处进行接收数据之后的操作
             if(json.status===0){
                 let data = json.pois;
                 if(data){
                     _this.mapInit(data[0].location[0],json.pois[0].location[1]);
                     for(let i = 0,idx = data.length;i<idx;i++){
                         let point = new _this.BMap.Point(data[i].location[0],data[i].location[1]);
-                        _this.addMarker(point);
+                        _this.addMarker(point,data[i]);
                     }
                 }else{
                     alert("暂无数据");
@@ -74,17 +97,28 @@ class app extends Component {
                 alert("地图获取失败")
             }
             cb&&cb()
+        }).catch(function(ex) {
+            console.log('parsing failed', ex) // 此处是数据请求失败后的处理
         })
-
     }
-    addMarker(point){  // 创建图标对象
-        var myIcon = new this.BMap.Icon(img, new this.BMap.Size(30, 30), {
-            anchor: new this.BMap.Size(28, 28),
-            /*imageOffset: new this.BMap.Size(11,-1)// 设置图片偏移*/
+    addMarker(point,data){  // 创建图标对象
+        let _this =this;
+        let myIcon = new this.BMap.Icon(img, new this.BMap.Size(28, 28), {
+            anchor: new this.BMap.Size(14, 28),
+          /*imageOffset: new this.BMap.Size(0,0)*/// 设置图片偏移
         });
         // 创建标注对象并添加到地图
-        var marker = new this.BMap.Marker(point, {icon: myIcon});
+        let marker = new this.BMap.Marker(point, {icon: myIcon});
+        let opts={
+            width:100,
+            height:50,
+            title:data.title
+        };
+        let infoWindow = new this.BMap.InfoWindow("地址："+data.province+data.city+data.district+data.address,opts);
         this.map.addOverlay(marker);
+        marker.addEventListener("click",function(){
+            _this.map.openInfoWindow(infoWindow,point)
+        });
     }
     onenter = (address,title,cb)=> {
         this.AxiosPositin(address,title,cb);
@@ -100,7 +134,6 @@ class app extends Component {
                 </div>
             </div>
         )
-
     }
 }
 

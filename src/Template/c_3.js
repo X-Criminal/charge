@@ -35,9 +35,23 @@ class app extends Component {
         if(data.code===1000){
             this.setState({
                 img:data.data,
-            })
+            });
+            let _data ={
+                id:338508,
+                title:this.props.c3Data.name,
+                imgurl:this.props.httpUrl+"/"+data.data,
+                geotable_id:193017,
+                ak:"MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs",
+            };
+            _data=JSON.stringify(_data);
+            axios({
+                url:this.props.httpUrl+"/charge/web/map/addData",
+                method:"get",
+                params:{"url":"http://api.map.baidu.com/geodata/v3/poi/update","jsonString":_data},
+            }).then((res)=>{
+                console.log(res);
+            });
         }else{
-            console.log(1);
             alert(data.message)
         }
     };

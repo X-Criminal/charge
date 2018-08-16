@@ -4,6 +4,7 @@ import cookie from "react-cookies"
 import Home from"./Home";
 import "../img/fontImage/iconfont.css"
 
+import logo from "../img/logo.png"
 import '../css/login.css'
 class app extends Component{
     constructor(props){
@@ -103,7 +104,7 @@ class app extends Component{
         if(!this.props.lslogin){
             return(
                 <div className={"login"}>
-                    <div className={"userImg"}> </div>
+                    <div className={"userImg"}><img src={logo} style={{"width":"100%"}}/> </div>
                     <p>管理系统</p>
                     <p>登录</p>
                     <input  type="text" onBlur={this.blur}    name={"user"} onChange={this.login_text} style={this.state.isUser?{"borderColor":""}:{"borderColor":"red"}} placeholder={"账号"}/>

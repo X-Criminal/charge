@@ -55,7 +55,7 @@ class app extends Component {
                 area:this.state.txta+this.state.txtb+this.state.txtc,
                 keyWord:this.state.keyword,
                 page:this.state.page,
-                numberPage:11,
+                numberPage:5,
                 adminId:cookie.load("user").data.adminId,
                 role:cookie.load("user").data.role
             }
@@ -64,7 +64,7 @@ class app extends Component {
                 this.props.paginationData({
                     area:this.state.txta+this.state.txtb+this.state.txtc,
                     keyWord:this.state.keyword,
-                    numberPage:11,
+                    numberPage:5,
                     page:1,
                 });
                 this.props.enterLoading(res)

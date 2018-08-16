@@ -122,6 +122,16 @@
     box-sizing: border-box;
     border: 1px solid #D8DDE6;
 }
+.addBox .input .err{
+    text-align: center;
+    font-size: 12px;
+   position: absolute;
+    bottom: 100px;
+    width: 100%;
+    color: red;
+    margin-top: 0;
+    line-height: 24px;
+}
 .ant-table-wrapper button{
     background-color:rgba(0,0,0,0);
 }

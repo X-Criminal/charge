@@ -168,45 +168,20 @@ class app extends Component {
                 start:this.state.start,
             }
         }).then((res)=>{
-            this.setState({
-                account:"",
-                area:"",
-                password:"",
-                userName:"",
-                addis:false,
-            });
             alert(res.data.message);
             this.queryAdminList();
-            this.onPosition(res.data.data)
+            this.onPosition(res.data.data,this.state.img)
         });
     };
 
-    onPosition(shopId){
-   /*     let _this= this;
-        let url="http://api.map.baidu.com/geodata/v4/poi/create";
-        let formData = new FormData();
-        formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
-        formData.append("geotable_id",1000004359);
-        formData.append("title",this.state.name);
-        formData.append("address",this.state.address);
-        formData.append("latitude",this.state.latitude);
-        formData.append("longitude",this.state.longitude);
-        formData.append("coord_type",3);
-        formData.append("shopId",shopId);
-        fetch(url,{
-            method:'post',
-            body:formData,
-        }).then((res)=>{
-            return res.json( );
-        }).then((json)=>{
-            console.log(json);
-        });*/
-
+    onPosition(shopId,img){
         let data ={
             title:this.state.name,
             address:this.state.address,
             latitude:this.state.latitude,
             longitude:this.state.longitude,
+            retrieval:this.state.area,
+            imgurl:this.props.httpUrl+"/"+img,
             coord_type:3,
             geotable_id:193017,
             ak:"MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs",
@@ -218,10 +193,16 @@ class app extends Component {
             method:"get",
             params:{"url":"http://api.map.baidu.com/geodata/v3/poi/create","jsonString":data},
         }).then((res)=>{
-                console.log(res);
+                this.setState({
+                    account:"",
+                    area:"",
+                    password:"",
+                    userName:"",
+                    img:"",
+                    addis:false,
+                });
             })
     }
-
     close = ()=>{
         this.setState({
             addis:false
@@ -266,9 +247,8 @@ class app extends Component {
         if(data.code===1000){
             this.setState({
                 img:data.data,
-            })
+            });
         }else{
-            console.log(1);
             alert(data.message)
         }
     };
@@ -347,7 +327,7 @@ function AddEuipment(props) {
                         <p><span>人均消费</span>  <Input  onChange={props.Onclick}  name={"pay"} type="text"/></p>
                         <p><span>地址</span>      <Cascader name={"area"} options={props.options} onChange={props.Onclick} placeholder={"省-市-区"} changeOnSelect/></p>
                         <p><span>详细地址</span>  <Input  onChange={props.Onclick}  name={"address"} type="text"/></p>
-                        <p><span>经纬度</span>    <Input  name={"longitude"} onChange={props.Onclick} placeholder={"经度"} type="text"/> <Input onChange={props.Onclick} name={"latitude"} placeholder={"纬度"} type="text"/></p>
+                        <p><span>经纬度</span>    <Input  name={"longitude"} onChange={props.Onclick} placeholder={"经度(-180~180)"} type="text"/> <Input onChange={props.Onclick} name={"latitude"} placeholder={"纬度(-90~90)"} type="text"/></p>
                     </div>
                     <div className={"addBtn"}>
                         <Button onClick={props.close}>取消</Button>

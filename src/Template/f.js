@@ -181,7 +181,7 @@ function CheckState( props ){
                 <tr >
                     <td>被审核人</td>
                     <td>店名</td>
-                    <td>价格</td>
+                    <td>金额</td>
                     <td>理由</td>
                     <td>操作</td>
                 </tr >
@@ -225,7 +225,7 @@ function MoneyState( props ){
                 <tr >
                     <td>被审核人</td>
                     <td>店名</td>
-                    <td>价格</td>
+                    <td>金额</td>
                     <td>理由</td>
                     <td>审核时间</td>
                     <td>审核结果</td>

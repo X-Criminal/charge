@@ -10,7 +10,6 @@
     width: 120px;
     height: 120px;
     display: inline-block;
-    background-color:#d8dde6;
 }
 .login p:nth-of-type(1){
     font-size: 23px;

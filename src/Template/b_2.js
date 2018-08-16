@@ -47,7 +47,7 @@ class app extends Component {
                     </table>
                 </div>
                 <div className={"page"}>
-                    <span style={{"float":"left","lineHeight":"32px"}}>共{this.props.totalItems}条</span> <Pagination onChange={this.props.pagination}  total={this.props.totalItems} />
+                    <span style={{"float":"left","lineHeight":"32px"}}>共{this.props.totalItems}条</span> <Pagination onChange={this.props.pagination} defaultPageSize={5} total={this.props.totalItems} />
                 </div>
             </div>
         )
@@ -57,5 +57,5 @@ class app extends Component {
 export default app;
 
 function AataLis(props){
-    return props.DataLis.map((res,idx)=>(<tr key={idx}><td><div><img src={props.httpUrl+"/"+res.headUrl} /></div></td><td>{res.account}</td><td>{res.name}</td><td> <button onClick={props.User.bind(this,{userId:res.userId,usernum:res.account,username:res.name})}>查看</button></td></tr>))
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td><div><img src={res.headUrl} /></div></td><td>{res.account}</td><td>{res.name}</td><td> <button onClick={props.User.bind(this,{userId:res.userId,usernum:res.account,username:res.name})}>查看</button></td></tr>))
 }

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios"
+import cookie from "react-cookies"
 import "../img/fontImage/iconfont.css"
 
 import C1  from "./c_1.js";
@@ -125,19 +126,6 @@ class app extends Component {
         })
     }
     ondemap(){
-        let url="http://api.map.baidu.com/geodata/v4/poi/delete";
-        let formData = new FormData();
-        formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
-        formData.append("geotable_id",1000004359);
-        formData.append("title",this.state.deleAdmin);
-     /*   fetch(url,{
-            method:'post',
-            body:formData,
-        }).then((res)=>{
-            return res.json( );
-        }).then((json)=>{
-            console.log(json);
-        })*/
      let data={
          ak:"MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs",
          geotable_id:"193017",
@@ -171,7 +159,6 @@ class app extends Component {
                         isCdit:true,
                     })
                 }else{
-                    console.log(1);
                     alert(res.data.message)
                 }
             })
@@ -205,17 +192,37 @@ class app extends Component {
                     this.queryDetailsAxios(_data);
                     cb&&cb()
                }else{
-                   console.log(1);
                    alert(res.data.message)
                }
             });
     };
+    _queryAdminList=()=>{
+        axios({
+            url:this.props.httpUrl+"/charge/web/device/queryEquipmentList",
+            method:"post",
+            data:{
+                adminId:cookie.load("user").data.adminId,
+                role:cookie.load("user").data.role,
+                area:"",
+                keyWord:"",
+                page:1,
+                numberPage:11
+            }
+        }).then((res)=>{
+            if(res.data.code===1000){
+                this.enterLoading(res)
+            }else if(res.data.code===3001||res.data.code===1002){
+                alert(res.data.message)
+            }
+        })
+    }
+
     render() {
         return (
             <div className={"a c"}>
                     <h3>设备管理</h3>
                     <C1 paginationData={this.paginationData} httpUrl={this.props.httpUrl} allpca={this.props.allpca} options={this.props.options} loading={this.state.loading} enterLoading={this.enterLoading}/>
-                    <C2 totalItems={this.state.totalItems} DataLis={this.state.DataLis} dataLis={this.dataLis} pagination={this.pagination} deleAdmin={this.deleAdmin} queryDetails={this.queryDetails}/>
+                    <C2  _queryAdminList={this._queryAdminList} totalItems={this.state.totalItems} DataLis={this.state.DataLis} dataLis={this.dataLis} pagination={this.pagination} deleAdmin={this.deleAdmin} queryDetails={this.queryDetails}/>
                     <DeleAdmin onDel={this.onDel} dele_box={this.dele_box} deleis={this.state.deleis}/>
                     <C3 httpUrl={this.props.httpUrl} enterLoading={this.enterLoading} pageData={this.state.pageData} onedit={this.onedit} ishowC3={this.state.ishowC3} hidDeta={this.hidDeta} c3Data={this.state.c3Data} isCdit={this.state.isCdit} edit={this.edit} rerF={this.rerF} options={this.props.options} onshopId={this.state.onshopId}/>
             </div>

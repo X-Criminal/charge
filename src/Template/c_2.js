@@ -39,8 +39,7 @@ class app extends Component {
         this.setState({
             Amount:true,
             shopId:shopId,
-        })
-
+        });
     };
     desetAmount=()=>{
         this.setState({
@@ -63,6 +62,7 @@ class app extends Component {
                 loading:false,
                 Amount:false,
             });
+            this.props._queryAdminList( )
         })
       };
 

@@ -35,7 +35,6 @@ class app extends Component {
             role:this.role,
             state:1
         },(res)=>{
-            console.log(res);
             this.setState({
                 value:1,
                 a1:res,
@@ -115,7 +114,7 @@ class Table extends Component{
         };
         axios.post("http://www.cbkj888.com/charge/web/admin/updateCertState", _data)
             .then((res) => {
-                if(res.data.code=1000){
+                if(res.data.code===1000){
                     this.props.upstate( )
                 }
                 alert(res.data.message);
@@ -123,7 +122,7 @@ class Table extends Component{
     };
 
     render(){
-        if(this.props.value==1){
+        if(this.props.value===1){
             return (<table className={"table table1"}>
                 <thead>
                 <tr>
@@ -140,7 +139,7 @@ class Table extends Component{
                 }
                 </tbody>
             </table>)
-        }else if(this.props.value==2){
+        }else if(this.props.value===2){
             return (<table className={"table table2"}>
                 <thead>
                 <tr>

@@ -53,6 +53,13 @@
     height: 64px;
     border-radius: 100%;
     background-color: #ccc;
+    overflow: hidden;
+    position: relative;
+}
+.b_2 .table tbody td>div img{
+    width: 100%;
+    position: absolute;
+    top: 0;
 }
 .b_2 .table tbody td> button:nth-child(1){
     color: #27A3FF;

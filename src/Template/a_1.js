@@ -25,9 +25,10 @@ class app extends Component {
                 area:"",
                 password:"",
                 userName:"",
+            err:null
         };
 
-        this._addOnchange=this._addOnchange.bind(this)
+        this._addOnchange=this._addOnchange.bind(this);
         this.keyword = this.keyword.bind(this);
     }
 
@@ -116,7 +117,7 @@ class app extends Component {
     handleChange3 = (value) => {
             this.setState({
                 txtc: value,
-            })
+            });
         if(!value){
             this.setState({
                 txtc:""
@@ -136,31 +137,44 @@ class app extends Component {
             this.setState({loading: false});
         })
     };
+    isAdd=false;
+    _Isadd=false;
     AddenterLoading = () => {
-        axios({
-           url:this.props.httpUrl+"/charge/web/admin/addAdmin",
-            method:"post",
-            data:{
-                account:this.state.account,
-                area:this.state.area,
-                password:this.state.password,
-                userName:this.state.userName,
-            }
-        }).then((res)=>{
-            this.setState({
-                account:"",
-                area:"",
-                password:"",
-                userName:"",
-                addis:false,
-            });
-            alert(res.data.message);
-            this.queryAdminList();
-        })
+         this.isAdd = true;
+         if(this.state.account.length<=0||this.state.area.length<=0||this.state.password.length<=0||this.state.userName.length<=0||!this._Isadd){
+             this.isAdd = false;
+             this.setState({
+                 err:this.state.err||"资料请填写完成！"
+             })
+         }
+        if(this.isAdd){
+            axios({
+                url:this.props.httpUrl+"/charge/web/admin/addAdmin",
+                method:"post",
+                data:{
+                    account:this.state.account,
+                    area:this.state.area,
+                    password:this.state.password,
+                    userName:this.state.userName,
+                }
+            }).then((res)=>{
+                this.setState({
+                    account:"",
+                    area:"",
+                    password:"",
+                    userName:"",
+                    addis:false,
+                    err:""
+                });
+                alert(res.data.message);
+                this.queryAdminList();
+            })
+        }
     };
     close = ()=>{
         this.setState({
-            addis:false
+            addis:false,
+            err:""
         })
     };
     add=()=>{
@@ -183,7 +197,28 @@ class app extends Component {
            })
        }
     }
-
+    _checkAdmin(admin,cb){
+        axios.get(this.props.httpUrl+"/charge/web/admin/checkAdmin?account="+admin)
+            .then((res)=>{
+                if(res.data.code!==3001){
+                    cb&&cb(res.data)
+                }else{
+                    this._Isadd=true
+                }
+            })
+    }
+    _onBlur=(e)=>{
+       this._checkAdmin(e.target.value,(err)=>{
+           this.setState({
+               err:err.message
+           });
+       })
+    };
+    _onFocus=()=>{
+        this.setState({
+            err:null
+        })
+    };
     render() {
         return (
             <div className={"Region"}>
@@ -226,8 +261,15 @@ class app extends Component {
                     搜索
                 </Button>
                 <Button className={"add"} onClick={this.add} type="primary">添加</Button>
-                <Add _addOnchange={this._addOnchange} addis={this.state.addis} addLoading={this.state.addLoading}
-                     AddenterLoading={this.AddenterLoading} close={this.close} options={this.props.options}/>
+                <Add _addOnchange={this._addOnchange}
+                     addis={this.state.addis}
+                     addLoading={this.state.addLoading}
+                     AddenterLoading={this.AddenterLoading}
+                     close={this.close}
+                     err={this.state.err}
+                     options={this.props.options}
+                     _onFocus={this._onFocus}
+                     _onBlur={this._onBlur}/>
             </div>
         )
     }
@@ -242,11 +284,12 @@ function Add(props) {
                 <div>
                     <h3>添加管理员 <i onClick={props.close}> </i></h3>
                     <div className={"input"}>
-                        <p><span>用户</span> <Input name={"userName"} type="text" onChange={props._addOnchange} /></p>
-                        <p><span>账号</span> <Input name={"account"} type="text"  onChange={props._addOnchange}/></p>
+                        <p><span>用户</span> <Input name={"userName"} type="text" onChange={props._addOnchange}/></p>
+                        <p><span>账号</span> <Input name={"account"} type="text" onFocus={props._onFocus} onBlur={props._onBlur}  onChange={props._addOnchange}/></p>
                         <p><span>密码</span> <Input name={"password"} type="text" onChange={props._addOnchange}/></p>
                         <p><span>地区</span> <Cascader name={"area"} options={props.options} onChange={props._addOnchange} placeholder={""}
                                                      changeOnSelect/></p>
+                        <p className={"err"}>{props.err}</p>
                     </div>
                     <div className={"addBtn"}>
                         <Button onClick={props.close}>取消</Button>

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Icon,Input,Button} from "antd";
+import {Icon, Input, Button} from "antd";
 import axios from "axios";
 import cookie from "react-cookies"
 
@@ -20,49 +20,77 @@ class app extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            audit:"",
-            rou:0,
-            role:"",
-            userName:"",
-            isAuthentication:false,
-            name:"",
-            card:"",
-            bank:"",
-            address:"",
-            adminid:"",
-            isshow:true,
-            isNewpassowrd:false,
+            audit: "",
+            rou: 0,
+            role: "",
+            userName: "",
+            isAuthentication: false,
+            name: "",
+            card: "",
+            bank: "",
+            address: "",
+            adminid: "",
+            isshow: true,
+            isNewpassowrd: false,
         };
-        this.AuthenticationData=this.AuthenticationData.bind(this)
+        this.AuthenticationData = this.AuthenticationData.bind(this)
     }
 
     componentWillUnmount() {
         //组件被移除时执行
 
     }
+
     componentDidUpdate() {
         //setState 更新时执行
     }
-    tabarr=[
-        {name:"管理员管理",href:"#gly",  icon:"icon-guanli1",       page:0,tem:  <A   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-        {name:"  用户管理",href:"#hy",   icon:"icon-yonghuguanli",  page:1,tem:  <B   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-        {name:"  设备管理",href:"#dy",   icon:"icon-shezhi",        page:2,tem:  <C   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-        {name:"  账单管理",href:"#zd",   icon:"icon-zhangdan",      page:3,tem:  <D   httpUrl={this.props.httpUrl} options={options}  allpca={allpca}/>},
-        {name:"  地图管理",href:"#dt",   icon:"icon-ditu",          page:4,tem:  <E   allpca={allpca}/>},
-        {name:"  审核管理",href:"#sh",   icon:"icon-yonghu",        page:5,tem:  <F   httpUrl={this.props.httpUrl}/>},
-        {name:"  信息管理",href:"#xx",   icon:"icon-guanli",        page:6,tem:  <G />},
-        ];
-    tabarr2=[];
-    componentWillMount(){
+
+    tabarr = [
+        {
+            name: "管理员管理",
+            href: "#gly",
+            icon: "icon-guanli1",
+            page: 0,
+            tem: <A httpUrl={this.props.httpUrl} options={options} allpca={allpca}/>
+        },
+        {
+            name: "  用户管理",
+            href: "#hy",
+            icon: "icon-yonghuguanli",
+            page: 1,
+            tem: <B httpUrl={this.props.httpUrl} options={options} allpca={allpca}/>
+        },
+        {
+            name: "  设备管理",
+            href: "#dy",
+            icon: "icon-shezhi",
+            page: 2,
+            tem: <C httpUrl={this.props.httpUrl} options={options} allpca={allpca}/>
+        },
+        {
+            name: "  账单管理",
+            href: "#zd",
+            icon: "icon-zhangdan",
+            page: 3,
+            tem: <D httpUrl={this.props.httpUrl} options={options} allpca={allpca}/>
+        },
+        {name: "  地图管理", href: "#dt", icon: "icon-ditu", page: 4, tem: <E allpca={allpca}/>},
+        {name: "  审核管理", href: "#sh", icon: "icon-yonghu", page: 5, tem: <F httpUrl={this.props.httpUrl}/>},
+        {name: "  信息管理", href: "#xx", icon: "icon-guanli", page: 6, tem: <G/>},
+    ];
+    tabarr2 = [];
+
+    componentWillMount() {
         let role = cookie.load("user");
         this.firstEntry();
-        if(role.data.role===2){
-            this.tabarr2=this.dellarr(this.tabarr,0,5)
-        }else{
-            this.tabarr2=this.tabarr;
+        if (role.data.role === 2) {
+            this.tabarr2 = this.dellarr(this.tabarr, 0, 5)
+        } else {
+            this.tabarr2 = this.tabarr;
         }
-        window.location.hash="";
+        window.location.hash = "";
     }
+
     componentDidMount() {
         let role = cookie.load("user");
         //组件第一次render时执行
@@ -71,35 +99,37 @@ class app extends Component {
          * 遍历出需要的组件
          * **/
 
-        let _this= this;
-        window.onhashchange=function(){
+        let _this = this;
+        window.onhashchange = function () {
             let hash = window.location.hash;
             _this.hash(hash)
         };
         this.setState({
-            role:role.data.role,
-            userName:role.data.userName,
-            adminid:role.data.adminId
+            role: role.data.role,
+            userName: role.data.userName,
+            adminid: role.data.adminId
         });
         this.abc();
-        this.firstEntry( );
+        this.firstEntry();
     }
-    abc=( )=>{
+
+    abc = () => {
         let role = cookie.load("user");
-        if(role.data.role===2&&role.data.checkState===4){
+        if (role.data.role === 2 && role.data.checkState === 4) {
             this.setState({
-                isAuthentication:true,
+                isAuthentication: true,
             });
             alert("未实名认证或实名认证未通过，请重新认证");
         }
     };
+
     /**删除数组中某项**/
-    dellarr(arr,idx,idx2){
+    dellarr(arr, idx, idx2) {
         let a = [];
         let b = 0;
-        for(let i = 0,_idx= arr.length;i<_idx;i++){
-            if(i!==idx&&i!==idx2){
-                arr[i].page=b;
+        for (let i = 0, _idx = arr.length; i < _idx; i++) {
+            if (i !== idx && i !== idx2) {
+                arr[i].page = b;
                 a.push(arr[i]);
                 b++
             }
@@ -110,78 +140,87 @@ class app extends Component {
     /*** 返回 * **/
     moverAuthentication = () => {
         this.setState({
-            isAuthentication:false,
+            isAuthentication: false,
         })
     };
     /**监控hash**/
-    firstEntry = ()=>{
+    firstEntry = () => {
         var hash = window.location.hash;
         this.hash(hash)
     };
-    hash(hash){
-        let _this= this;
-        for(let i = 0,idx = _this.tabarr2.length;i<idx;i++){
-            if(_this.tabarr2[i].href===hash){
+
+    hash(hash) {
+        let _this = this;
+        for (let i = 0, idx = _this.tabarr2.length; i < idx; i++) {
+            if (_this.tabarr2[i].href === hash) {
                 _this.setState({
-                    rou:_this.tabarr2[i].page
+                    rou: _this.tabarr2[i].page
                 });
                 return;
             }
         }
     }
+
     /***退出* **/
     quit = () => {
-        let isrem =window.confirm("确认退出？");
-        if(isrem){
+        let isrem = window.confirm("确认退出？");
+        if (isrem) {
             cookie.remove("user");
-            window.location.hash="";
-            window.location.reload( )
+            window.location.hash = "";
+            window.location.reload()
         }
     };
+
     /**实名认证数据**/
-    AuthenticationData(e){
+    AuthenticationData(e) {
         this.setState({
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         });
     }
-    UpAuthentication=()=>{
+
+    UpAuthentication = () => {
         let _this = this;
-        if(this.state.name.length<=0||this.state.card.length<=0||this.state.bank.length<=0||this.state.address.length<=0){
-           alert("信息请填写完整");
-        }else{
+        if (this.state.name.length <= 0 || this.state.card.length <= 0 || this.state.bank.length <= 0 || this.state.address.length <= 0) {
+            alert("信息请填写完整");
+        } else {
             axios({
-                url:this.props.httpUrl+"/charge/web/admin/addCertification",
-                method:"post",
-                data:{
-                    name:this.state.name,
-                    card:this.state.card,
-                    bank:this.state.bank,
-                    address:this.state.address,
-                    adminId:this.state.adminid,
+                url: this.props.httpUrl + "/charge/web/admin/addCertification",
+                method: "post",
+                data: {
+                    name: this.state.name,
+                    card: this.state.card,
+                    bank: this.state.bank,
+                    address: this.state.address,
+                    adminId: this.state.adminid,
                 }
-            }).then((res)=>{
-                if(res.data.code===1000){
+            }).then((res) => {
+                if (res.data.code === 1000) {
                     _this.setState({
-                             isshow:false
-                         });
-                   let user = cookie.load("user");
-                        user.data.checkState=1;
-                        cookie.save("user",user)
-                    }else{
-                        alert(res.data.message)
-                    }
+                        isshow: false
+                    });
+                    let user = cookie.load("user");
+                    user.data.checkState = 1;
+                    cookie.save("user", user)
+                } else {
+                    alert(res.data.message)
+                }
             })
         }
     };
     /**关闭**/
-    _newpassword=()=>{
+    _newpassword = () => {
         this.setState({
-            isNewpassowrd:false,
+            isNewpassowrd: false,
         })
     };
-    _open = ()=> {
+    _open = () => {
         this.setState({
-            isNewpassowrd:true,
+            isNewpassowrd: true,
+        })
+    };
+    _Authen=()=>{
+        this.setState({
+            isAuthentication:true
         })
     };
     render() {
@@ -194,8 +233,10 @@ class app extends Component {
                         <i className={"iconfont icon-guanli1"}></i>
                         <span>{this.state.audit}</span>
                         <span className={"userName"}>{this.state.userName}&nbsp;
-                            <Icon style={{"fontSize":"12px"}} type={"caret-down"}/>
-                            <span className={this.state.role===1?"newpassword":""} onClick={this._open} style={this.state.role===1?{"display":""}:{"display":"none"}}>修改密码</span>
+                            <Start Authen={this._Authen}/>
+                            <Icon style={{"fontSize": "12px"}} type={"caret-down"}/>
+                            <span className={this.state.role === 1 ? "newpassword" : ""} onClick={this._open}
+                                  style={this.state.role === 1 ? {"display": ""} : {"display": "none"}}>修改密码</span>
                         </span>
                         <a className={"quit"} onClick={this.quit}>退出</a>
                     </div>
@@ -206,11 +247,15 @@ class app extends Component {
                     </ul>
                 </nav>
                 <div className={"State"}>
-                       <Router  _router={this.tabarr2[this.state.rou]}/>
+                    <Router _router={this.tabarr2[this.state.rou]}/>
                 </div>
 
-                <Authentication isshow={this.state.isshow} moverAuthentication={this.moverAuthentication} UpAuthentication={this.UpAuthentication} AuthenticationData={this.AuthenticationData}  isAuthentication={this.state.isAuthentication}/>
-                   <NewPassword isNewpassowrd={this.state.isNewpassowrd} username={this.state.userName} adminId={this.state.adminid} httpUrl={this.props.httpUrl} _newpassword={this._newpassword}/>
+                <Authentication isshow={this.state.isshow} moverAuthentication={this.moverAuthentication}
+                                UpAuthentication={this.UpAuthentication} AuthenticationData={this.AuthenticationData}
+                                isAuthentication={this.state.isAuthentication}/>
+                <NewPassword isNewpassowrd={this.state.isNewpassowrd} username={this.state.userName}
+                             adminId={this.state.adminid} httpUrl={this.props.httpUrl}
+                             _newpassword={this._newpassword}/>
             </div>
         )
     }
@@ -218,37 +263,58 @@ class app extends Component {
 
 export default app;
 
+function Start(props){
+    let data = cookie.load("user").data;
+    if(data.role===2){
+        if(data.checkState===2){
+            return(
+                <span>已实名</span>
+            )
+        }else{
+            return(
+                <span onClick={props.Authen}>{data.checkState===1?"审核中":data.checkState===3?"审核不通过":"未实名"}</span>
+            )
+        }
+
+    }else{
+        return null;
+    }
+}
 /**
  * 标签页的切换根据传入的index来判断高亮状态，
  * index根据hash值来确定
  * */
-function Tab( props){
-    return props.tabarr.map((item,idx)=> <li key={item.href} className={props.rou===idx?"s":""}><a href={item.href}> <button> <i className={"iconfont "+ item.icon }></i>  {item.name}</button> </a></li> )
+function Tab(props) {
+    return props.tabarr.map((item, idx) => <li key={item.href} className={props.rou === idx ? "s" : ""}><a
+        href={item.href}>
+        <button><i className={"iconfont " + item.icon}></i> {item.name}</button>
+    </a></li>)
 }
+
 /**切换路由跳转的组件，
  * 传入路由对象
  * **/
-function Router(props){
-    if(props._router){
+function Router(props) {
+    if (props._router) {
         return props._router.tem
-    }else{
+    } else {
         return (<div></div>)
     }
 }
 
 /**实名认证**/
-function Authentication(props){
-    if(props.isAuthentication){
+function Authentication(props) {
+    if (props.isAuthentication) {
         return (
             <div className={"Authentication"}>
                 <div className={"AuthenticationBox"}>
-                    <div style={props.isshow?{"display":"block"}:{"display":"none"}}>
+                    <div style={props.isshow ? {"display": "block"} : {"display": "none"}}>
                         <div className={"_icon"}>
                             <i className={"iconfont icon-mingpian"}> </i>
                             <p>申请实名认证</p>
                         </div>
                         <div>
-                            <Input  name={"name"} placeholder="姓名" onChange={props.AuthenticationData}/>
+                            <Input name={"name"} placeholder="姓名" onChange={props.AuthenticationData}/>
                         </div>
                         <div>
                             <Input name={"card"} placeholder="身份证号" onChange={props.AuthenticationData}/>
@@ -260,76 +326,86 @@ function Authentication(props){
                             <Input name={"address"} placeholder="详细地址" onChange={props.AuthenticationData}/>
                         </div>
                         <Button onClick={props.UpAuthentication} type="primary">确认</Button>
-                        <Button onClick={props.moverAuthentication} >返回</Button>
+                        <Button onClick={props.moverAuthentication}>返回</Button>
                     </div>
-                    <div style={props.isshow?{"display":"none"}:{"display":"block"}}>
-                          <i className={"iconfont icon-duigou duigou"}></i>
-                          <p>提交成功</p>
-                          <Button onClick={props.moverAuthentication} >返回</Button>
+                    <div style={props.isshow ? {"display": "none"} : {"display": "block"}}>
+                        <i className={"iconfont icon-duigou duigou"}></i>
+                        <p>提交成功</p>
+                        <Button onClick={props.moverAuthentication}>返回</Button>
                     </div>
                 </div>
             </div>
         )
-    }else{
+    } else {
         return null;
     }
 }
+
 /**修改密码**/
-class NewPassword extends Component{
-    constructor(props){
+class NewPassword extends Component {
+    constructor(props) {
         super(props);
-        this.state={
-            loading:false,
-            oldPwd:"",
-            newPwd:"",
-            renewPwd:"",
+        this.state = {
+            loading: false,
+            oldPwd: "",
+            newPwd: "",
+            renewPwd: "",
         }
     }
-    enterLoading = ()=>{
+
+    enterLoading = () => {
         this.setState({
-            loading:true
+            loading: true
         });
-        this.Axios((res)=>{
+        this.Axios((res) => {
             console.log(res.data);
             this.setState({
-                loading:false
+                loading: false
             });
-            if(res.data.code===1000){
-                alert(res.data.message+"!,请重新登陆");
+            if (res.data.code === 1000) {
+                alert(res.data.message + "!,请重新登陆");
                 cookie.remove("user");
-                window.location.reload( )
-            }else{
+                window.location.reload()
+            } else {
                 alert(res.data.message);
             }
         })
     };
-    onvalue=(e)=>{
+    onvalue = (e) => {
         this.setState({
-            [e.target.name]:e.target.value,
+            [e.target.name]: e.target.value,
         })
     };
-    Axios(cb){
-        let data={
-            adminId:this.props.adminId,
-            oldPwd:this.state.oldPwd,
-            newPwd:this.state.newPwd,
-            renewPwd:this.state.renewPwd,
-        };
-        axios.post(this.props.httpUrl+"/charge/web/admin/updateAdminPwd",data)
-            .then((res)=>{
-                cb&&cb(res)
-            })
 
+    Axios(cb) {
+        let data = {
+            adminId: this.props.adminId,
+            oldPwd: this.state.oldPwd,
+            newPwd: this.state.newPwd,
+            renewPwd: this.state.renewPwd,
+        };
+        if(data.oldPwd===data.newPwd) {
+            alert("原密码与新密码输入一致，请检查后重新输入");
+            this.setState({
+                loading: false
+            });
+        }else{
+            axios.post(this.props.httpUrl + "/charge/web/admin/updateAdminPwd", data)
+                .then((res) => {
+                    cb && cb(res)
+                })
+        }
     }
-    render(){
-        if(this.props.isNewpassowrd){
-            return(
+
+    render() {
+        if (this.props.isNewpassowrd) {
+            return (
                 <div className={"NewPassword"}>
                     <div className={"newBOX"}>
                         <div>修改密码 <i> </i></div>
                         <div><span>用户名</span><span>{this.props.username}</span></div>
-                        <div><span>原密码</span>     <Input onChange={this.onvalue} name={"oldPwd"}/></div>
-                        <div><span>新密码</span>     <Input onChange={this.onvalue} name={"newPwd"}/></div>
+                        <div><span>原密码</span> <Input onChange={this.onvalue} name={"oldPwd"}/></div>
+                        <div><span>新密码</span> <Input onChange={this.onvalue} name={"newPwd"}/></div>
                         <div><span>重复新密码</span> <Input onChange={this.onvalue} name={"renewPwd"}/></div>
                         <div className={"btn"}>
                             <span> </span>
@@ -343,7 +419,7 @@ class NewPassword extends Component{
                     </div>
                 </div>
             )
-        }else{
+        } else {
             return null;
         }
     }
@@ -7548,8 +7624,8 @@ const options = [{
         }]
     }]
 }, {
-    value: "广西",
-    label: "广西",
+    value: "广西省",
+    label: "广西省",
     "children": [{
         value: "南宁市",
         label: "南宁市",
@@ -11736,13 +11812,13 @@ const allpca = [{
     "name": "北京市",
     "sub": [{
         "name": "北京市",
-        "sub": [{"name": "东城区"}, {"name": "西城区"}, {"name": "朝阳区"}, {"name": "丰台区"}, {"name": "石景山区"}, {"name": "海淀区"}, {"name": "门头沟区"}, {"name": "房山区"}, {"name": "通州区"}, {"name": "顺义区"}, {"name": "昌平区"}, {"name": "大兴区"}, {"name": "怀柔区"}, {"name": "平谷区"},{"name": "密云县"}, {"name": "延庆县"}]
+        "sub": [{"name": "东城区"}, {"name": "西城区"}, {"name": "朝阳区"}, {"name": "丰台区"}, {"name": "石景山区"}, {"name": "海淀区"}, {"name": "门头沟区"}, {"name": "房山区"}, {"name": "通州区"}, {"name": "顺义区"}, {"name": "昌平区"}, {"name": "大兴区"}, {"name": "怀柔区"}, {"name": "平谷区"}, {"name": "密云县"}, {"name": "延庆县"}]
     }]
 }, {
     "name": "天津市",
     "sub": [{
         "name": "天津市",
-        "sub": [{"name": "和平区"}, {"name": "河东区"}, {"name": "河西区"}, {"name": "南开区"}, {"name": "河北区"}, {"name": "红桥区"}, {"name": "东丽区"}, {"name": "西青区"}, {"name": "津南区"}, {"name": "北辰区"}, {"name": "武清区"}, {"name": "宝坻区"}, {"name": "滨海新区"},{"name": "宁河县"}, {"name": "静海县"}, {"name": "蓟县"}]
+        "sub": [{"name": "和平区"}, {"name": "河东区"}, {"name": "河西区"}, {"name": "南开区"}, {"name": "河北区"}, {"name": "红桥区"}, {"name": "东丽区"}, {"name": "西青区"}, {"name": "津南区"}, {"name": "北辰区"}, {"name": "武清区"}, {"name": "宝坻区"}, {"name": "滨海新区"}, {"name": "宁河县"}, {"name": "静海县"}, {"name": "蓟县"}]
     }]
 }, {
     "name": "河北省",
@@ -12475,7 +12551,7 @@ const allpca = [{
     "sub": [{
         "name": "重庆市",
         "sub": [{"name": "万州区"}, {"name": "涪陵区"}, {"name": "渝中区"}, {"name": "大渡口区"}, {"name": "江北区"}, {"name": "沙坪坝区"}, {"name": "九龙坡区"}, {"name": "南岸区"}, {"name": "北碚区"}, {"name": "綦江区"}, {"name": "大足区"}, {"name": "渝北区"}, {"name": "巴南区"}, {"name": "黔江区"}, {"name": "长寿区"}, {"name": "江津区"}, {"name": "合川区"}, {"name": "永川区"}, {"name": "南川区"}, {"name": "璧山区"}, {"name": "铜梁区"}]
-    },{"name": "潼南县"}, {"name": "荣昌县"}, {"name": "梁平县"}, {"name": "城口县"}, {"name": "丰都县"}, {"name": "垫江县"}, {"name": "武隆县"}, {"name": "忠县"}, {"name": "开县"}, {"name": "云阳县"}, {"name": "奉节县"}, {"name": "巫山县"}, {"name": "巫溪县"}, {"name": "石柱土家族自治县"}, {"name": "秀山土家族苗族自治县"}, {"name": "酉阳土家族苗族自治县"}, {"name": "彭水苗族土家族自治县"}
+    }, {"name": "潼南县"}, {"name": "荣昌县"}, {"name": "梁平县"}, {"name": "城口县"}, {"name": "丰都县"}, {"name": "垫江县"}, {"name": "武隆县"}, {"name": "忠县"}, {"name": "开县"}, {"name": "云阳县"}, {"name": "奉节县"}, {"name": "巫山县"}, {"name": "巫溪县"}, {"name": "石柱土家族自治县"}, {"name": "秀山土家族苗族自治县"}, {"name": "酉阳土家族苗族自治县"}, {"name": "彭水苗族土家族自治县"}
     ]
 }, {
     "name": "四川省",
@@ -12801,6 +12877,6 @@ const allpca = [{
         "name": "阿勒泰地区",
         "sub": [{"name": "阿勒泰市"}, {"name": "布尔津县"}, {"name": "富蕴县"}, {"name": "福海县"}, {"name": "哈巴河县"}, {"name": "青河县"}, {"name": "吉木乃县"}]
     }, {"name": "自治区直辖县级行政区划", "sub": [{"name": "石河子市"}, {"name": "阿拉尔市"}, {"name": "图木舒克市"}, {"name": "五家渠市"}]}]
-},  {"name": "台湾省", "sub": []},
+}, {"name": "台湾省", "sub": []},
     {"name": "香港特别行政区", "sub": []},
     {"name": "澳门特别行政区", "sub": []}];

@@ -66,7 +66,7 @@ class app extends Component {
     };
     pageAxios(data){
         axios({
-            url:this.props.httpUrl+"/charge/web/admin/queryAdminList",
+            url:this.props.httpUrl+"/charge/web/user/queryUserList",
             method:"post",
             data:data
         }).then((res)=>{
