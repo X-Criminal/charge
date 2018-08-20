@@ -36,7 +36,6 @@ class app extends Component {
                         <thead>
                         <tr>
                             <td>用户头像</td>
-                            <td>账号</td>
                             <td>昵称</td>
                             <td>操作</td>
                         </tr>
@@ -57,5 +56,5 @@ class app extends Component {
 export default app;
 
 function AataLis(props){
-    return props.DataLis.map((res,idx)=>(<tr key={idx}><td><div><img src={res.headUrl} /></div></td><td>{res.account}</td><td>{res.name}</td><td> <button onClick={props.User.bind(this,{userId:res.userId,usernum:res.account,username:res.name})}>查看</button></td></tr>))
+    return props.DataLis.map((res,idx)=>(<tr key={idx}><td><div><img src={res.headUrl} /></div></td><td>{res.name}</td><td> <button onClick={props.User.bind(this,{userId:res.userId,usernum:res.account,username:res.name})}>查看</button></td></tr>))
 }

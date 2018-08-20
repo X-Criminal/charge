@@ -99,7 +99,7 @@ class app extends Component {
         this.onDelAxios(function(){
             _this.setState({
                 DataLis:_this.dellarr(_this.state.DataLis,_this.idx)
-            })
+            });
             _this.ondemap()
         })
     }

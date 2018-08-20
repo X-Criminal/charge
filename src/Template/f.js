@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Radio } from 'antd';
+import { Radio ,Pagination} from 'antd';
 import  axios from "axios";
 import  cookie from "react-cookies"
 import "../css/f.css"
@@ -13,11 +13,16 @@ class app extends Component {
         super(props);
         this.state = {
             radioValue:1,//审核状态
+            _radio:1,
             settingValue:1,
+            State:1,
             state1:[],//实名认证未审核
             state1_2:[],
             state2:[],//金额认证未审核
             state2_2:[],
+            PAGE:1,
+            page:1,
+            numberPage:11,
         };
     }
 
@@ -40,43 +45,51 @@ class app extends Component {
         this.DataAxios2_2( );
     }
 /**审核列表**/
-    DataAxios1 = ()=>{
+    DataAxios1 = ( n )=>{
         this.Axios({
             state:1,
             type:1,
+            numberPage:this.state.numberPage,
+            page:n||this.state.page
         },(data)=>{
             this.setState({
-                state1:data.data.data
+                state1:data.data||[]
             });
         })
     };
-    DataAxios1_2   = ()=>{
+    DataAxios1_2 = (n)=>{
         this.Axios({
             state:2,
             type:1,
+            numberPage:this.state.numberPage,
+            page:n||this.state.page
         },(data)=>{
             this.setState({
-                state1_2:data.data.data
+                state1_2:data.data||[]
             });
         })
     };
-    DataAxios2   = ()=>{
+    DataAxios2   = (n)=>{
         this.Axios({
             state:1,
             type:2,
+            numberPage:this.state.numberPage,
+            page:n||this.state.page
         },(data)=>{
             this.setState({
-                state2:data.data.data
+                state2:data.data||[]
             });
         })
     };
-    DataAxios2_2 =()=>{
+    DataAxios2_2 =(n)=>{
         this.Axios({
             state:2,
             type:2,
+            numberPage:this.state.numberPage,
+            page:n||this.state.page
         },(data)=>{
-              this.setState({
-                  state2_2:data.data.data
+            this.setState({
+                  state2_2:data.data||[]
               });
         })
     };
@@ -128,6 +141,23 @@ class app extends Component {
             settingValue:e
         })
     };
+    _radio=(e)=>{
+       this.setState({
+           _radio:e
+       })
+    };
+    _change1=(page)=>{
+        this.DataAxios1(page);
+    };
+    _change2=(page)=>{
+        this.DataAxios1_2(page);
+    };
+    _change3=(page)=>{
+        this.DataAxios2(page);
+    };
+    _change4=(page)=>{
+        this.DataAxios2_2(page);
+    };
     render() {
         return (
             <div className={"f"}>
@@ -137,8 +167,8 @@ class app extends Component {
                 </div>
                 <div className={"_radio"}>
                     <RadioGroup onChange={this.radio_onChange} defaultValue={1}>
-                        <Radio value={1}>未审核</Radio>
-                        <Radio value={2}>以审核</Radio>
+                        <Radio value={1} onClick={this._radio.bind(this,1)}>未审核</Radio>
+                        <Radio value={2} onClick={this._radio.bind(this,2)}>以审核</Radio>
                     </RadioGroup>
                 </div>
                 <div className={"tab1 tab"} style={this.state.radioValue===1?{"display":"block"}:{"display":"none"}}>
@@ -147,6 +177,20 @@ class app extends Component {
                 <div className={"tab2 tab"} style={this.state.radioValue===1?{"display":"none"}:{"display":"block"}}>
                     <MoneyState state1={this.state.state1_2}  state2={this.state.state2_2} settingValue={this.state.settingValue}/>
                 </div>
+                <br/>
+                <br/>
+                <PAgination
+                    settingValue={this.state.settingValue}
+                    _radio={this.state._radio}
+                    v1={this.state.state1}
+                    v2={this.state.state1_2}
+                    v3={this.state.state2}
+                    v4={this.state.state2_2}
+                    _onclick1={this._change1}
+                    _onclick2={this._change2}
+                    _onclick3={this._change3}
+                    _onclick4={this._change4}
+                />
             </div>
         )
     }
@@ -169,7 +213,7 @@ function CheckState( props ){
                 </thead>
                 <tbody>
                     {
-                        props.state1.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.card}</td><td>{item.bank}</td><td>{item.address}</td><td><button onClick={props.updateCertState.bind(this,2,1,item.certId)}>通过</button><button onClick={props.updateCertState.bind(this,3,1,item.certId)}>不通过</button></td></tr>))
+                        props.state1.data?props.state1.data.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.card}</td><td>{item.bank}</td><td>{item.address}</td><td><button onClick={props.updateCertState.bind(this,2,1,item.certId)}>通过</button><button onClick={props.updateCertState.bind(this,3,1,item.certId)}>不通过</button></td></tr>)):null
                     }
                 </tbody>
             </table>
@@ -180,6 +224,7 @@ function CheckState( props ){
                 <thead>
                 <tr >
                     <td>被审核人</td>
+                    <td>设备ID</td>
                     <td>店名</td>
                     <td>金额</td>
                     <td>理由</td>
@@ -188,12 +233,11 @@ function CheckState( props ){
                 </thead>
                 <tbody>
                 {
-                    props.state2.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.name}</td><td>{item.checkMoney}</td><td>{item.reason}</td><td><button onClick={props.updateCertState.bind(this,2,2,item.certId)}>通过</button><button onClick={props.updateCertState.bind(this,3,2,item.certId)}>不通过</button></td></tr>))
+                    props.state2?props.state2.data.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.mac}</td><td>{item.name}</td><td>{item.checkMoney}</td><td>{item.reason}</td><td><button onClick={props.updateCertState.bind(this,2,2,item.certId)}>通过</button><button onClick={props.updateCertState.bind(this,3,2,item.certId)}>不通过</button></td></tr>)):null
                 }
                 </tbody>
             </table>
         )
-
     }
 }
 function MoneyState( props ){
@@ -213,7 +257,7 @@ function MoneyState( props ){
                 </thead>
                 <tbody>
                 {
-                    props.state1.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.card}</td><td>{item.bank}</td><td>{item.address}</td><td>{item.auditingTime}</td><td>{item.checkState===2?"审核通过":item.checkState===3?"不通过":"不通过"}</td><td>{item.examineName}</td></tr>))
+                    props.state1.data?props.state1.data.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.card}</td><td>{item.bank}</td><td>{item.address}</td><td>{item.auditingTime}</td><td>{item.checkState===2?"审核通过":item.checkState===3?"不通过":"不通过"}</td><td>{item.examineName}</td></tr>)):null
                 }
                 </tbody>
             </table>
@@ -224,6 +268,7 @@ function MoneyState( props ){
                 <thead>
                 <tr >
                     <td>被审核人</td>
+                    <td>设备ID</td>
                     <td>店名</td>
                     <td>金额</td>
                     <td>理由</td>
@@ -234,11 +279,17 @@ function MoneyState( props ){
                 </thead>
                 <tbody>
                 {
-                    props.state2.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.shopName}</td><td>{item.checkMoney}</td><td>{item.reason}</td><td>{item.auditingTime}</td><td>{item.moneyState===2?"审核通过":item.moneyState===3?"不通过":"不通过"}</td><td>{item.examineName}</td></tr>))
+                    props.state2.data?props.state2.data.map((item,idx)=>(<tr key={idx}><td>{item.userName}</td><td>{item.mac}</td><td>{item.name}</td><td>{item.checkMoney}</td><td>{item.reason}</td><td>{item.auditingTime}</td><td>{item.moneyState===2?"审核通过":item.moneyState===3?"不通过":"不通过"}</td><td>{item.examineName}</td></tr>)):null
                 }
                 </tbody>
             </table>
         )
-
     }
+}
+function PAgination (props){
+    if(props.settingValue===1&&props._radio===1)  return <Pagination hideOnSinglePage={true} total={props.v1.totalItems} defaultPageSize={11}  onChange={props._onclick1}/>;
+    if(props.settingValue===1&&props._radio===2)  return <Pagination hideOnSinglePage={true} total={props.v2.totalItems} defaultPageSize={11}  onChange={props._onclick2}/>;
+    if(props.settingValue===2&&props._radio===1)  return <Pagination hideOnSinglePage={true} total={props.v3.totalItems} defaultPageSize={11}  onChange={props._onclick3}/>;
+    if(props.settingValue===2&&props._radio===2)  return <Pagination hideOnSinglePage={true} total={props.v4.totalItems} defaultPageSize={11}  onChange={props._onclick4}/>;
+    return null;
 }

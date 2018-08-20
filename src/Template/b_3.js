@@ -47,7 +47,7 @@ class app extends Component {
                             </thead>
                             <tbody>
                           {
-                            this.props._b3Data.map((res,idx)=> <tr key={idx}><td>{res.startTime}</td><td>{res.address}</td><td>{res.orderNumber}</td><td>{res.state===2?"租借中":"已归还"}</td><td>{res.money}</td><td>{res.startTime}</td><td>{res.refund}</td><td>{res.monetary}</td></tr> )
+                            this.props._b3Data.map((res,idx)=> <tr key={idx}><td>{res.startTime}</td><td>{res.address}</td><td>{res.orderNumber}</td><td>{res.state===5?"租借中":res.state===3?"已归还":"-"}</td><td>{res.money}</td><td>{res.startTime}</td><td>{res.refund}</td><td>{res.monetary}</td></tr> )
                           }
                             </tbody>
                         </table>

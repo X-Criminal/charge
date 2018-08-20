@@ -41,41 +41,13 @@ class app extends Component {
 
     mapInit(lon,lat){
         this.map = new this.BMap.Map("allmap"); // 创建Map实例
+        var mapStyle={  style : "googlelite" };
+        this.map.setMapStyle(mapStyle);
         this.map.centerAndZoom(new this.BMap.Point(lon, lat), 12); // 初始化地图,设置中心点坐标和地图级别
         this.map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     }
     AxiosPositin(address,title,cb){
         let _this= this;
-        /*      let formData = new FormData();
-                formData.append("ak","MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs");
-                formData.append("address",address||"");
-                formData.append("title",title||"");
-                formData.append("coord_type",1);
-                formData.append("page_size",200);
-                formData.append("geotable_id",1000004359);
-                fetch(url,{
-                    method:'post',
-                    body:formData,
-                }).then((res)=>{
-                    return res.json( );
-                }).then((json)=>{
-                    if(json.status===0){
-                        let data = json.pois;
-                        if(data){
-                            _this.mapInit(data[0].location[0],json.pois[0].location[1]);
-                            for(let i = 0,idx = data.length;i<idx;i++){
-                                let point = new _this.BMap.Point(data[i].location[0],data[i].location[1]);
-                                _this.addMarker(point);
-                            }
-                        }else{
-                            alert("暂无数据");
-                        }
-                    }else{
-                        alert("地图获取失败")
-                    }
-                    cb&&cb()
-                })*/
-       /* fetch('http://api.map.baidu.com/geodata/v3/poi/list?ak=MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs&geotable_id=193017&page_size=200')*/
         address=address||"";title=title||"";
         fetch('http://api.map.baidu.com/geodata/v3/poi/list?ak=MPpwM1lbwbnE21Q35UwQsvyxZyA8WsKs&geotable_id=193017&page_size=200&retrieval='+address+"&title="+title)
             .then(function(response) {

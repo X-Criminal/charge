@@ -33,6 +33,7 @@ class app extends Component {
                 start:"",
             longitude:"",
              latitude:"",
+             err:""
         };
 
         this._addOnchange=this._addOnchange.bind(this);
@@ -153,6 +154,12 @@ class app extends Component {
     };
     /**添加设备**/
     AddenterLoading = () => {
+        if(this.state.address.length<=0||this.state.area.length<=0||this.state.end.length<=0||this.state.img.length<=0||this.state.mac.length<=0||this.state.name.length<=0||this.state.pay.length<=0||this.state.start<=0||this.state.latitude.length<=0||this.state.longitude.length<=0){
+           this.setState({
+               err:"信息输入不完整！"
+           });
+            return ;
+        }
         axios({
             url:this.props.httpUrl+"/charge/web/device/addDevice",
             method:"post",
@@ -252,6 +259,11 @@ class app extends Component {
             alert(data.message)
         }
     };
+    _Focus=()=>{
+        this.setState({
+            err:""
+        })
+    }
     render() {
         return (
             <div className={"Region"}>
@@ -303,6 +315,8 @@ class app extends Component {
                              Onclick={this.Onclick}
                              upimg={this.upimg}
                              options={this.props.options}
+                             err={this.state.err}
+                             _Focus={this._Focus}
                      />
             </div>
         )
@@ -319,16 +333,17 @@ function AddEuipment(props) {
                 <div>
                     <h3>添加设备<i onClick={props.close}> </i></h3>
                     <div className={"input"}>
-                        <p><span>设备编码</span> <Input  onChange={props.Onclick}  name={"mac"} type="text"/></p>
-                        <p><span>店铺名称</span> <Input  onChange={props.Onclick}  name={"name"} type="text"/></p>
+                        <p><span>设备编码</span> <Input onFocus={props._Focus} onChange={props.Onclick}  name={"mac"} type="text"/></p>
+                        <p><span>店铺名称</span> <Input onFocus={props._Focus} onChange={props.Onclick}  name={"name"} type="text"/></p>
                         <div className={"up_img"}><span>店铺图片</span><Avatar upimg={props.upimg}/></div>
                         <p>大小不超过10M，格式：bpm,png,jpeg.建议尺寸在270*270以上.</p>
-                        <p><span>营业事件</span>  <span><Input name={"start"} onChange={props.Onclick} placeholder={"开始时间"}/> <Icon type="lock-circle-o"/></span><span><Input onChange={props.Onclick} name={"end"} placeholder={"结束时间"}/>  <Icon type="lock-circle-o" style={{ fontSize: 16, color: '#08c' }} /></span></p>
-                        <p><span>人均消费</span>  <Input  onChange={props.Onclick}  name={"pay"} type="text"/></p>
-                        <p><span>地址</span>      <Cascader name={"area"} options={props.options} onChange={props.Onclick} placeholder={"省-市-区"} changeOnSelect/></p>
-                        <p><span>详细地址</span>  <Input  onChange={props.Onclick}  name={"address"} type="text"/></p>
-                        <p><span>经纬度</span>    <Input  name={"longitude"} onChange={props.Onclick} placeholder={"经度(-180~180)"} type="text"/> <Input onChange={props.Onclick} name={"latitude"} placeholder={"纬度(-90~90)"} type="text"/></p>
+                        <p><span>营业事件</span>  <span><Input name={"start"} onFocus={props._Focus} onChange={props.Onclick} placeholder={"开始时间"}/> <Icon type="lock-circle-o"/></span><span><Input onChange={props.Onclick} name={"end"} placeholder={"结束时间"}/>  <Icon type="lock-circle-o" style={{ fontSize: 16, color: '#08c' }} /></span></p>
+                        <p><span>人均消费</span>  <Input  onChange={props.Onclick} onFocus={props._Focus}  name={"pay"} type="text"/></p>
+                        <p><span>地址</span>      <Cascader name={"area"} onFocus={props._Focus} options={props.options} onChange={props.Onclick} placeholder={"省-市-区"} changeOnSelect/></p>
+                        <p><span>详细地址</span>  <Input  onChange={props.Onclick} onFocus={props._Focus}  name={"address"} type="text"/></p>
+                        <p><span>经纬度</span>    <Input  name={"longitude"} onFocus={props._Focus} onChange={props.Onclick} placeholder={"经度(-180~180)"} type="text"/> <Input  onFocus={props._Focus} onChange={props.Onclick} name={"latitude"} placeholder={"纬度(-90~90)"} type="text"/></p>
                     </div>
+                    <p style={{"lineHeight":"24px","textAlign":"center","color":"red","fontSize":"12px","marginTop":"10px"}} className={"err"}>{props.err}</p>
                     <div className={"addBtn"}>
                         <Button onClick={props.close}>取消</Button>
                         <Button style={{"marginLeft": "10px"}} type="primary" loading={props.addLoading}
